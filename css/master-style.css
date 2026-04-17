@@ -1,0 +1,62 @@
+:root {
+    --bg-dark: #1C1C1C;
+    --bg-nav: #1C1C1C;
+    --bg-light: #242424;
+    --text-white: #AEB2B2;
+    --text-dark: #1C1C1C;
+    --text-muted: #97a6af;
+    --accent-blue: #6F8FF0;
+    --accent-red: #FE5658;
+    --accent-green: #1E5128;
+    --accent-orange: #413C26;
+    --accent-yellow: #FDE87B;
+    --cool-blue: rgba(0, 229, 255, 0.122);
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-blur: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Navigation Style EDO */
+.main-nav {
+    width: 100%;
+    background: var(--bg-nav);
+    border-bottom: 1px solid var(--accent-blue);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: var(--text-white);
+    padding: 12px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-btn:hover {
+    color: var(--accent-blue);
+}
+
+.nav-btn.active {
+    color: var(--accent-blue);
+    border-bottom: 2px solid var(--accent-blue);
+}

@@ -1,0 +1,59 @@
+body {
+    text-align: center;
+    background-size: 400px 200px;
+    background-repeat: no-repeat;
+    background-position: center 80px;
+}
+
+#bigtitle {
+    margin: 20px 0;
+    color: var(--text-white);
+}
+
+canvas {
+    margin-top: 20px;
+}
+
+.notes {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.controls-row {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+select, input {
+    background: var(--bg-light);
+    color: var(--text-white);
+    border: 1px solid var(--accent-blue);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid var(--accent-blue);
+    padding: 10px 15px;
+    background: var(--glass);
+}
+
+#checkbox-container {
+    padding: 10px;
+    background: var(--glass);
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.note-check {
+    margin-right: 10px;
+    accent-color: var(--accent-blue);
+}

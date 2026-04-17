@@ -99,12 +99,6 @@ function normalize(value, min, max, newMin, newMax) {
 	return ((value - min) * (newMax - newMin)) / (max - min) + newMin;
 }
 
-function findSmallestPerfectSquare(n) {
-	const sqrt = Math.sqrt(n);
-	if (sqrt % 1 === 0) return sqrt;
-	const nextNum = Math.floor(sqrt) + 1;
-	return nextNum;
-}
 
 /*********************
  * DRAWING FUNCTIONS *
@@ -141,7 +135,7 @@ function drawAllNotes() {
 function fillTable() {
 	const table = document.getElementById('table');
 	const notes = state.notes;
-	const rows = findSmallestPerfectSquare(notes.length);
+	const rows = TheoryEngine.findSmallestPerfectSquare(notes.length);
 	const cols = rows;
 
 	table.innerHTML = ''; 

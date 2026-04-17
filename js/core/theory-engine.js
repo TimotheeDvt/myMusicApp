@@ -76,6 +76,21 @@ const TheoryEngine = {
         if (chordType === "m") return rom.toLowerCase();
         if (chordType === "d") return rom.toLowerCase() + "°";
         return rom;
+    },
+
+    getEDONoteName(index, subdivisions) {
+        if (subdivisions == 12) {
+            // Map 12-EDO to standard names
+            const standardNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            return standardNames[index % 12];
+        }
+        // For other EDOs, use a numerical notation (e.g., "0", "1", "2"...)
+        return index.toString();
+    },
+
+    findSmallestPerfectSquare(n) {
+        const sqrt = Math.sqrt(n);
+        return (sqrt % 1 === 0) ? sqrt : Math.floor(sqrt) + 1;
     }
 };
 
