@@ -23,6 +23,7 @@ body {
 
 /* Navigation Style EDO */
 .main-nav {
+    width: 100%;
     background: var(--bg-nav);
     border-bottom: 1px solid var(--accent-blue);
     position: sticky;
