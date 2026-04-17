@@ -4,17 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microtonal Music Hub - EDO</title>
-    <link rel="stylesheet" href="styles/master-style.css">
+    <link rel="stylesheet" href="./css/master-style.css">
+    <script src="./js/components/main-nav.js" defer></script>
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <button class="nav-btn active">🏠</button>
-            <button class="nav-btn" onclick="document.location.href='./edo_interface/index.html'">Harmonic Interface</button>
-            <button class="nav-btn" onclick="document.location.href='./Modes_Gammes/index.html'">Modes & Gammes</button>
-            <button class="nav-btn" onclick="document.location.href='./Mindmap_Theory/index.html'">Mindmap Théorie</button>
-            <button class="nav-btn" onclick="document.location.href='./24EDO/index.html'">Théorie 24-EDO</button>
-        </div>
-    </nav>
+    <main-nav active-tab="home"></main-nav>
 </body>
 </html>

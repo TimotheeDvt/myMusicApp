@@ -1,0 +1,66 @@
+class MainNav extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        const root = this.getAttribute('root-path') || './';
+        const activeTab = this.getAttribute('active-tab');
+
+        this.shadowRoot.innerHTML = `
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+                background: #1C1C1C; /* var(--bg-nav) */
+                border-bottom: 1px solid #6F8FF0; /* var(--accent-blue) */
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .nav-container {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                padding: 10px;
+            }
+            .nav-btn {
+                background: none;
+                border: none;
+                color: #AEB2B2; /* var(--text-white) */
+                padding: 12px 24px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s;
+                border-bottom: 2px solid transparent;
+                text-decoration: none;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+            }
+            .nav-btn:hover {
+                color: #6F8FF0; /* var(--accent-blue) */
+            }
+            .nav-btn.active {
+                color: #6F8FF0;
+                border-bottom: 2px solid #6F8FF0;
+            }
+        </style>
+        <nav class="main-nav">
+            <div class="nav-container">
+                <a href="${root}index.html" class="nav-btn ${activeTab === 'home' ? 'active' : ''}">🏠</a>
+                <a href="${root}tools/harmonic_interface/index.html" class="nav-btn ${activeTab === 'harmonic' ? 'active' : ''}">Harmonic Interface</a>
+                <a href="${root}tools/modes_scales/index.html" class="nav-btn ${activeTab === 'modes' ? 'active' : ''}">Modes & Gammes</a>
+                <a href="${root}tools/theory_mindmap/index.html" class="nav-btn ${activeTab === 'mindmap' ? 'active' : ''}">Mindmap Théorie</a>
+                <a href="${root}tools/24-edo/index.html" class="nav-btn ${activeTab === '24edo' ? 'active' : ''}">Théorie 24-EDO</a>
+            </div>
+        </nav>
+        `;
+    }
+}
+
+customElements.define('main-nav', MainNav);
