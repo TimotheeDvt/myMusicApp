@@ -5,11 +5,17 @@
 let currentTuning = "EADGBE";
 let checkedNotes = [];
 
-const enharmonics = {
-    "B#": "C", "C#": "D♭", "D♭": "C#", "D#": "E♭", "E♭": "D#", "E": "F♭", "F♭": "E",
-    "E#": "F", "F": "E#", "F#": "G♭", "G♭": "F#", "G#": "A♭", "A♭": "G#", "A#": "B♭",
-    "B♭": "A#", "B": "C♭", "C♭": "B", "C": "B#"
+// Standardized mapping to 12 semitones
+const noteToSemitone = {
+    "B#": "C", "C": "C", "C#": "C#", "Db": "C#", "D♭": "C#",
+    "D": "D", "D#": "D#", "Eb": "D#", "E♭": "D#",
+    "E": "E", "Fb": "E", "F♭": "E", "E#": "F", "F": "F",
+    "F#": "F#", "Gb": "F#", "G♭": "F#", "G": "G",
+    "G#": "G#", "Ab": "G#", "A♭": "G#", "A": "A",
+    "A#": "A#", "Bb": "A#", "B♭": "A#", "B": "B", "Cb": "B", "C♭": "B"
 };
+
+const notesArr = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
 window.addEventListener('DOMContentLoaded', () => {
     initCheckboxes();
@@ -22,7 +28,6 @@ function initCheckboxes() {
     notes.forEach(n => {
         const label = document.createElement('label');
         label.innerHTML = `${n} <input type="checkbox" value="${n}" class="note-check"> `;
-        // add onclick
         label.querySelector('input').addEventListener('change', (e) => {
             const note = e.target.value;
             if (e.target.checked) {
@@ -36,17 +41,12 @@ function initCheckboxes() {
     });
 }
 
-/**
- * Draws the guitar fretboard grid manually on the canvas
- */
 function drawGrid(ctx, width, height) {
     const style = getComputedStyle(document.body);
     const gridColor = style.getPropertyValue('--text-white') || '#AEB2B2';
-
     ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
 
-    // Draw 6 horizontal lines (Strings)
     for (let i = 0; i < 6; i++) {
         const y = 10 + (29.25 * i);
         ctx.beginPath();
@@ -55,12 +55,10 @@ function drawGrid(ctx, width, height) {
         ctx.stroke();
     }
 
-    // Draw 15 vertical lines (Frets)
-    // Starting offset at 4 for the nut, then 27px intervals
     for (let i = 0; i < 15; i++) {
         const x = 4 + (27 * i);
         ctx.beginPath();
-        ctx.lineWidth = (i === 0) ? 3 : 1; // Thicker line for the nut
+        ctx.lineWidth = (i === 0) ? 3 : 1;
         ctx.moveTo(x, 10);
         ctx.lineTo(x, 10 + (29.25 * 5));
         ctx.stroke();
@@ -73,19 +71,15 @@ function writeTune() {
     const modeKey = document.getElementById('mode-select').value;
 
     const scale = TheoryEngine.getScale(root, modeKey, alt);
-
     const boxes = document.querySelectorAll('.note-check');
     boxes.forEach(b => b.checked = false);
 
     checkedNotes = scale.map(n => {
-        let clean = n.replace('♮', '');
-        let box = document.querySelector(`.note-check[value="${clean}"]`);
-        if (!box && enharmonics[clean]) {
-            clean = enharmonics[clean];
-            box = document.querySelector(`.note-check[value="${clean}"]`);
-        }
+        let standardName = n;
+        let box = document.querySelector(`.note-check[value="${standardName}"]`);
+
         if (box) box.checked = true;
-        return clean;
+        return standardName; // Use normalized name for drawing logic
     });
 
     updateVisuals();
@@ -96,25 +90,25 @@ function updateVisuals() {
     const canvas = document.getElementById('circle');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the grid background first
     drawGrid(ctx, canvas.width, canvas.height);
-
     checkedNotes.forEach(note => drawGuitarNote(note));
 }
 
 function drawGuitarNote(note) {
     const notesArr = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-    for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
-        let openNote = currentTuning[5 - stringIdx];
-        let startIdx = notesArr.indexOf(openNote);
-        let targetIdx = notesArr.indexOf(note);
-        let fret = (targetIdx - startIdx + 12) % 12;
+    const targetIdx = notesArr.indexOf(note);
 
-        // Draw note on current fret
-        drawCircle(18 + (27 * (fret - 1)), 10 + (29.25 * stringIdx), note);
-        // Draw octave duplicate (fret 12+)
-        if (fret <= 3) drawCircle(18 + (27 * (fret + 11)), 10 + (29.25 * stringIdx), note);
+    for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
+        let openNoteName = currentTuning[5 - stringIdx];
+        // Standardize tuning note if it contains sharps/flats
+        let openNote = openNoteName;
+        let startIdx = notesArr.indexOf(openNote);
+
+        if (targetIdx !== -1 && startIdx !== -1) {
+            let fret = (targetIdx - startIdx + 12) % 12;
+            drawCircle(18 + (27 * (fret - 1)), 10 + (29.25 * stringIdx), note);
+            if (fret <= 3) drawCircle(18 + (27 * (fret + 11)), 10 + (29.25 * stringIdx), note);
+        }
     }
 }
 
@@ -143,10 +137,90 @@ function updateChordTable(scale, modeKey) {
     scale.forEach((note, i) => {
         if (i >= chart.length) return;
         let quality = chart[i];
-        let roman = TheoryEngine.getRomanNumeral(i, quality);
+        let roman = TheoryEngine.getRomanNumeral(i + 1, quality);
+        note = TheoryEngine.normalizeNote(note); // Ensure we have a standardized note name
         let chordName = note + (quality === 'M' ? '' : quality === 'd' ? '°' : quality);
 
         headRow.insertCell().innerText = roman;
         dataRow.insertCell().innerText = chordName;
     });
+}
+
+// Create the dict notesOnBoard or use it if already existing
+function createBoardDict() {
+    notesOnBoardLocal = {};
+    for (u = 0; u < notesArr.length; u++) {
+        note = notesArr[u];
+        c = [];
+        for (i = 0; i < 6; i++) {
+            stringN = currentTuning[i];
+            y = notesArr.indexOf(stringN);
+            if (!notesArr.includes(note)) {
+                note = equ[note];
+            };
+            count = 0;
+            while (note != notesArr[y]) {
+                y += 1;
+                if (y >= notesArr.length) {
+                    y = 0;
+                };
+                count += 1;
+            };
+            c.push(count);
+        };
+        notesOnBoardLocal[note] = { 1: c[5], 2: c[4], 3: c[3], 4: c[2], 5: c[1], 6: c[0] };
+    };
+    notesOnBoard = notesOnBoardLocal;
+    return notesOnBoardLocal;
+};
+
+// change tuning mode (S;AO;TO)
+function changeTuning() {
+    var tuningMode = document.getElementById('tuning-select');
+    if (getSelectedOption(tuningMode).value != "CUSTOM") {
+        currentTuning = getSelectedOption(tuningMode).value;
+        text = document.getElementById("custom-tuning")
+        text.style.visibility = "hidden"
+        createBoardDict()
+        writeTune()
+    } else {
+        text = document.getElementById("custom-tuning")
+        text.style.visibility = "visible"
+        text.style.display = "block"
+        text.placeholder = currentTuning;
+    }
+    updateVisuals();
+};
+
+// Return the selected option on the HTML Select element
+function getSelectedOption(sel) {
+    var opt;
+    for (var i = 0, len = sel.options.length; i < len; i++) {
+        opt = sel.options[i];
+        if (opt.selected === true) {
+            break;
+        };
+    };
+    return opt;
+};
+
+function onTestChange() {
+    var key = window.event.keyCode;
+    t = document.getElementById("custom-tuning").value
+    document.getElementById("custom-tuning").value = t.toUpperCase()
+
+    if (key === 13) {
+        if (t.length == 6) {
+            t = t.toUpperCase()
+            currentTuning = t.toUpperCase()
+            writeTune()
+            return false;
+        } else {
+            alert("Seuls les accordages de 6 cordes sont acceptés.")
+            document.getElementById("custom-tuning").value = ""
+        }
+    }
+    else {
+        return true;
+    }
 }

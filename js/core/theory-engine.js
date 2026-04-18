@@ -67,12 +67,12 @@ const TheoryEngine = {
             if (alteration === "#") return noteGroup.substring(0, 2).replace("♮", "");
             if (alteration === "♭") return noteGroup.slice(-2).replace("♮", "");
             return noteGroup.split("♮")[0] || noteGroup[0];
-        });
+        }).map(n => this.normalizeNote(n)); // Final cleanup to remove natural signs
     },
 
     getRomanNumeral(degree, chordType) {
         const numerals = ["I", "II", "III", "IV", "V", "VI", "VII"];
-        let rom = numerals[degree];
+        let rom = numerals[(degree - 1) % 7];
         if (chordType === "m") return rom.toLowerCase();
         if (chordType === "d") return rom.toLowerCase() + "°";
         return rom;
@@ -83,6 +83,11 @@ const TheoryEngine = {
             // Map 12-EDO to standard names
             const standardNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
             return standardNames[index % 12];
+        } else if (subdivisions == 24) {
+            // For 24-EDO, use a combination of natural and accidental symbols
+            const baseNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+            const accidental = (index % 2 === 0) ? "" : (index % 4 === 1 ? "#" : "♭");
+            return baseNames[Math.floor(index / 2) % 12] + accidental;
         }
         // For other EDOs, use a numerical notation (e.g., "0", "1", "2"...)
         return index.toString();
@@ -91,6 +96,15 @@ const TheoryEngine = {
     findSmallestPerfectSquare(n) {
         const sqrt = Math.sqrt(n);
         return (sqrt % 1 === 0) ? sqrt : Math.floor(sqrt) + 1;
+    },
+
+    normalizeNote(note) {
+        const map = {
+            "B#C": "C", "E#F": "F", "FbE": "E", "BCb": "B",
+            "C#D♭": "C#", "D#E♭": "D#", "F#G♭": "F#", "G#A♭": "G#", "A#B♭": "A#"
+        };
+        let clean = note.replace('♮', '');
+        return map[clean] || clean;
     }
 };
 
