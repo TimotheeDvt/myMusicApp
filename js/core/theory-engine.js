@@ -10,15 +10,16 @@ const TheoryEngine = {
 
     // Mode definitions (interval steps)
     modes: {
-        "M": [2, 2, 1, 2, 2, 2], // Major/Ionian
-        "m": [2, 1, 2, 2, 1, 2], // Natural Minor/Aeolian
-        "D": [2, 1, 2, 2, 2, 1], // Dorian
-        "P": [1, 2, 2, 2, 1, 2], // Phrygian
-        "L": [2, 2, 2, 1, 2, 2], // Lydian
-        "X": [2, 2, 1, 2, 2, 1], // Mixolydian
-        "O": [1, 2, 2, 1, 2, 2], // Locrian
-        "K": [2, 2, 3, 2],       // Pentatonic Major
-        "J": [3, 2, 2, 3]        // Pentatonic Minor
+        "Major/Ionian": [2, 2, 1, 2, 2, 2], // Major/Ionian
+        "Natural Minor/Aeolian": [2, 1, 2, 2, 1, 2], // Natural Minor/Aeolian
+        "Dorian": [2, 1, 2, 2, 2, 1], // Dorian
+        "Phrygian": [1, 2, 2, 2, 1, 2], // Phrygian
+        "Lydian": [2, 2, 2, 1, 2, 2], // Lydian
+        "Mixolydian": [2, 2, 1, 2, 2, 1], // Mixolydian
+        "Locrian": [1, 2, 2, 1, 2, 2], // Locrian
+        "Hungarian Minor": [2, 1, 3, 1, 1, 2, 1], // Hungarian Minor
+        "Pentatonic Major": [2, 2, 3, 2],       // Pentatonic Major
+        "Pentatonic Minor": [3, 2, 2, 3]        // Pentatonic Minor
     },
 
     // Chord qualities for each mode degree
@@ -114,7 +115,6 @@ const TheoryEngine = {
         };
 
         if (equivalents[clean]) clean = equivalents[clean];
-        console.log(`Normalizing note: ${note} -> ${clean}`);
 
         return clean;
     }

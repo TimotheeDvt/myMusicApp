@@ -21,6 +21,7 @@ const notesArr = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B
 
 window.addEventListener('DOMContentLoaded', () => {
     initCheckboxes();
+    initModes();
     writeTune();
 });
 
@@ -41,6 +42,17 @@ function initCheckboxes() {
         container.appendChild(label);
     });
 }
+
+function initModes() {
+    const modeSelect = document.getElementById('mode-select');
+    Object.keys(TheoryEngine.modes).forEach(mode => {
+        const option = document.createElement('option');
+        option.value = mode;
+        option.text = mode;
+        modeSelect.appendChild(option);
+    });
+}
+
 
 function drawGrid(ctx, width, height) {
     const style = getComputedStyle(document.body);
@@ -111,8 +123,6 @@ function writeTune() {
 
     updateVisuals();
     updateChordTable(rawScale, modeKey);
-    console.log(checkedNotes);
-    console.log(checkedNotes.length);
 }
 
 function updateVisuals() {
@@ -136,7 +146,7 @@ function drawGuitarNote(note) {
 
             let xPos = (fret === 0) ? 4 : 18 + (27 * (fret - 1));
 
-            drawCircle(xPos, 10 + (29.25 * stringIdx), note);
+            drawCircle(xPos, 10 + (29.25 * stringIdx), note, fret === 0 ? 6 : 8);
 
             if (fret <= 3 && fret !== 0) {
                 drawCircle(18 + (27 * (fret + 11)), 10 + (29.25 * stringIdx), note);
