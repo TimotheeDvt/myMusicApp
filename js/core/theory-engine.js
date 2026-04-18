@@ -99,12 +99,24 @@ const TheoryEngine = {
     },
 
     normalizeNote(note) {
-        const map = {
-            "B#C": "C", "E#F": "F", "FbE": "E", "BCb": "B",
-            "C#D♭": "C#", "D#E♭": "D#", "F#G♭": "F#", "G#A♭": "G#", "A#B♭": "A#"
+        let clean = note.replace(/♮/g, "");
+
+        const equivalents = {
+            "CB#": "C",
+            "C#D♭": "C#",
+            "D#E♭": "D#",
+            "EF♭": "E",
+            "E#F": "F",
+            "F#G♭": "F#",
+            "G#A♭": "G#",
+            "A#B♭": "A#",
+            "BC♭": "C"
         };
-        let clean = note.replace('♮', '');
-        return map[clean] || clean;
+
+        if (equivalents[clean]) clean = equivalents[clean];
+        console.log(`Normalizing note: ${note} -> ${clean}`);
+
+        return clean;
     }
 };
 
