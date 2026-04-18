@@ -17,58 +17,58 @@
 <body>
     <main-nav active-tab="modes" root-path="../../"></main-nav>
 
-    <h1 id="bigtitle" class="title">Gamme - Mode - Accords (Guitare)</h1>
+    <div class="content">
+        <canvas id="circle" height="200" width="400"></canvas>
 
-    <canvas id="circle" height="200" width="400"></canvas>
+        <div class="notes">
+            <form id="form" onsubmit="return false;">
+                <div id="checkbox-container">
+                </div>
 
-    <div class="notes">
-        <form id="form" onsubmit="return false;">
-            <div id="checkbox-container">
-            </div>
+                <div class="controls-row">
+                    <select id="tune-select" onchange="writeTune()">
+                        <option value="C" selected>C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
 
-            <div class="controls-row">
-                <select id="tune-select" onchange="writeTune()">
-                    <option value="C" selected>C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                </select>
+                    <select id="alt-select" onchange="writeTune()">
+                        <option value="#">#</option>
+                        <option value="♮" selected>♮</option>
+                        <option value="♭">♭</option>
+                    </select>
 
-                <select id="alt-select" onchange="writeTune()">
-                    <option value="#">#</option>
-                    <option value="♮" selected>♮</option>
-                    <option value="♭">♭</option>
-                </select>
+                    <select id="mode-select" onchange="writeTune()">
+                        <option value="M" selected>Majeur/Ionien</option>
+                        <option value="m">Mineur/Aeolien</option>
+                        <option value="D">Dorien</option>
+                        <option value="P">Phrygien</option>
+                        <option value="L">Lydien</option>
+                        <option value="X">Mixolydien</option>
+                        <option value="O">Locrien</option>
+                        <option value="K">Pentatonique Majeur</option>
+                        <option value="J">Pentatonique Mineure</option>
+                    </select>
+                </div>
 
-                <select id="mode-select" onchange="writeTune()">
-                    <option value="M" selected>Majeur/Ionien</option>
-                    <option value="m">Mineur/Aeolien</option>
-                    <option value="D">Dorien</option>
-                    <option value="P">Phrygien</option>
-                    <option value="L">Lydien</option>
-                    <option value="X">Mixolydien</option>
-                    <option value="O">Locrien</option>
-                    <option value="K">Pentatonique Majeur</option>
-                    <option value="J">Pentatonique Mineure</option>
-                </select>
-            </div>
+                <div class="controls-row">
+                    <select id="tuning-select" onchange="changeTuning()">
+                        <option value="EADGBE" selected>Standard : EADGBE</option>
+                        <option value="CGADGC">Arabic Oud : CGADGC</option>
+                        <option value="DABEAD">Turkish Oud : DABEAD</option>
+                        <option value="CUSTOM">Custom</option>
+                    </select>
 
-            <div class="controls-row">
-                <select id="tuning-select" onchange="changeTuning()">
-                    <option value="EADGBE" selected>Standard : EADGBE</option>
-                    <option value="CGADGC">Arabic Oud : CGADGC</option>
-                    <option value="DABEAD">Turkish Oud : DABEAD</option>
-                    <option value="CUSTOM">Custom</option>
-                </select>
+                    <input type="text" id="custom-tuning" maxlength="6" placeholder="EADGBE" autocapitalize="characters" onkeypress="onTestChange();">
+                </div>
 
-                <input type="text" id="custom-tuning" maxlength="6" placeholder="EADGBE" autocapitalize="characters" onkeypress="onTestChange();">
-            </div>
-
-            <table class="table-center" id="chord-table"></table>
-        </form>
+                <table class="table-center" id="chord-table"></table>
+            </form>
+        </div>
     </div>
 </body>
 

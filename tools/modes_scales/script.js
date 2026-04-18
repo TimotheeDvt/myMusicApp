@@ -15,6 +15,8 @@ const noteToSemitone = {
     "A#": "A#", "Bb": "A#", "B♭": "A#", "B": "B", "Cb": "B", "C♭": "B"
 };
 
+const fretToDraw = [ 0, 5, 7, 10, 12 ];
+
 const notesArr = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -24,8 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function initCheckboxes() {
     const container = document.getElementById('checkbox-container');
-    const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-    notes.forEach(n => {
+    notesArr.forEach(n => {
         const label = document.createElement('label');
         label.innerHTML = `${n} <input type="checkbox" value="${n}" class="note-check"> `;
         label.querySelector('input').addEventListener('change', (e) => {
@@ -47,6 +48,7 @@ function drawGrid(ctx, width, height) {
     ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
 
+    // Draw horizontal lines for strings
     for (let i = 0; i < 6; i++) {
         const y = 10 + (29.25 * i);
         ctx.beginPath();
@@ -55,14 +57,37 @@ function drawGrid(ctx, width, height) {
         ctx.stroke();
     }
 
+    // Draw vertical lines for frets and fret numbers
     for (let i = 0; i < 15; i++) {
         const x = 4 + (27 * i);
+        const prevX = 4 + (27 * (i - 1));
+        const middleX = (x + prevX) / 2;
         ctx.beginPath();
-        ctx.lineWidth = (i === 0) ? 3 : 1;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = gridColor;
+        if (fretToDraw.includes(i%12)) {
+            const middleY = 10 + (29.25 * 5 / 2);
+            if (i % 12 !== 0) {
+                ctx.arc(middleX, middleY, 2, 0, Math.PI * 2);
+            } else {
+                ctx.arc(middleX, middleY / 1.5,     2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(middleX, middleY + middleY / 2.8, 2, 0, Math.PI * 2);
+            }
+            ctx.fill();
+        }
         ctx.moveTo(x, 10);
         ctx.lineTo(x, 10 + (29.25 * 5));
         ctx.stroke();
     }
+
+    // Draw nut
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(4, 10);
+    ctx.lineTo(4, 10 + (29.25 * 5));
+    ctx.stroke();
 }
 
 function writeTune() {
@@ -70,20 +95,24 @@ function writeTune() {
     const alt = document.getElementById('alt-select').value;
     const modeKey = document.getElementById('mode-select').value;
 
-    const scale = TheoryEngine.getScale(root, modeKey, alt);
+    const rawScale = TheoryEngine.getScale(root, modeKey, alt);
     const boxes = document.querySelectorAll('.note-check');
     boxes.forEach(b => b.checked = false);
 
-    checkedNotes = scale.map(n => {
-        let standardName = n;
-        let box = document.querySelector(`.note-check[value="${standardName}"]`);
+    checkedNotes = rawScale.map(note => {
+        const cleanNote = note.replace('♮', '');
+        return noteToSemitone[cleanNote] || cleanNote;
+    });
 
+    checkedNotes.forEach(standardName => {
+        let box = document.querySelector(`.note-check[value="${standardName}"]`);
         if (box) box.checked = true;
-        return standardName; // Use normalized name for drawing logic
     });
 
     updateVisuals();
-    updateChordTable(scale, modeKey);
+    updateChordTable(rawScale, modeKey);
+    console.log(checkedNotes);
+    console.log(checkedNotes.length);
 }
 
 function updateVisuals() {
@@ -95,19 +124,25 @@ function updateVisuals() {
 }
 
 function drawGuitarNote(note) {
-    const notesArr = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     const targetIdx = notesArr.indexOf(note);
 
     for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
         let openNoteName = currentTuning[5 - stringIdx];
-        // Standardize tuning note if it contains sharps/flats
         let openNote = openNoteName;
         let startIdx = notesArr.indexOf(openNote);
 
         if (targetIdx !== -1 && startIdx !== -1) {
             let fret = (targetIdx - startIdx + 12) % 12;
-            drawCircle(18 + (27 * (fret - 1)), 10 + (29.25 * stringIdx), note);
-            if (fret <= 3) drawCircle(18 + (27 * (fret + 11)), 10 + (29.25 * stringIdx), note);
+
+            let xPos = (fret === 0) ? 4 : 18 + (27 * (fret - 1));
+
+            drawCircle(xPos, 10 + (29.25 * stringIdx), note);
+
+            if (fret <= 3 && fret !== 0) {
+                drawCircle(18 + (27 * (fret + 11)), 10 + (29.25 * stringIdx), note);
+            } else if (fret === 0) {
+                drawCircle(18 + (27 * 11), 10 + (29.25 * stringIdx), note);
+            }
         }
     }
 }
@@ -122,7 +157,11 @@ function drawCircle(x, y, text, r = 8) {
     ctx.fill();
     ctx.fillStyle = style.getPropertyValue('--bg-dark');
     ctx.font = "bold 10px Arial";
-    ctx.fillText(text, x - 5, y + 4);
+    if (text.length >= 2) {
+        ctx.fillText(text, x - 3*r/4, y + 4);
+    } else {
+        ctx.fillText(text, x - r/2, y + 4);
+    }
 }
 
 function updateChordTable(scale, modeKey) {

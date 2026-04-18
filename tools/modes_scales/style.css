@@ -5,13 +5,13 @@ body {
     background-position: center 80px;
 }
 
-#bigtitle {
-    margin: 20px 0;
-    color: var(--text-white);
+.content {
+    zoom: 150%;
 }
 
 canvas {
     margin-top: 20px;
+    margin-bottom: -20px;
 }
 
 .notes {
@@ -47,7 +47,8 @@ td, th {
 
 #checkbox-container {
     padding: 10px;
-    background: var(--glass);
+    background: var(--bg-light);
+    border: 1px solid var(--accent-blue);
     border-radius: 8px;
     display: inline-block;
     margin-bottom: 10px;
