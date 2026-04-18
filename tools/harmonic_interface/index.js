@@ -83,9 +83,9 @@ function calculateNoteFrequencies() {
 }
 
 function calculateNotePositions(radius = CONFIG.radius) {
-	const ret = [{ x: radius * Math.cos(0), y: radius * Math.sin(0), angle: 0 }];
+	const ret = [{ x: radius * Math.cos(-Math.PI / 2), y: radius * Math.sin(-Math.PI / 2), angle: -Math.PI / 2 }];
 	for (let i = 1; i < CONFIG.subdivisions; i++) {
-		const angle = (i * 2 * Math.PI) / CONFIG.subdivisions;
+		const angle = (i * 2 * Math.PI) / CONFIG.subdivisions - Math.PI / 2;
 		ret.push({
 			x: radius * Math.cos(angle),
 			y: radius * Math.sin(angle),
@@ -138,7 +138,7 @@ function fillTable() {
 	const rows = TheoryEngine.findSmallestPerfectSquare(notes.length);
 	const cols = rows;
 
-	table.innerHTML = ''; 
+	table.innerHTML = '';
 
 	for (let i = 0; i < rows; i++) {
 		const row = document.createElement('tr');
@@ -201,7 +201,7 @@ function drawPlayingNotes() {
 	const notes = state.notes;
 
 	ctx.clearRect(-CONFIG.canvasSize / 2, -CONFIG.canvasSize / 2, CONFIG.canvasSize, CONFIG.canvasSize);
-	setupCanvas(canvas); 
+	setupCanvas(canvas);
 	drawMainCircle();
 	writeIndexes();
 
@@ -237,7 +237,7 @@ function writeIndexes() {
 	const canvas = document.getElementById("circle");
 	const ctx = canvas.getContext('2d');
 	const newPos = calculateNotePositions(CONFIG.radius + 5);
-	
+
 	ctx.font = `6px Courier New`;
 	ctx.textAlign = 'center';
 	ctx.textBaseline = 'middle';
@@ -307,7 +307,7 @@ function handleCanvasClick(event) {
 		x: (event.clientX - rect.left - canvas.width / 2) / CONFIG.scaleFactor,
 		y: (event.clientY - rect.top - canvas.height / 2) / CONFIG.scaleFactor
 	};
-	const clickRadius = 5;
+	const clickRadius = 7;
 	const newPos = calculateNotePositions(CONFIG.radius + 5);
 	state.notes.forEach((note, i) => {
 		const distance = Math.sqrt((click.x - newPos[i].x) ** 2 + (click.y - newPos[i].y) ** 2);
@@ -406,7 +406,7 @@ function init() {
 	document.querySelector('#changeScale').addEventListener('change', handleScaleChange);
 	document.querySelector('#subdivNb').addEventListener('change', (e) => { CONFIG.subdivisions = parseInt(e.target.value); update(); });
 	document.querySelector('#StartingFreq').addEventListener('change', (e) => { CONFIG.startFreq = parseFloat(e.target.value); update(); });
-	
+
 	update();
 }
 
