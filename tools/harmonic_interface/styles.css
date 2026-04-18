@@ -125,7 +125,7 @@ a {
   display: flex;
   aspect-ratio: 1 / 1;
   width: 500px;
-  height: 500px;
+  /* height: 500px; */
   max-width: 500px;
   max-height: 500px;
   margin: auto;
@@ -135,7 +135,7 @@ a {
 
 table {
   width: 500px;
-  height: 500px;
+  /* height: 500px; */
   border-collapse: collapse;
   table-layout: fixed;
 }

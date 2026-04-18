@@ -56,13 +56,13 @@ function stopAllNotes() {
 
 function playNote(frequency) {
 	AudioManager.playNote(frequency, state.type);
-    
 	drawPlayingNotes();
 }
 
 // Internal noteOff kept for compatibility with MIDI/Keyboard logic
 function noteOff(frequency) {
 	AudioManager.stopNote(frequency);
+	drawPlayingNotes();
 }
 
 /*************************
