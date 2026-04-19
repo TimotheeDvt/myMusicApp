@@ -3,6 +3,7 @@
  */
 
 const TheoryEngine = {
+    base_notes: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
     all_notes: [
         "C♮B#", "C#D♭", "D♮", "D#E♭", "E♮F♭", "E#F♮",
         "F#G♭", "G♮", "G#A♭", "A♮", "A#B♭", "B♮C♭"
@@ -121,9 +122,11 @@ const TheoryEngine = {
 
     getSimpleFrequency(note) {
         const base = 440; // A4
-        const noteIndex = this.all_notes.findIndex(n => n.includes(note));
+        let noteIndex;
+        noteIndex = this.base_notes.findIndex(n => n.includes(note));
         if (noteIndex === -1) return null;
-        return base * Math.pow(2, noteIndex / 12);
+        console.log(note, "->", noteIndex);
+        return base * Math.pow(2, (noteIndex) / 12);
     }
 };
 

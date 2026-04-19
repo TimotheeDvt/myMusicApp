@@ -11,7 +11,7 @@ function showTab(tabName) {
 	document.getElementById(tabName).classList.add('active');
 
 	// Add active to clicked button
-	buttons.forEach(btn => { if(btn.innerHTML.toLowerCase().includes(tabName)){ btn.classList.add('active') }} );
+	buttons.forEach(btn => { if (btn.innerHTML.toLowerCase().includes(tabName)) { btn.classList.add('active') } });
 
 	if (tabName === 'circle') {
 		loadCircleText();
@@ -72,6 +72,56 @@ const noteCircles = document.querySelectorAll('.note-circle');
 noteCircles.forEach(circle => {
 	circle.addEventListener('click', () => {
 		const note = circle.innerHTML.trim();
-		AudioManager.playNoteWithDuration(note, 1.5);
+		AudioManager.playNoteWithDuration(note, 0.5);
+	});
+});
+
+const scaleLi = document.querySelectorAll('.scale-li');
+scaleLi.forEach(li => {
+	li.addEventListener('click', async () => {
+		let scale = li.getAttribute('data-scale');
+		let notesToPlay = [];
+		if (scale == "chromatic") {
+			// Play all 12 chromatic notes
+			notesToPlay = TheoryEngine.base_notes.map(note => TheoryEngine.getSimpleFrequency(note));
+		} else {
+			scale = li.innerHTML.trim();
+			// is innerHtml is C then it's C major, if it's Dm then it's D minor, etc.
+			let root = scale.replace(/m$/, '');
+			const mode = scale.endsWith('m') ? 'Natural Minor/Aeolian' : 'Major/Ionian';
+			let alteration = "♮";
+			if (scale.includes('#')) {
+				alteration = "#";
+				root = root.replace('#', '');
+			}
+			const frequencies = TheoryEngine.getScale(root, mode, alteration).map(note => TheoryEngine.getSimpleFrequency(note));
+			notesToPlay = frequencies;
+		}
+		for (let freq of notesToPlay) {
+			AudioManager.playNoteWithDuration(freq, 0.2);
+			await new Promise(resolve => setTimeout(resolve, 200));
+		}
+	});
+});
+
+const enharmonicLi = document.querySelectorAll('.enharmonic-li');
+enharmonicLi.forEach(li => {
+	li.addEventListener('click', () => {
+		const note = li.getAttribute('data-note');
+		AudioManager.playNoteWithDuration(note, 0.5);
+	});
+});
+
+const intervalLi = document.querySelectorAll('.interval-li');
+intervalLi.forEach(li => {
+	li.addEventListener('click', async () => {
+		const interval = parseInt(li.getAttribute('data-semitones'));
+		const rootNote = "C"; // You can make this dynamic if needed
+		const rootFreq = TheoryEngine.getSimpleFrequency(rootNote);
+		const intervalFreq = rootFreq * Math.pow(2, interval / 12);
+		AudioManager.playNotes([rootFreq, intervalFreq], 0.5);
+
+		// This will now correctly pause the loop for 200ms
+		await new Promise(resolve => setTimeout(resolve, 200));
 	});
 });

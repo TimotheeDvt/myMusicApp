@@ -107,12 +107,20 @@ const AudioManager = {
         Object.keys(this.state.activeVoices).forEach(f => this.stopNote(f));
     },
 
-    playChord(frequencies, type = 'sine') {
+    playNotes(frequencies, duration, type = 'sine') {
         frequencies.forEach(freq => this.playNote(freq, type));
+        if (duration) {
+            setTimeout(() => frequencies.forEach(freq => this.stopNote(freq)), duration * 1000);
+        }
     },
 
     playNoteWithDuration(note, duration, type = 'sine') { // duration in seconds
-        const frequency = TheoryEngine.getSimpleFrequency(note);
+        let frequency;
+        if (typeof note === 'string') {
+            frequency = TheoryEngine.getSimpleFrequency(note);
+        } else if (Number.isFinite(note)) {
+            frequency = note;
+        }
         this.playNote(frequency, type);
         setTimeout(() => this.stopNote(frequency), duration * 1000);
     }

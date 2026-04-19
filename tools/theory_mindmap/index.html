@@ -7,6 +7,7 @@
     <title>Music Theory Mindmap</title>
     <link rel="stylesheet" href="../../css/master-style.css">
     <link rel="stylesheet" href="style.css">
+    <script src="../../js/core/theory-engine.js"></script>
     <script src="../../js/core/audio-manager.js"></script>
     <script src="script.js" defer></script>
     <script src="../../js/components/keyboard.js"></script>
@@ -33,13 +34,13 @@
                     <h3>Musical Alphabet</h3>
                     <div class="notes-circles">
                         <!-- todo: play notes on click -->
-                        <span class="note-circle">A</span>
-                        <span class="note-circle">B</span>
                         <span class="note-circle">C</span>
                         <span class="note-circle">D</span>
                         <span class="note-circle">E</span>
                         <span class="note-circle">F</span>
                         <span class="note-circle">G</span>
+                        <span class="note-circle">A</span>
+                        <span class="note-circle">B</span>
                     </div>
                 </div>
 
@@ -49,8 +50,8 @@
                     <p>All 12 notes in music (semitones):</p>
                     <ul class="scale-formula">
                         <!-- todo: play notes on click -->
-                        <li>C - C# - D - D# - E - F - F# - G - G# - A - A# - B</li>
-                        <li>C - Db - D - Eb - E - F - Gb - G - Ab - A - Bb - B</li>
+                        <li class="scale-li" data-scale="chromatic">C - C# - D - D# - E - F - F# - G - G# - A - A# - B</li>
+                        <li class="scale-li" data-scale="chromatic">C - Db - D - Eb - E - F - Gb - G - Ab - A - Bb - B</li>
                     </ul>
                     <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Each note is one half-step apart</p>
                 </div>
@@ -60,11 +61,11 @@
                     <h3>Enharmonic Equivalents</h3>
                     <p>Different names for the same note:</p>
                     <ul class="scale-formula">
-                        <li>C# = Db</li>
-                        <li>D# = Eb</li>
-                        <li>F# = Gb</li>
-                        <li>G# = Ab</li>
-                        <li>A# = Bb</li>
+                        <li class="enharmonic-li" data-note="C#">C# = Db</li>
+                        <li class="enharmonic-li" data-note="D#">D# = Eb</li>
+                        <li class="enharmonic-li" data-note="F#">F# = Gb</li>
+                        <li class="enharmonic-li" data-note="G#">G# = Ab</li>
+                        <li class="enharmonic-li" data-note="A#">A# = Bb</li>
                     </ul>
                     <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Same pitch, different context!</p>
                 </div>
@@ -74,18 +75,19 @@
                     <h3>Intervals</h3>
                     <p>The distance between two notes:</p>
                     <ul class="interval-list">
-                        <li><span class="interval-name">Minor 2nd (m2)</span><span>1 semitone</span></li>
-                        <li><span class="interval-name">Major 2nd (M2)</span><span>2 semitones</span></li>
-                        <li><span class="interval-name">Minor 3rd (m3)</span><span>3 semitones</span></li>
-                        <li><span class="interval-name">Major 3rd (M3)</span><span>4 semitones</span></li>
-                        <li><span class="interval-name">Perfect 4th (P4)</span><span>5 semitones</span></li>
-                        <li><span class="interval-name">Tritone (TT)</span><span>6 semitones</span></li>
-                        <li><span class="interval-name">Perfect 5th (P5)</span><span>7 semitones</span></li>
-                        <li><span class="interval-name">Minor 6th (m6)</span><span>8 semitones</span></li>
-                        <li><span class="interval-name">Major 6th (M6)</span><span>9 semitones</span></li>
-                        <li><span class="interval-name">Minor 7th (m7)</span><span>10 semitones</span></li>
-                        <li><span class="interval-name">Major 7th (M7)</span><span>11 semitones</span></li>
-                        <li><span class="interval-name">Octave (P8)</span><span>12 semitones</span></li>
+                        <li class="interval-li" data-semitones="0"><span class="interval-name">Unisson (P1)</span><span>0 semitone</span></li>
+                        <li class="interval-li" data-semitones="1"><span class="interval-name">Minor 2nd (m2)</span><span>1 semitone</span></li>
+                        <li class="interval-li" data-semitones="2"><span class="interval-name">Major 2nd (M2)</span><span>2 semitones</span></li>
+                        <li class="interval-li" data-semitones="3"><span class="interval-name">Minor 3rd (m3)</span><span>3 semitones</span></li>
+                        <li class="interval-li" data-semitones="4"><span class="interval-name">Major 3rd (M3)</span><span>4 semitones</span></li>
+                        <li class="interval-li" data-semitones="5"><span class="interval-name">Perfect 4th (P4)</span><span>5 semitones</span></li>
+                        <li class="interval-li" data-semitones="6"><span class="interval-name">Tritone (TT)</span><span>6 semitones</span></li>
+                        <li class="interval-li" data-semitones="7"><span class="interval-name">Perfect 5th (P5)</span><span>7 semitones</span></li>
+                        <li class="interval-li" data-semitones="8"><span class="interval-name">Minor 6th (m6)</span><span>8 semitones</span></li>
+                        <li class="interval-li" data-semitones="9"><span class="interval-name">Major 6th (M6)</span><span>9 semitones</span></li>
+                        <li class="interval-li" data-semitones="10"><span class="interval-name">Minor 7th (m7)</span><span>10 semitones</span></li>
+                        <li class="interval-li" data-semitones="11"><span class="interval-name">Major 7th (M7)</span><span>11 semitones</span></li>
+                        <li class="interval-li" data-semitones="12"><span class="interval-name">Octave (P8)</span><span>12 semitones</span></li>
                     </ul>
 
                 </div>
@@ -111,18 +113,18 @@
                                 stroke-width="2" />
 
                             <!-- Major keys (outer) -->
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">C</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">G</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">D</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">A</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">E</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">B</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">F#</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">C#</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">G#</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">D#</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">A#</text>
-                            <text text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">F</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">C</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">G</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">D</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">A</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">E</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">B</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">F#</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">C#</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">G#</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">D#</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">A#</text>
+                            <text class="scale-li" text-anchor="middle" fill="#ffd700" font-size="23" font-weight="bold">F</text>
 
                             <!-- Line from outer to inner -->
                             <line />
@@ -140,18 +142,18 @@
                             <line />
 
                             <!-- Minor keys (inner) -->
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Am</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Em</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Bm</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">F#m</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">C#m</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">G#m</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">D#m</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">A#m</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Fm</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Cm</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Gm</text>
-                            <text text-anchor="middle" fill="#87ceeb" font-size="16">Dm</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Am</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Em</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Bm</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">F#m</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">C#m</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">G#m</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">D#m</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">A#m</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Fm</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Cm</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Gm</text>
+                            <text class="scale-li" text-anchor="middle" fill="#87ceeb" font-size="16">Dm</text>
 
                             <!-- Sharps/Flats indicators -->
                             <text text-anchor="middle" fill="#fff" font-size="14">0</text>
