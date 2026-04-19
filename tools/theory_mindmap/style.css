@@ -19,25 +19,6 @@ body:not(.main-nav) {
   -webkit-tap-highlight-color: transparent;
 }
 
-#fundamentals {
-  zoom: 96%;
-}
-#circle {
-  zoom: 97%;
-}
-#scales {
-  zoom: 83%;
-}
-#chords {
-  zoom: 105%;
-}
-#shell {
-  zoom: 72%;
-}
-#progressions {
-  zoom: 87%;
-}
-
 /* central container */
 .container{
   max-width: calc(100% - 50px);
@@ -78,22 +59,12 @@ h1{
 }
 
 .tab-btn:hover{
-  transform: translateY(-3px);
-  color: var(--text-white);
-  border-color: var(--cool-blue);
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  transform: translateY(0px);
 }
 
 .tab-btn.active{
-  background: linear-gradient(90deg, var(--cool-blue), rgba(255,184,107,0.08));
-  border: 1px solid rgba(0,230,255,0.22);
-  box-shadow: 0 8px 30px rgba(0,230,255,0.06);
-}
-
-.tab-btn:focus, .tab-btn:active{
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(0,230,255,0.06);
-  border-color: rgba(0, 0, 0, 0.18);
+  background: var(--accent-blue);
+  border: 1px solid var(--text-muted);
 }
 
 /* tabs content */
@@ -146,40 +117,9 @@ h1{
 		"a b d";
 }
 
-/* card (glass) */
-.card{
-  background: var(--glass);
-  border: 1px solid var(--glass);
-  border-radius:14px;
-  padding:20px;
-  backdrop-filter: blur(var(--glass-blur));
-  transition: transform 260ms cubic-bezier(.2,.9,.32,1), box-shadow 260ms;
-  box-shadow: 0 6px 30px var(--bg-nav);
-}
-
-.card:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-  border-color: rgba(0,230,255,0.06);
-}
-
 .card-circle {
 	width: auto;
 	height: min-content;
-}
-
-/* headings inside cards */
-.card h3{
-  font-size:1.28em;
-  margin-bottom:12px;
-  color: var(--accent-yellow);
-}
-
-.card h4{
-  font-size:1.03em;
-  margin-top:12px;
-  margin-bottom:8px;
-  color: var(--accent-blue);
 }
 
 /* lists */

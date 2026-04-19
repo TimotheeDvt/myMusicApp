@@ -61,9 +61,9 @@ function drawGrid(ctx, width, height) {
     ctx.lineWidth = 1;
 
     const offsetX = 50;
-    const offsetY = 50; // To let free space around
+    const offsetY = 20; // To let free space around
 
-    const spaceBetweenStrings = (height - offsetY*1) / 6;
+    const spaceBetweenStrings = (height - offsetY*0) / (6-0.2);
     const spaceBetweenFrets = (width - offsetX*2) / 15;
 
     // Draw horizontal lines for strings
@@ -144,8 +144,8 @@ function drawGuitarNote(note) {
     const targetIdx = notesArr.indexOf(note);
     const canvas = document.getElementById('grid');
     const offsetX = 50;
-    const offsetY = 50; // To let free space around
-    const spaceBetweenStrings = (canvas.height - offsetY) / 6;
+    const offsetY = 20; // To let free space around
+    const spaceBetweenStrings = (canvas.height - offsetY*0) / (6-0.2);
     const spaceBetweenFrets = (canvas.width - offsetX*2) / 15;
     const radius = spaceBetweenFrets / 4;
 

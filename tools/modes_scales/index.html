@@ -18,13 +18,15 @@
     <main-nav active-tab="modes" root-path="../../"></main-nav>
 
     <div class="content">
-        <canvas id="grid" height="350" width="1000"></canvas>
+        <canvas class="card" id="grid" height="350" width="1000"></canvas>
 
-        <table class="table-center" id="chord-table"></table>
+        <div class="card">
+            <table class="table-center" id="chord-table"></table>
+        </div>
     </div>
 
     <footer>
-        <div class="notes">
+        <div class="notes card">
             <form id="form" onsubmit="return false;">
                 <div id="checkbox-container">
                 </div>
@@ -51,7 +53,7 @@
                 </div>
 
                 <div class="controls-row">
-                    <input type="number" id="string-number" value="6">
+                    <input type="number" id="string-number" value="6" disabled>
                     <select id="tuning-select" onchange="changeTuning()">
                         <option value="EADGBE" selected>Standard : EADGBE</option>
                         <option value="CGADGC">Arabic Oud : CGADGC</option>

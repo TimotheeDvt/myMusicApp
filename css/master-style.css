@@ -148,3 +148,30 @@ td, th {
     background: var(--glass);
     border-radius: 6px;
 }
+
+
+
+/* card (glass) */
+.card{
+  background: var(--glass);
+  border: 1px solid var(--glass);
+  border-radius:14px;
+  padding:20px;
+  backdrop-filter: blur(var(--glass-blur));
+  transition: transform 260ms cubic-bezier(.2,.9,.32,1), box-shadow 260ms;
+  box-shadow: 0 6px 30px var(--bg-nav);
+}
+
+/* headings inside cards */
+.card h3{
+  font-size:1.28em;
+  margin-bottom:12px;
+  color: var(--text-white);
+}
+
+.card h4{
+  font-size:1.03em;
+  margin-top:12px;
+  margin-bottom:8px;
+  color: var(--accent-blue);
+}

@@ -13,8 +13,10 @@ body {
     left: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    gap: 20px;
+    margin-top: 80px;
 }
 
 .notes {
@@ -45,15 +47,28 @@ input[type="number"] {
     width: 50px;
 }
 
+.card:has(table) {
+    height: 20px;
+    position: relative;
+    /* aspect-ratio: 2/1.5; */
+}
+
 table {
     /* margin: 20px auto; */
     border-collapse: collapse;
+    position: relative;
+    height: 100%;
+}
+
+tbody {
+    height: 50%;
 }
 
 td, th {
     border: 1px solid var(--text-white);
     padding: 10px 15px;
     background: var(--glass);
+    height: 5%;
 }
 
 #checkbox-container {
@@ -82,14 +97,19 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: var(--bg-dark);
+    /* background-color: var(--bg-dark); */
     align-items: center;
-    margin-top: -10px;
+    /* margin-top: -10px;
     border: 1px solid var(--text-white);
-    padding: 5px;
+    padding: 5px; */
     gap: 10px;
-    border-radius: 5px;
+    /* border-radius: 5px;
     width: 100%;
     z-index: 10;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease; */
+}
+
+#grid {
+    height: 40%;
+    aspect-ratio: 3/1;
 }
