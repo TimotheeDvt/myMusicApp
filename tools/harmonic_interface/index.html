@@ -34,8 +34,8 @@
     </div>
 
     <div id="container">
-        <canvas id="circle"></canvas>
-        <div id="table-container">
+        <canvas id="circle" class="card"></canvas>
+        <div id="table-container" class="card">
             <table id="table">
                 <tbody></tbody>
             </table>
@@ -44,33 +44,35 @@
     <canvas id="waveform"></canvas>
 
     <footer>
-        <form id="form" onsubmit="return false;">
-            <div>
-                <input type="number" id="StartingFreq" value="440" min="0">
-                <input type="number" id="subdivNb" value="12" min="1">
-                <select id="changeScale" hidden>
-                    <option value="12-EDO">12-EDO Scale</option>
-                    <option value="justIntonation">Just Intonation</option>
-                    <option value="pythagorean">Pythagorean</option>
-                </select>
-                <input type="checkbox" id="showKey" checked><label for="showKey">Keys</label>
-                <input type="checkbox" id="showFreq" checked><label for="showFreq">Freq</label>
-                <select id="changeLayout">
-                    <option value="AZERTY">AZERTY</option>
-                    <option value="QWERTY">QWERTY</option>
-                </select>
-            </div>
-            <div>
-                <select id="changeWaveform">
-                    <option value="sine">Sine</option>
-                    <option value="square">Square</option>
-                    <option value="sawtooth">Sawtooth</option>
-                    <option value="triangle">Triangle</option>
-                </select>
-                <input type="checkbox" id="showWave" checked><label for="showWave">Waveform</label>
-                <select id="midiControl"></select>
-            </div>
-        </form>
+        <div class="card">
+            <form id="form" onsubmit="return false;">
+                <div>
+                    <input type="number" id="StartingFreq" value="440" min="0">
+                    <input type="number" id="subdivNb" value="12" min="1">
+                    <select id="changeScale" hidden>
+                        <option value="12-EDO">12-EDO Scale</option>
+                        <option value="justIntonation">Just Intonation</option>
+                        <option value="pythagorean">Pythagorean</option>
+                    </select>
+                    <input type="checkbox" id="showKey" checked><label for="showKey">Keys</label>
+                    <input type="checkbox" id="showFreq" checked><label for="showFreq">Freq</label>
+                    <select id="changeLayout">
+                        <option value="AZERTY">AZERTY</option>
+                        <option value="QWERTY">QWERTY</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="changeWaveform">
+                        <option value="sine">Sine</option>
+                        <option value="square">Square</option>
+                        <option value="sawtooth">Sawtooth</option>
+                        <option value="triangle">Triangle</option>
+                    </select>
+                    <input type="checkbox" id="showWave" checked><label for="showWave">Waveform</label>
+                    <select id="midiControl"></select>
+                </div>
+            </form>
+        </div>
     </footer>
 </body>
 

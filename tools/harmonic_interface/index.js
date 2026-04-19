@@ -226,8 +226,8 @@ function drawPlayingNotes() {
 
 	notes.forEach(note => {
 		const cell = document.querySelector(`td[data-index="${note.index}"]`);
-		if (cell) {
-			cell.style.backgroundColor = AudioManager.state.activeVoices[note.frequency] ? COLORS.red : COLORS.black;
+		if (cell && AudioManager.state.activeVoices[note.frequency]) {
+			cell.style.backgroundColor = COLORS.red;
 		}
 	});
 }

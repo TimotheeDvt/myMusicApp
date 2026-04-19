@@ -218,10 +218,8 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background-color: var(--bg-dark);
   align-items: center;
   margin-top: -10px;
-  border: 1px solid var(--text-white);
   padding: 5px;
   gap: 10px;
   border-radius: 5px;
@@ -235,7 +233,7 @@ footer {
 }
 
 input[type="number"] {
-  background-color: var(--bg-dark);
+  background-color: var(--bg-light);
   color: var(--text-white);
   border: 1px solid var(--text-white);
   border-radius: 5px;
@@ -251,7 +249,7 @@ input[type="number"]:focus {
 }
 
 select {
-  background-color: var(--bg-dark);
+  background-color: var(--bg-light);
   color: var(--text-white);
   border: 1px solid var(--text-white);
   border-radius: 5px;
@@ -259,3 +257,7 @@ select {
   font-size: 1.2em;
 }
 
+.card:has(table) {
+  padding-right: 10%;
+  padding-left: 10%;
+}
