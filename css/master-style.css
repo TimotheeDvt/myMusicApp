@@ -60,3 +60,91 @@ body {
     color: var(--accent-blue);
     border-bottom: 2px solid var(--accent-blue);
 }
+
+/* --- Global Harmonized UI Components --- */
+
+/* 1. Standardized Buttons */
+button, .nav-btn, .tab-btn {
+    padding: 10px 20px;
+    background: var(--glass);
+    border: 1px solid var(--glass);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(.2, .9, .32, 1);
+    backdrop-filter: blur(var(--glass-blur));
+    font-family: 'Inter', sans-serif;
+}
+
+button:hover, .nav-btn:hover {
+    transform: translateY(-2px);
+    color: var(--text-white);
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+button.active, .nav-btn.active, .tab-btn.active {
+    background: linear-gradient(90deg, var(--accent-blue), rgba(111, 143, 240, 0.2));
+    border: 1px solid rgba(111, 143, 240, 0.4);
+    color: var(--text-dark); /* Improved contrast for active state */
+}
+
+/* 2. Harmonized Form Inputs (Select, Number, Text) */
+select, input[type="number"], input[type="text"] {
+    background-color: var(--bg-light);
+    color: var(--text-white);
+    border: 1px solid var(--glass);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+select:focus, input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(111, 143, 240, 0.2);
+}
+
+/* 3. Custom Styled Checkboxes */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--bg-light);
+    border: 2px solid var(--accent-blue);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--accent-blue);
+}
+
+input[type="checkbox"]:checked::after {
+    /* content: ''; */
+    position: absolute;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: bold;
+    left: 2px;
+    top: -2px;
+}
+
+/* 4. Table Harmonization */
+table {
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+td, th {
+    background: var(--glass);
+    border-radius: 6px;
+}

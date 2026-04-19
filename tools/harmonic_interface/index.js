@@ -255,14 +255,14 @@ function drawWaveForms() {
 	const canvas = document.getElementById('waveform');
 	const ctx = canvas.getContext('2d');
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const waveformHeight = canvas.height;
+	const waveformHeight = canvas.height;
 	for (let voice of Object.values(AudioManager.state.activeVoices)) {
 		const frequency = voice.osc.frequency.value;
 		ctx.strokeStyle = COLORS.blue;
 		ctx.beginPath();
 		for (let i = 0; i < canvas.width; i += 2) {
 			const x = (i / canvas.width) * 2 * Math.PI * frequency / 100 + state.time;
-            let y;
+			let y;
 			switch (state.type) {
 				case 'sine':
 					y = Math.sin(x) * (waveformHeight / 2) + waveformHeight / 2;
@@ -278,12 +278,12 @@ function drawWaveForms() {
 					break;
 			}
 			y = normalize(y, 0, waveformHeight, 0, 0 + waveformHeight);
-            ctx.lineTo(i, y);
+			ctx.lineTo(i, y);
 		}
 		ctx.stroke();
 	}
 	state.time += 0.05;
-    if (state.time > 2 * Math.PI) state.time = 0; // Reset time to avoid overflow
+	if (state.time > 2 * Math.PI) state.time = 0; // Reset time to avoid overflow
 }
 
 /******************
@@ -303,9 +303,13 @@ function handleTableClick(event) {
 function handleCanvasClick(event) {
 	const canvas = document.getElementById('circle');
 	const rect = canvas.getBoundingClientRect();
+	const scaleX = canvas.width / rect.width;
+	const scaleY = canvas.height / rect.height;
+	const canvasX = (event.clientX - rect.left) * scaleX;
+	const canvasY = (event.clientY - rect.top) * scaleY;
 	const click = {
-		x: (event.clientX - rect.left - canvas.width / 2) / CONFIG.scaleFactor,
-		y: (event.clientY - rect.top - canvas.height / 2) / CONFIG.scaleFactor
+		x: (canvasX - canvas.width / 2) / CONFIG.scaleFactor,
+		y: (canvasY - canvas.height / 2) / CONFIG.scaleFactor
 	};
 	const clickRadius = 7;
 	const newPos = calculateNotePositions(CONFIG.radius + 5);
@@ -372,7 +376,7 @@ document.addEventListener('keydown', (e) => {
 	pressedKeys.add(e.key);
 	const noteKey = keyToFrequency(e.key);
 	if (noteKey) playNote(noteKey);
-	else if (e.key === " ") { stopAllNotes(); toggleFooterAndInfos(); }
+	else if (e.key === " ") { stopAllNotes(); } // toggleFooterAndInfos(); }
 	update();
 });
 

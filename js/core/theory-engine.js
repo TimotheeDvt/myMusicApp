@@ -24,13 +24,13 @@ const TheoryEngine = {
 
     // Chord qualities for each mode degree
     chords_charts: {
-        "M": "MmmMMmd",
-        "m": "mdMmmMM",
-        "D": "mmMMmdM",
-        "P": "mMMmdMm",
-        "L": "MMmdMmm",
-        "X": "MmdMmmM",
-        "O": "dMmmMMm"
+        "Major/Ionian": "MmmMMmd",
+        "Natural Minor/Aeolian": "mdMmmMM",
+        "Dorian": "mmMMmdM",
+        "Phrygian": "mMMmdMm",
+        "Lydian": "MMmdMmm",
+        "Mixolydian": "MmdMmmM",
+        "Locrian": "dMmmMMm"
     },
 
     /**

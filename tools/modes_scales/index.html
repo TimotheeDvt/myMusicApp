@@ -18,8 +18,12 @@
     <main-nav active-tab="modes" root-path="../../"></main-nav>
 
     <div class="content">
-        <canvas id="circle" height="200" width="400"></canvas>
+        <canvas id="grid" height="350" width="1000"></canvas>
 
+        <table class="table-center" id="chord-table"></table>
+    </div>
+
+    <footer>
         <div class="notes">
             <form id="form" onsubmit="return false;">
                 <div id="checkbox-container">
@@ -47,6 +51,7 @@
                 </div>
 
                 <div class="controls-row">
+                    <input type="number" id="string-number" value="6">
                     <select id="tuning-select" onchange="changeTuning()">
                         <option value="EADGBE" selected>Standard : EADGBE</option>
                         <option value="CGADGC">Arabic Oud : CGADGC</option>
@@ -54,13 +59,12 @@
                         <option value="CUSTOM">Custom</option>
                     </select>
 
-                    <input type="text" id="custom-tuning" maxlength="6" placeholder="EADGBE" autocapitalize="characters" onkeypress="onTestChange();">
+                    <input type="text" id="custom-tuning" maxlength="6" placeholder="EADGBE" autocapitalize="characters"
+                        onkeypress="onTestChange();">
                 </div>
-
-                <table class="table-center" id="chord-table"></table>
             </form>
         </div>
-    </div>
+    </footer>
 </body>
 
 </html>
