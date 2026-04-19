@@ -105,6 +105,16 @@ const AudioManager = {
 
     stopAll() {
         Object.keys(this.state.activeVoices).forEach(f => this.stopNote(f));
+    },
+
+    playChord(frequencies, type = 'sine') {
+        frequencies.forEach(freq => this.playNote(freq, type));
+    },
+
+    playNoteWithDuration(note, duration, type = 'sine') { // duration in seconds
+        const frequency = TheoryEngine.getSimpleFrequency(note);
+        this.playNote(frequency, type);
+        setTimeout(() => this.stopNote(frequency), duration * 1000);
     }
 };
 

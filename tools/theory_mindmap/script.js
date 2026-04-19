@@ -18,8 +18,6 @@ function showTab(tabName) {
 	}
 }
 
-showTab('progressions'); // Show default tab on load
-
 function loadCircleText() {
 	const circleSvgTexts = Array.from(document.querySelectorAll('.circle-svg > text'));
 
@@ -67,3 +65,13 @@ function loadCircleText() {
 		line.setAttribute('y2', 260);
 	});
 }
+
+// add event listeners to "note-circle"
+
+const noteCircles = document.querySelectorAll('.note-circle');
+noteCircles.forEach(circle => {
+	circle.addEventListener('click', () => {
+		const note = circle.innerHTML.trim();
+		AudioManager.playNoteWithDuration(note, 1.5);
+	});
+});

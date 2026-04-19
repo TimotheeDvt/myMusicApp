@@ -117,6 +117,13 @@ const TheoryEngine = {
         if (equivalents[clean]) clean = equivalents[clean];
 
         return clean;
+    },
+
+    getSimpleFrequency(note) {
+        const base = 440; // A4
+        const noteIndex = this.all_notes.findIndex(n => n.includes(note));
+        if (noteIndex === -1) return null;
+        return base * Math.pow(2, noteIndex / 12);
     }
 };
 
