@@ -7,7 +7,7 @@ class CustomKeyboard extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.defaultKeys = [
-      { note: 'C', type: "white"},
+      { note: 'C', type: "white" },
       { note: 'Chs', type: "grey" },
       { note: 'C#', type: "black" },
       { note: 'Dhf', type: "grey" },
@@ -30,7 +30,8 @@ class CustomKeyboard extends HTMLElement {
       { note: 'A#', type: "black" },
       { note: 'Bhf', type: "grey" },
       { note: 'B', type: "white" },
-      { note: 'Bhs', type: "grey" }
+      { note: 'Bhs', type: "grey" },
+      { note: 'Chf', type: "grey" }
     ];
   }
 
@@ -48,20 +49,32 @@ class CustomKeyboard extends HTMLElement {
     // Read attributes or default values
     const height = this.getAttribute('height') || '70px';
     const width = this.getAttribute('width') || '100%';
-		const is24edo = this.getAttribute('is24edo') || false;
-		const showNames = this.getAttribute('showNames') || false;
+    const is24edo = this.getAttribute('is24edo') === 'true';
+    const showNames = this.getAttribute('showNames') || false;
     const keysAttr = this.getAttribute('keys')
-												 .replace(" - ", " ")
-												 .replace("Db", "C#")
-												 .replace("Eb", "D#")
-												 .replace("Gb", "F#")
-												 .replace("Ab", "G#")
-												 .replace("Bb", "A#");
+      .replace(" - ", " ")
+      .replace("Db", "C#")
+      .replace("Eb", "D#")
+      .replace("Gb", "F#")
+      .replace("Ab", "G#")
+      .replace("Bb", "A#")
+      .replace("Dhb", "Dhf")
     let keysToHighlight = [];
 
     if (keysAttr) {
       // Parse keys attribute (comma/space separated notes)
-      const requestedNotes = keysAttr.split(/[\s,]+/).map(k => k.trim());
+      const requestedNotes = keysAttr.split(/[\s,]+/).map(k => {
+        try {
+          const num = parseInt(k);
+          if (!isNaN(num)) {
+            const noteName = this.defaultKeys[num % this.defaultKeys.length].note;
+            return noteName;
+          }
+        } catch (e) {
+          // Ignore parse errors
+        }
+        return k.trim();
+      });
       // Get keys to highlight by filtering
       keysToHighlight = this.defaultKeys.filter(k => requestedNotes.includes(k.note)).map(k => k.note);
     }
@@ -102,12 +115,16 @@ class CustomKeyboard extends HTMLElement {
           box-sizing: border-box;
           transition: background-color 0.3s, color 0.3s;
         }
-        .white-key:last-child {
-          border-right: 1px solid #999;
+        .white-key[data-note="C"] {
+          border-radius: 6px 0 0 6px;
+        }
+        .white-key[data-note="B"] {
+          border-radius: 0 6px 6px 0;
         }
         .black-key {
           position: absolute;
-          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6);
+          --black-width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6);
+          width: var(--black-width);
           height: 60%;
           background: linear-gradient(to bottom, #333, #000);
           border-radius: 0 0 4px 4px;
@@ -122,9 +139,9 @@ class CustomKeyboard extends HTMLElement {
         }
         .grey-key {
           position: absolute;
-          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "grey").length} * 0.6);
-          height: 60%;
-          background: linear-gradient(to bottom, #333, #000);
+          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6 / 1.4);
+          height: 80%;
+          background: linear-gradient(to bottom, #777, #555);
           border-radius: 0 0 4px 4px;
           border: 1px solid #222;
           box-shadow:
@@ -149,15 +166,21 @@ class CustomKeyboard extends HTMLElement {
             inset 0 1px 3px var(--accent-yellow),
             0 2px 12px var(--accent-yellow);
         }
+        .grey-key.highlight {
+          background: var(--accent-blue);
+          box-shadow:
+            inset 0 1px 3px var(--accent-yellow),
+            0 2px 12px var(--accent-yellow);
+        }
       </style>
     `;
 
     const blackKeyOffsets = {
-      'C#': 0.65,
-      'D#': 1.65,
-      'F#': 3.65,
-      'G#': 4.65,
-      'A#': 5.65
+      'C#': 0.7,
+      'D#': 1.7,
+      'F#': 3.7,
+      'G#': 4.7,
+      'A#': 5.7
     };
 
     const whiteKeyCount = this.defaultKeys.filter(k => k.type == "white").length;
@@ -174,16 +197,42 @@ class CustomKeyboard extends HTMLElement {
     const blackKeysHtml = this.defaultKeys
       .filter(k => k.type == "black" && blackKeyOffsets.hasOwnProperty(k.note))
       .map(k => {
-        console.log(k)
         const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
         const leftPercent = (blackKeyOffsets[k.note] / whiteKeyCount) * 100;
         return `<div class="black-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${showNames ? k.note : ''}"></div>`;
       }).join('');
 
+    let greyKeysHtml = '';
+    if (is24edo) {
+      const greyKeyOffsets = {
+        'Chs': 0.55,
+        'Dhf': 1,
+        'Dhs': 1.55,
+        'Ehf': 2,
+        'Ehs': 2.8,
+        'Fhs': 3.55,
+        'Ghf':4,
+        'Ghs': 4.55,
+        'Ahf': 5,
+        'Ahs': 5.55,
+        'Bhf': 6,
+        'Bhs': 6.8,
+        'Chf': 0,
+      }
+      greyKeysHtml = this.defaultKeys
+        .filter(k => k.type == "grey" && greyKeyOffsets.hasOwnProperty(k.note))
+        .map(k => {
+          const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
+          const leftPercent = (greyKeyOffsets[k.note] / whiteKeyCount) * 100;
+          return `<div class="grey-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${showNames ? k.note : ''}"></div>`;
+        }).join('');
+    }
+
     this.shadowRoot.innerHTML = `
       ${style}
       <div class="keyboard">
         ${whiteKeysHtml}
+        ${is24edo ? greyKeysHtml : ''}
         ${blackKeysHtml}
       </div>
     `;
