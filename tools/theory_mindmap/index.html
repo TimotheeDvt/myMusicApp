@@ -10,6 +10,7 @@
     <script src="../../js/core/theory-engine.js"></script>
     <script src="../../js/core/audio-manager.js"></script>
     <script src="script.js" defer></script>
+    <script src="../../js/components/shell-voicing.js"></script>
     <script src="../../js/components/keyboard.js"></script>
     <script src="../../js/components/main-nav.js"></script>
 </head>
@@ -368,634 +369,116 @@
         <div id="shell" class="tab-content">
             <div class="grid grid-2" style="grid-area: a;">
                 <div class="card">
-                    <h3>Major 7</h3>
-                    <p><strong>Notes:</strong> Root (1), Major 3rd (3), Major 7th (7)</p>
+                    <span class="shells-title">
+                        <h3>Major 7</h3>
+                        <p>1 3 7</p>
+                    </span>
 
                     <div class="shells">
                         <div class="shell-voicing">
-                            <h4>Type A - Root on E</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4>Root on E</h4>
+                            <shell-voicing type="maj7" root-string="E"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type B - Root on A</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on A</h4>
+                            <shell-voicing type="maj7" root-string="A"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type C - Root on D</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on D</h4>
+                            <shell-voicing type="maj7" root-string="D"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type D - Root on G</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on G</h4>
+                            <shell-voicing type="maj7" root-string="G"></shell-voicing>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3>min 7</h3>
-                    <p><strong>Notes:</strong> Root (1), Minor 3rd (b3), Minor 7th (b7)</p>
+                    <span class="shells-title">
+                        <h3>Minor 7</h3>
+                        <p>1 b3 b7</p>
+                    </span>
                     <div class="shells">
                         <div class="shell-voicing">
-                            <h4>Type A - Root on E</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">b3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">R</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4>Root on E</h4>
+                            <shell-voicing type="min7" root-string="E"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type B - Root on A</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">b3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on A</h4>
+                            <shell-voicing type="min7" root-string="A"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type C - Root on D</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 0.75);">b3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on D</h4>
+                            <shell-voicing type="min7" root-string="D"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type D - Root on G</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">b3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on G</h4>
+                            <shell-voicing type="min7" root-string="G"></shell-voicing>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3>Dominant 7</h3>
-                    <p><strong>Notes:</strong> Root (1), Major 3rd (3), Minor 7th (b7)</p>
+                    <span class="shells-title">
+                        <h3>Dominant 7</h3>
+                        <p>1 3 b7</p>
+                    </span>
                     <div class="shells">
                         <div class="shell-voicing">
-                            <h4>Type A - Root on E</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4>Root on E</h4>
+                            <shell-voicing type="dom7" root-string="E"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type B - Root on A</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on A</h4>
+                            <shell-voicing type="dom7" root-string="A"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type C - Root on D</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on D</h4>
+                            <shell-voicing type="dom7" root-string="D"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type D - Root on G</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 9.75);">b7</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on G</h4>
+                            <shell-voicing type="dom7" root-string="G"></shell-voicing>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3>6</h3>
-                    <p><strong>Notes:</strong> Root (1), Major 3rd (3), 6th (6)</p>
+                    <span class="shells-title">
+                        <h3>Sixth</h3>
+                        <p>1 3 6</p>
+                    </span>
                     <div class="shells">
-
                         <div class="shell-voicing">
-                            <h4>Type A - Root on E</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">6</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4>Root on E</h4>
+                            <shell-voicing type="6" root-string="E"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type B - Root on A</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">6</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on A</h4>
+                            <shell-voicing type="6" root-string="A"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type C - Root on D</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">6</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 3.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on D</h4>
+                            <shell-voicing type="6" root-string="D"></shell-voicing>
                         </div>
 
                         <div class="shell-voicing">
-                            <h4>Type D - Root on G</h4>
-                            <div class="string-diagram">
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">6</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">B</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">3</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">G</span>
-                                    <div class="string-line">
-                                        <div class="note-marker" style="left: calc(100% / 12 * 6.75);">R</div>
-                                    </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">D</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">A</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                                <div class="string">
-                                    <span class="string-label">E</span>
-                                    <div class="string-line"> </div>
-                                </div>
-                            </div>
+                            <h4>Root on G</h4>
+                            <shell-voicing type="6" root-string="G"></shell-voicing>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="grid grid-2" style="grid-area: b;">
-                <div class="card">
-                    <h3>Shell Voicings Explained</h3>
-                    <p>Shell voicings are simplified chord voicings that include only the essential notes: <strong>Root,
-                            3rd, and 7th</strong>. The 5th is omitted because it doesn't define the chord quality.</p>
-                    <p style="margin-top: 10px;"><strong>Why use them?</strong></p>
-                    <ul class="interval-list-2">
-                        <li>Less finger stretching - easier to play</li>
-                        <li>Clear harmonic definition with minimal notes</li>
-                        <li>Perfect for comping in jazz and more</li>
-                        <li>Easy to move around the neck</li>
-                        <li>Leave space for bass and other instruments</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Practice Tips for Shell Voicings</h3>
-                    <ul class="interval-list">
-                        <li><strong>Learn the patterns:</strong> Memorize the shapes for each chord type on both string
-                            sets (6-5-4 and 5-4-3)</li>
-                        <li><strong>Practice ii-V-I:</strong> Move through common progressions using only shell voicings
-                        </li>
-                        <li><strong>Add extensions:</strong> Once comfortable, add 9ths, 11ths, or 13ths on higher
-                            strings</li>
-                        <li><strong>Voice leading:</strong> Move with minimal finger movement between chords</li>
-                        <li><strong>Rhythm practice:</strong> Focus on comping patterns and rhythmic variety</li>
-                    </ul>
                 </div>
             </div>
         </div>

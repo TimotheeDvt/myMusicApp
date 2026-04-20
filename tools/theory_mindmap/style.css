@@ -294,6 +294,13 @@ h1{
   cursor: default;
 }
 
+.shells-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
 .shell {
   display: grid;
   grid-template-areas:
@@ -305,14 +312,14 @@ h1{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
 }
 
 /* shell voicing cards */
-.shell-voicing{
+.shell-voicing {
   background: var(--bg-dark);
   padding:10px;
   border-radius:10px;
-  margin:10px 0;
   border: 1px solid rgba(255,255,255,0.03);
   max-height: 200px;
   max-width: 200px;
@@ -320,7 +327,7 @@ h1{
 }
 
 .shell-voicing h4 {
-  font-size: 1em;
+  font-size: 0.9em;
   margin: 0;
 }
 
@@ -359,9 +366,9 @@ h1{
   position:absolute;
   width:22px;
   height:22px;
-  background: linear-gradient(180deg, var(--accent-blue), rgba(0,200,220,0.85));
+  background: var(--accent-blue);
   border-radius:50%;
-  border: 1px solid rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.5);
   display:flex;
   align-items:center;
   justify-content:center;
