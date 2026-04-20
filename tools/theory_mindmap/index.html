@@ -51,8 +51,8 @@
                     <p>All 12 notes in music (semitones):</p>
                     <ul class="scale-formula">
                         <!-- todo: play notes on click -->
-                        <li class="scale-li" data-scale="chromatic">C - C# - D - D# - E - F - F# - G - G# - A - A# - B</li>
-                        <li class="scale-li" data-scale="chromatic">C - Db - D - Eb - E - F - Gb - G - Ab - A - Bb - B</li>
+                        <li class="scale-li" data-scale="chromatic">C - C<sup>#</sup> - D - D<sup>#</sup> - E - F - F<sup>#</sup> - G - G<sup>#</sup> - A - A<sup>#</sup> - B</li>
+                        <li class="scale-li" data-scale="chromatic">C - D<sup>b</sup> - D - E<sup>b</sup> - E - F - G<sup>b</sup> - G - A<sup>b</sup> - A - B<sup>b</sup> - B</li>
                     </ul>
                     <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Each note is one half-step apart</p>
                 </div>
@@ -63,13 +63,13 @@
                     <p>Different names for the same note:</p>
                     <div class="list-grid">
                         <ul class="scale-formula">
-                            <li class="enharmonic-li" data-note="C#">C# = Db</li>
-                            <li class="enharmonic-li" data-note="D#">D# = Eb</li>
-                            <li class="enharmonic-li" data-note="F#">F# = Gb</li>
+                            <li class="enharmonic-li" data-note="C#">C<sup>#</sup> = D<sup>b</sup></li>
+                            <li class="enharmonic-li" data-note="D#">D<sup>#</sup> = E<sup>b</sup></li>
+                            <li class="enharmonic-li" data-note="F#">F<sup>#</sup> = G<sup>b</sup></li>
                         </ul>
                         <ul class="scale-formula">
-                            <li class="enharmonic-li" data-note="G#">G# = Ab</li>
-                            <li class="enharmonic-li" data-note="A#">A# = Bb</li>
+                            <li class="enharmonic-li" data-note="G#">G<sup>#</sup> = A<sup>b</sup></li>
+                            <li class="enharmonic-li" data-note="A#">A<sup>#</sup> = B<sup>b</sup></li>
                         </ul>
                     </div>
                     <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Same pitch, different context!</p>
@@ -194,11 +194,11 @@
                 <div class="card" style="grid-area: c;">
                     <h3>Key Signatures</h3>
                     <ul class="scale-formula">
-                        <li><strong>Sharps</strong>: C(0) → G(1) → D(2) → A(3) → E(4) → B(5) → F#(6)</li>
-                        <li><strong>Flats</strong>: C(0) → F(1) → Bb(2) → Eb(3) → Ab(4) → Db(5) → Gb(6)</li>
+                        <li><strong>Sharps</strong>: C(0) → G(1) → D(2) → A(3) → E(4) → B(5) → F<sup>#</sup>(6)</li>
+                        <li><strong>Flats</strong>: C(0) → F(1) → B<sup>b</sup>(2) → E<sup>b</sup>(3) → A<sup>b</sup>(4) → D<sup>b</sup>(5) → G<sup>b</sup>(6)</li>
                     </ul>
-                    <p style="margin-top: 10px; font-size: 0.9em;">Order of sharps: F# C# G# D# A# E# B#</p>
-                    <p style="font-size: 0.9em;">Order of flats: Bb Eb Ab Db Gb Cb Fb</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Order of sharps: F<sup>#</sup> C<sup>#</sup> G<sup>#</sup> D<sup>#</sup> A<sup>#</sup> E<sup>#</sup> B<sup>#</sup></p>
+                    <p style="font-size: 0.9em;">Order of flats: B<sup>b</sup> E<sup>b</sup> A<sup>b</sup> D<sup>b</sup> G<sup>b</sup> C<sup>b</sup> F<sup>b</sup></p>
                 </div>
             </div>
         </div>
@@ -223,7 +223,7 @@
                     <h4>Example: A Minor</h4>
                     <ul class="scale-formula">
                         <li>A - B - C - D - E - F - G - A</li>
-                        <li>Intervals: 1 - 2 - b3 - 4 - 5 - b6 - b7 - 8</li>
+                        <li>Intervals: 1 - 2 - <sup>b</sup>3 - 4 - 5 - <sup>b</sup>6 - <sup>b</sup>7 - 8</li>
                     </ul>
                     <p style="margin-top: 10px; font-size: 0.9em;">Relative to C Major (same notes!)</p>
                 </div>
@@ -235,12 +235,12 @@
                     <p>Example in C: C - D - E - G - A</p>
 
                     <h4>Minor Pentatonic</h4>
-                    <p><strong>Formula:</strong> 1 - b3 - 4 - 5 - b7</p>
+                    <p><strong>Formula:</strong> 1 - <sup>b</sup>3 - 4 - 5 - <sup>b</sup>7</p>
                     <p>Example in A: A - C - D - E - G</p>
 
                     <h4>Blues Scale</h4>
-                    <p><strong>Formula:</strong> 1 - b3 - 4 - b5 - 5 - b7</p>
-                    <p>Example in A: A - C - D - Eb - E - G</p>
+                    <p><strong>Formula:</strong> 1 - <sup>b</sup>3 - 4 - <sup>b</sup>5 - 5 - <sup>b</sup>7</p>
+                    <p>Example in A: A - C - D - E<sup>b</sup> - E - G</p>
                 </div>
 
                 <div class="card" style="grid-area: d;">
@@ -275,21 +275,21 @@
                         <li class="chords-li-example">
                             <strong>Minor</strong>
                             <strong>Cm</strong>
-                            <text><strong>1 - b3 - 5</strong><br>(C - Eb - G)</text>
+                            <text><strong>1 - <sup>b</sup>3 - 5</strong><br>(C - E<sup>b</sup> - G)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - Eb - G"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Diminished</strong>
                             <strong>Cdim</strong>
-                            <text><strong>1 - b3 - b5</strong><br>(C - Eb - Gb)</text>
+                            <text><strong>1 - <sup>b</sup>3 - <sup>b</sup>5</strong><br>(C - E<sup>b</sup> - G<sup>b</sup>)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - Eb - Gb"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Augmented</strong>
                             <strong>Caug</strong>
-                            <text><strong>1 - 3 - #5</strong><br>(C - Eb - G#)</text>
+                            <text><strong>1 - 3 - <sup>#</sup>5</strong><br>(C - E<sup>b</sup> - G<sup>#</sup>)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - E - G#"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
@@ -309,28 +309,28 @@
                         <li class="chords-li-example">
                             <strong>Dominant 7</strong>
                             <strong>C7</strong>
-                            <text><strong>1 - 3 - 5 - b7</strong><br>(C - E - G - Bb)</text>
+                            <text><strong>1 - 3 - 5 - <sup>b</sup>7</strong><br>(C - E - G - B<sup>b</sup>)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - E - G - Bb"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Minor 7</strong>
                             <strong>Cm7</strong>
-                            <text><strong>1 - b3 - 5 - b7</strong><br>(C - Eb - G - Bb)</text>
+                            <text><strong>1 - <sup>b</sup>3 - 5 - <sup>b</sup>7</strong><br>(C - E<sup>b</sup> - G - B<sup>b</sup>)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - Eb - G - Bb"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Minor 7b5</strong>
                             <strong>Cm7b5</strong>
-                            <text><strong>1 - b3 - b5 - b7</strong><br>(C - Eb - Gb - Bb)</text>
+                            <text><strong>1 - <sup>b</sup>3 - <sup>b</sup>5 - <sup>b</sup>7</strong><br>(C - E<sup>b</sup> - G<sup>b</sup> - B<sup>b</sup>)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - Eb - Gb - Bb"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Diminished 7</strong>
                             <strong>Cdim7</strong>
-                            <text><strong>1 - b3 - b5 - bb7</strong><br>(C - Eb - Gb - Bbb)</text>
+                            <text><strong>1 - <sup>b</sup>3 - <sup>b</sup>5 - bb7</strong><br>(C - E<sup>b</sup> - G<sup>b</sup> - B<sup>bb</sup>)</text>
                             <custom-keyboard height="50px" width="200px" keys="C - Eb - Gb - A"
                                 style="grid-area: c;"></custom-keyboard>
                         </li>
@@ -400,7 +400,7 @@
                 <div class="card">
                     <span class="shells-title">
                         <h3>Minor 7</h3>
-                        <p>1 b3 b7</p>
+                        <p>1 <sup>b</sup>3 <sup>b</sup>7</p>
                     </span>
                     <div class="shells">
                         <div class="shell-voicing">
@@ -428,7 +428,7 @@
                 <div class="card">
                     <span class="shells-title">
                         <h3>Dominant 7</h3>
-                        <p>1 3 b7</p>
+                        <p>1 3 <sup>b</sup>7</p>
                     </span>
                     <div class="shells">
                         <div class="shell-voicing">

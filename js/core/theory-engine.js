@@ -121,6 +121,7 @@ const TheoryEngine = {
     },
 
     getSimpleFrequency(note) {
+        note = note.replace("<sup>", "").replace("</sup>", "");
         const base = 440; // A4
         let noteIndex;
         noteIndex = this.base_notes.findIndex(n => n.includes(note));

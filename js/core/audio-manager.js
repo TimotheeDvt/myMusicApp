@@ -115,6 +115,7 @@ const AudioManager = {
     },
 
     playNoteWithDuration(note, duration, type = 'sine') { // duration in seconds
+        if (typeof note === 'string') note = note.replace("<sup>", "").replace("</sup>", "");
         let frequency;
         if (typeof note === 'string') {
             frequency = TheoryEngine.getSimpleFrequency(note);
