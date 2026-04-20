@@ -35,6 +35,10 @@ h1{
   text-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
+.card h3 {
+  font-size: 1.1em;
+}
+
 /* tab nav */
 .tab-nav{
   display:flex;
@@ -99,8 +103,8 @@ h1{
 .grid-4 {
   position: relative;
 	grid-template-areas:
-		"a a d"
-		"c b d";
+		"a a a a a d"
+		"c b b b b d";
 }
 .grid-5 {
 	grid-template-areas:
@@ -125,7 +129,7 @@ h1{
 
 /* lists */
 .card-fund .scale-formula li {
-  font-size: 1.25em;
+  font-size: 1em;
 }
 
 .interval-list, .chord-formula, .scale-formula{
@@ -133,7 +137,12 @@ h1{
   padding:10px 0;
 }
 
-.interval-list li, .chord-formula li, .scale-formula li{
+.interval-list, .scale-formula {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.interval-list li, .chord-formula li, .scale-formula li, #interval-unisson{
   padding:10px;
   margin:8px 0;
   background: rgba(255,255,255,0.02);
@@ -144,16 +153,27 @@ h1{
 	cursor: default;
 }
 
-.interval-list li:hover span, .scale-formula li:hover {
-	color: var(--accent-yellow);
+.interval-list li:hover span, .scale-formula li:hover, #interval-unisson:hover {
+	color: var(--accent-blue);
 	border-color: var(--cool-blue);
 	cursor: pointer;
 }
 
-.interval-list li {
+.interval-list li, #interval-unisson {
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 12px;
+}
+
+#interval-unisson {
+  width: calc(50% - 10px);
+  margin-bottom: 0px;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .interval-list-2, .chord-formula, .scale-formula{
@@ -173,7 +193,7 @@ h1{
 }
 
 .interval-list-2 li:hover span, .scale-formula li:hover {
-	color: var(--accent-yellow);
+	color: var(--accent-blue);
 	border-color: var(--cool-blue);
 	cursor: pointer;
 }
@@ -262,7 +282,7 @@ h1{
 }
 
 .note-circle:hover{
-	color: var(--accent-yellow);
+	color: var(--accent-blue);
 	border-color: var(--cool-blue);
 	background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
 }
@@ -380,7 +400,7 @@ h1{
 
 .circle-svg {
 	max-width: 600px;
-	width: 100%;
+	width: 60%;
 	height: auto;
 }
 

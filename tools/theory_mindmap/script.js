@@ -1,7 +1,13 @@
+const tabNames = ["fundamentals", "circle", "scales", "chords", "shell", "progressions"]
+
 function showTab(tabName) {
 	// Hide all tabs
 	const tabs = document.querySelectorAll('.tab-content');
 	tabs.forEach(tab => tab.classList.remove('active'));
+
+	if (!tabNames.includes(tabName)) {
+		tabName = "fundamentals";
+	}
 
 	// Remove active from all buttons
 	const buttons = document.querySelectorAll('.tab-btn');
@@ -16,6 +22,10 @@ function showTab(tabName) {
 	if (tabName === 'circle') {
 		loadCircleText();
 	}
+
+	const url = new URL(window.location);
+	url.searchParams.set('page', tabName);
+	window.history.pushState({}, '', url);
 }
 
 function loadCircleText() {
@@ -66,6 +76,18 @@ function loadCircleText() {
 	});
 }
 
+if (window.location) {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+
+	const queryValue = urlParams.get('page');
+	if (tabNames.includes(queryValue)) {
+		showTab(queryValue);
+	} else {
+		showTab("fundamentals");
+	}
+}
+
 // add event listeners to "note-circle"
 
 const noteCircles = document.querySelectorAll('.note-circle');
@@ -77,29 +99,60 @@ noteCircles.forEach(circle => {
 });
 
 const scaleLi = document.querySelectorAll('.scale-li');
+
 scaleLi.forEach(li => {
 	li.addEventListener('click', async () => {
-		let scale = li.getAttribute('data-scale');
+		const text = li.innerHTML.trim();
+		const scaleAttr = li.getAttribute('data-scale');
+
 		let notesToPlay = [];
-		if (scale == "chromatic") {
-			// Play all 12 chromatic notes
-			notesToPlay = TheoryEngine.base_notes.map(note => TheoryEngine.getSimpleFrequency(note));
+		if (scaleAttr === "chromatic") {
+			notesToPlay = TheoryEngine.base_notes;
 		} else {
-			scale = li.innerHTML.trim();
-			// is innerHtml is C then it's C major, if it's Dm then it's D minor, etc.
-			let root = scale.replace(/m$/, '');
-			const mode = scale.endsWith('m') ? 'Natural Minor/Aeolian' : 'Major/Ionian';
+			let root = text.replace(/m$/, '');
+			const mode = text.endsWith('m') ? 'Natural Minor/Aeolian' : 'Major/Ionian';
 			let alteration = "♮";
-			if (scale.includes('#')) {
+
+			if (root.includes('#')) {
 				alteration = "#";
 				root = root.replace('#', '');
+			} else if (root.includes('b') || root.includes('♭')) {
+				alteration = "♭";
+				root = root.replace(/[b♭]/, '');
 			}
-			const frequencies = TheoryEngine.getScale(root, mode, alteration).map(note => TheoryEngine.getSimpleFrequency(note));
-			notesToPlay = frequencies;
+
+			notesToPlay = TheoryEngine.getScale(root, mode, alteration);
+			notesToPlay.push(notesToPlay[0]);
 		}
-		for (let freq of notesToPlay) {
-			AudioManager.playNoteWithDuration(freq, 0.2);
-			await new Promise(resolve => setTimeout(resolve, 200));
+
+		let lastSemitone = TheoryEngine.all_notes.findIndex(n =>
+			n.includes(TheoryEngine.normalizeNote(notesToPlay[0]))
+		);
+		let octaveOffset = 0;
+		const baseFreq = 261.63;
+
+		for (let i = 0; i < notesToPlay.length; i++) {
+			const noteName = notesToPlay[i];
+			console.log(noteName);
+			const allNoteWrapped = TheoryEngine.all_notes;
+			// put scale root note at the start of the array for easier indexing
+			while (!allNoteWrapped[0].includes(TheoryEngine.normalizeNote(noteName))) {
+				allNoteWrapped.push(allNoteWrapped.shift());
+			}
+			let currentSemitone = allNoteWrapped.findIndex(n =>
+				n.includes(TheoryEngine.normalizeNote(noteName))
+			);
+
+			if (i > 0 && currentSemitone <= lastSemitone) {
+				octaveOffset++;
+			}
+
+			const freq = baseFreq * Math.pow(2, octaveOffset) * Math.pow(2, currentSemitone / 12);
+
+			AudioManager.playNoteWithDuration(freq, 0.4);
+			lastSemitone = currentSemitone;
+
+			await new Promise(resolve => setTimeout(resolve, 500));
 		}
 	});
 });

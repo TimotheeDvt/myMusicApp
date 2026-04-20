@@ -60,13 +60,17 @@
                 <div class="card card-fund" style="grid-area: c;">
                     <h3>Enharmonic Equivalents</h3>
                     <p>Different names for the same note:</p>
-                    <ul class="scale-formula">
-                        <li class="enharmonic-li" data-note="C#">C# = Db</li>
-                        <li class="enharmonic-li" data-note="D#">D# = Eb</li>
-                        <li class="enharmonic-li" data-note="F#">F# = Gb</li>
-                        <li class="enharmonic-li" data-note="G#">G# = Ab</li>
-                        <li class="enharmonic-li" data-note="A#">A# = Bb</li>
-                    </ul>
+                    <div class="list-grid">
+                        <ul class="scale-formula">
+                            <li class="enharmonic-li" data-note="C#">C# = Db</li>
+                            <li class="enharmonic-li" data-note="D#">D# = Eb</li>
+                            <li class="enharmonic-li" data-note="F#">F# = Gb</li>
+                        </ul>
+                        <ul class="scale-formula">
+                            <li class="enharmonic-li" data-note="G#">G# = Ab</li>
+                            <li class="enharmonic-li" data-note="A#">A# = Bb</li>
+                        </ul>
+                    </div>
                     <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Same pitch, different context!</p>
                 </div>
 
@@ -74,22 +78,25 @@
                 <div class="card card-fund" style="grid-area: d;">
                     <h3>Intervals</h3>
                     <p>The distance between two notes:</p>
-                    <ul class="interval-list">
-                        <li class="interval-li" data-semitones="0"><span class="interval-name">Unisson (P1)</span><span>0 semitone</span></li>
-                        <li class="interval-li" data-semitones="1"><span class="interval-name">Minor 2nd (m2)</span><span>1 semitone</span></li>
-                        <li class="interval-li" data-semitones="2"><span class="interval-name">Major 2nd (M2)</span><span>2 semitones</span></li>
-                        <li class="interval-li" data-semitones="3"><span class="interval-name">Minor 3rd (m3)</span><span>3 semitones</span></li>
-                        <li class="interval-li" data-semitones="4"><span class="interval-name">Major 3rd (M3)</span><span>4 semitones</span></li>
-                        <li class="interval-li" data-semitones="5"><span class="interval-name">Perfect 4th (P4)</span><span>5 semitones</span></li>
-                        <li class="interval-li" data-semitones="6"><span class="interval-name">Tritone (TT)</span><span>6 semitones</span></li>
-                        <li class="interval-li" data-semitones="7"><span class="interval-name">Perfect 5th (P5)</span><span>7 semitones</span></li>
-                        <li class="interval-li" data-semitones="8"><span class="interval-name">Minor 6th (m6)</span><span>8 semitones</span></li>
-                        <li class="interval-li" data-semitones="9"><span class="interval-name">Major 6th (M6)</span><span>9 semitones</span></li>
-                        <li class="interval-li" data-semitones="10"><span class="interval-name">Minor 7th (m7)</span><span>10 semitones</span></li>
-                        <li class="interval-li" data-semitones="11"><span class="interval-name">Major 7th (M7)</span><span>11 semitones</span></li>
-                        <li class="interval-li" data-semitones="12"><span class="interval-name">Octave (P8)</span><span>12 semitones</span></li>
-                    </ul>
-
+                    <li id="interval-unisson" class="interval-li" data-semitones="0"><span class="interval-name">Unisson (P1)</span><span>0 semitone</span></li>
+                    <div class="list-grid">
+                        <ul class="interval-list">
+                            <li class="interval-li" data-semitones="1"><span class="interval-name">Minor 2nd (m2)</span><span>1 semitone</span></li>
+                            <li class="interval-li" data-semitones="2"><span class="interval-name">Major 2nd (M2)</span><span>2 semitones</span></li>
+                            <li class="interval-li" data-semitones="3"><span class="interval-name">Minor 3rd (m3)</span><span>3 semitones</span></li>
+                            <li class="interval-li" data-semitones="4"><span class="interval-name">Major 3rd (M3)</span><span>4 semitones</span></li>
+                            <li class="interval-li" data-semitones="5"><span class="interval-name">Perfect 4th (P4)</span><span>5 semitones</span></li>
+                            <li class="interval-li" data-semitones="6"><span class="interval-name">Tritone (TT)</span><span>6 semitones</span></li>
+                        </ul>
+                        <ul class="interval-list">
+                            <li class="interval-li" data-semitones="7"><span class="interval-name">Perfect 5th (P5)</span><span>7 semitones</span></li>
+                            <li class="interval-li" data-semitones="8"><span class="interval-name">Minor 6th (m6)</span><span>8 semitones</span></li>
+                            <li class="interval-li" data-semitones="9"><span class="interval-name">Major 6th (M6)</span><span>9 semitones</span></li>
+                            <li class="interval-li" data-semitones="10"><span class="interval-name">Minor 7th (m7)</span><span>10 semitones</span></li>
+                            <li class="interval-li" data-semitones="11"><span class="interval-name">Major 7th (M7)</span><span>11 semitones</span></li>
+                            <li class="interval-li" data-semitones="12"><span class="interval-name">Octave (P8)</span><span>12 semitones</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
