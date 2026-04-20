@@ -7,18 +7,30 @@ class CustomKeyboard extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.defaultKeys = [
-      { note: 'C', isBlack: false },
-      { note: 'C#', isBlack: true },
-      { note: 'D', isBlack: false },
-      { note: 'D#', isBlack: true },
-      { note: 'E', isBlack: false },
-      { note: 'F', isBlack: false },
-      { note: 'F#', isBlack: true },
-      { note: 'G', isBlack: false },
-      { note: 'G#', isBlack: true },
-      { note: 'A', isBlack: false },
-      { note: 'A#', isBlack: true },
-      { note: 'B', isBlack: false },
+      { note: 'C', type: "white"},
+      { note: 'Chs', type: "grey" },
+      { note: 'C#', type: "black" },
+      { note: 'Dhf', type: "grey" },
+      { note: 'D', type: "white" },
+      { note: 'Dhs', type: "grey" },
+      { note: 'D#', type: "black" },
+      { note: 'Ehf', type: "grey" },
+      { note: 'E', type: "white" },
+      { note: 'Ehs', type: "grey" },
+      { note: 'F', type: "white" },
+      { note: 'Fhs', type: "grey" },
+      { note: 'F#', type: "black" },
+      { note: 'Ghf', type: "grey" },
+      { note: 'G', type: "white" },
+      { note: 'Ghs', type: "grey" },
+      { note: 'G#', type: "black" },
+      { note: 'Ahf', type: "grey" },
+      { note: 'A', type: "white" },
+      { note: 'Ahs', type: "grey" },
+      { note: 'A#', type: "black" },
+      { note: 'Bhf', type: "grey" },
+      { note: 'B', type: "white" },
+      { note: 'Bhs', type: "grey" }
     ];
   }
 
@@ -36,6 +48,7 @@ class CustomKeyboard extends HTMLElement {
     // Read attributes or default values
     const height = this.getAttribute('height') || '70px';
     const width = this.getAttribute('width') || '100%';
+		const is24edo = this.getAttribute('is24edo') || false;
 		const showNames = this.getAttribute('showNames') || false;
     const keysAttr = this.getAttribute('keys')
 												 .replace(" - ", " ")
@@ -94,7 +107,22 @@ class CustomKeyboard extends HTMLElement {
         }
         .black-key {
           position: absolute;
-          width: calc(${width} / ${this.defaultKeys.filter(k => !k.isBlack).length} * 0.6);
+          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6);
+          height: 60%;
+          background: linear-gradient(to bottom, #333, #000);
+          border-radius: 0 0 4px 4px;
+          border: 1px solid #222;
+          box-shadow:
+            inset 0 1px 2px rgba(255,255,255,0.2),
+            0 2px 5px rgba(0,0,0,0.6);
+          z-index: 2;
+          cursor: pointer;
+          top: 0;
+          transition: background-color 0.3s;
+        }
+        .grey-key {
+          position: absolute;
+          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "grey").length} * 0.6);
           height: 60%;
           background: linear-gradient(to bottom, #333, #000);
           border-radius: 0 0 4px 4px;
@@ -124,7 +152,6 @@ class CustomKeyboard extends HTMLElement {
       </style>
     `;
 
-    const whiteKeyCount = this.defaultKeys.filter(k => !k.isBlack).length;
     const blackKeyOffsets = {
       'C#': 0.65,
       'D#': 1.65,
@@ -133,9 +160,11 @@ class CustomKeyboard extends HTMLElement {
       'A#': 5.65
     };
 
+    const whiteKeyCount = this.defaultKeys.filter(k => k.type == "white").length;
+
     // Construct white keys html
     const whiteKeysHtml = this.defaultKeys
-      .filter(k => !k.isBlack)
+      .filter(k => k.type == "white")
       .map(k => {
         const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
         return `<div class="white-key ${highlightClass}" data-note="${k.note}">${showNames ? k.note : ''}</div>`;
@@ -143,8 +172,9 @@ class CustomKeyboard extends HTMLElement {
 
     // Construct black keys html
     const blackKeysHtml = this.defaultKeys
-      .filter(k => k.isBlack && blackKeyOffsets.hasOwnProperty(k.note))
+      .filter(k => k.type == "black" && blackKeyOffsets.hasOwnProperty(k.note))
       .map(k => {
+        console.log(k)
         const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
         const leftPercent = (blackKeyOffsets[k.note] / whiteKeyCount) * 100;
         return `<div class="black-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${showNames ? k.note : ''}"></div>`;

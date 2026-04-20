@@ -1,18 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Theory Mindmap</title>
+    <title>24-EDO Theory Hub</title>
     <link rel="stylesheet" href="../../css/master-style.css">
+    <link rel="stylesheet" href="../theory_mindmap/style.css">
+    <script src="../../js/core/theory-engine.js"></script>
+    <script src="../../js/core/audio-manager.js"></script>
+    <script src="../../js/components/keyboard.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="../../js/components/main-nav.js" defer></script>
-</head>
+    <script src="../../js/components/main-nav.js"></script>
+    <script>
+        // Tab switching logic local to 24-EDO
+        function showTab(tabId) {
+            console.log(tabId)
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
 
+            const url = new URL(window.location);
+            url.searchParams.set('page', tabId);
+            window.history.pushState({}, '', url);
+        }
+    </script>
+</head>
 <body>
     <main-nav active-tab="24edo" root-path="../../"></main-nav>
-    <h1 style="text-align: center;">NOT YET IMPLEMENTED</h1>
-</body>
 
+    <div class="container">
+        <h1>24-EDO (Quarter-Tones)</h1>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" id="intervals-btn" onclick="showTab('intervals')">Intervals</button>
+            <button class="tab-btn" id="chords-btn" onclick="showTab('chords')">New Chords</button>
+            <button class="tab-btn" id="scales-btn" onclick="showTab('scales')">Micro-Scales</button>
+        </div>
+
+        <div id="intervals" class="tab-content active">
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Tone Sizes</h3>
+                    <p>24-EDO introduces three new tone sizes beyond the semitone (100c) and whole tone (200c).</p>
+                    <ul class="interval-list">
+                        <li><strong>Quarter Tone (50c):</strong> Smallest size. Highly dissonant, "beating" sound.</li>
+                        <li><strong>Neutral Tone (150c):</strong> Between a semitone and whole tone. Used in Arabic and Persian music.</li>
+                        <li><strong>Wide Tone (250c):</strong> A metallic, "moody" whole tone.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>24-EDO Interval Categories</h3>
+                    <p>Intervals follow a 5-step classification:</p>
+                    <div class="progression-box">
+                        <div class="chord-box">Infra</div>
+                        <div class="chord-box">Minor</div>
+                        <div class="chord-box">Neutral</div>
+                        <div class="chord-box">Major</div>
+                        <div class="chord-box">Ultra</div>
+                    </div>
+                    <ul class="scale-formula">
+                        <li><strong>Neutral Third (350c):</strong> Approx. 11/9. Right between major and minor.</li>
+                        <li><strong>Wide Fourth (550c):</strong> Approx. 11/8 (11th harmonic).</li>
+                        <li><strong>Narrow Fifth (650c):</strong> Approx. 16/11. Often called the "Wolf Fifth".</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="chords" class="tab-content">
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3>Neutral Triads</h3>
+                    <p>Built using neutral thirds (350c).</p>
+                    <ul class="chord-formula">
+                        <li><strong>Neutral Triad:</strong> 0 - 7 - 14 (Root - Neutral 3rd - Perfect 5th).</li>
+                        <custom-keyboard height="50px" width="200px" keys="C - Ehs - G" is24edo=false></custom-keyboard>
+                        <li><strong>Neutral Tetrad:</strong> 0 - 7 - 14 - 21 (Adds neutral 7th).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Triad Alterations</h3>
+                    <ul class="interval-list">
+                        <li><strong>Ultra Triad (Upmajor):</strong> 0 - 9 - 14 (uses Ultra Third 450c).</li>
+                        <li><strong>Infra Triad (Downminor):</strong> 0 - 5 - 14 (uses Infra Third 250c).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Harmonic Approximations</h3>
+                    <p>24-EDO is excellent at approximating the 11th harmonic (11/8).</p>
+                    <p><strong>Super-extended Major:</strong> 4:5:6:9:11:13 structure.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="scales" class="tab-content">
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Traditional Microtonal Scales</h3>
+                    <ul class="scale-formula">
+                        <li><strong>Maqam Rast:</strong> 4 - 3 - 3 - 4 - 4 - 3 - 3 (steps in 24-edo).</li>
+                        <li><strong>Maqam Bayati:</strong> 3 - 3 - 4 - 4 - 2 - 1 - 3 - 4.</li>
+                        <li><strong>Maqam Saba:</strong> 3 - 3 - 2 - 6 - 2 - 4 - 4.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>New Pentatonics</h3>
+                    <ul class="interval-list">
+                        <li><strong>Godzilla:</strong> 0 - 5 - 10 - 14 - 19 - 24 (Equi-pentatonic approx.).</li>
+                        <li><strong>Mohajira:</strong> 0 - 4 - 7 - 11 - 14 - 18 - 21 - 24 (Arabic-style heptatonic).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
 </html>
