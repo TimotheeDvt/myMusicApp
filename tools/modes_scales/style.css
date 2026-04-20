@@ -75,7 +75,6 @@ tbody {
 td, th {
     border: 1px solid var(--text-white);
     padding: 10px 15px;
-    background: var(--glass);
     font-size: 0.9rem;
     white-space: nowrap;
 }
