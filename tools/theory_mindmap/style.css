@@ -101,10 +101,15 @@ h1{
 		"a c c";
 }
 .grid-4 {
-  position: relative;
-	grid-template-areas:
-		"a a a a a d"
-		"c b b b b d";
+    position: relative;
+    display: grid;
+    /* On définit 2 colonnes : la première prend 1 part, la deuxième 1.5 part */
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-areas:
+        "a d"
+        "b d"
+        "c d";
+    gap: 20px;
 }
 .grid-5 {
 	grid-template-areas:
@@ -161,27 +166,64 @@ h1{
 
 .interval-list li, #interval-unisson {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 1fr 0.5fr 1fr; /* On retire la colonne du début pour le code */
   gap: 12px;
+  position: relative; /* CRUCIAL : devient la référence pour le positionnement absolu */
 }
 
-#interval-unisson {
-  width: calc(50% - 10px);
-  margin-bottom: 0px;
+/* Le conteneur parent devient une grille à 2 colonnes */
+.interval-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Deux colonnes égales */
+    gap: 10px 20px; /* Espace vertical de 10px, horizontal de 20px */
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
 }
 
-.list-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+/* On s'assure que chaque item occupe bien sa ligne */
+.interval-grid-container li {
+    margin: 0; /* On gère l'espacement via le gap du parent */
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1fr;
+    gap: 12px;
+    position: relative;
+    align-items: center;
+    min-height: 80px; /* Optionnel : force une hauteur minimale identique pour tous */
 }
 
-.interval-list-2, .chord-formula, .scale-formula{
+.interval-list li > span:first-child {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 0.75em;
+  font-weight: 800;
+  color: var(--accent-blue); /* Optionnel : pour le faire ressortir */
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.scale-formula-enharmonic {
+  list-style:none;
+  /* padding:10px 0; */
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  justify-content: space-around;
+}
+
+.interval-grid-container li {
+  position: relative;
+}
+
+.interval-list-2, .chord-formula, .scale-formula {
   list-style:none;
   padding:10px 0;
 }
 
-.interval-list-2 li, .chord-formula li, .scale-formula li{
+.interval-list-2 li, .chord-formula li, .scale-formula li, .scale-formula-enharmonic li{
   padding:10px;
   margin:8px 0;
   background: rgba(255,255,255,0.02);
@@ -192,7 +234,7 @@ h1{
 	cursor: default;
 }
 
-.interval-list-2 li:hover span, .scale-formula li:hover {
+.interval-list-2 li:hover span, .scale-formula li:hover, .scale-formula-enharmonic li:hover {
 	color: var(--accent-blue);
 	border-color: var(--cool-blue);
 	cursor: pointer;

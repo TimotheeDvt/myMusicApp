@@ -8,30 +8,30 @@ class CustomKeyboard extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.defaultKeys = [
       { note: 'C', type: "white" },
-      { note: 'Chs', type: "grey" },
+      { note: 'C^', type: "grey" },
       { note: 'C#', type: "black" },
-      { note: 'Dhf', type: "grey" },
+      { note: 'Dv', type: "grey" },
       { note: 'D', type: "white" },
-      { note: 'Dhs', type: "grey" },
+      { note: 'D^', type: "grey" },
       { note: 'D#', type: "black" },
-      { note: 'Ehf', type: "grey" },
+      { note: 'Ev', type: "grey" },
       { note: 'E', type: "white" },
-      { note: 'Ehs', type: "grey" },
+      { note: 'E^', type: "grey" },
       { note: 'F', type: "white" },
-      { note: 'Fhs', type: "grey" },
+      { note: 'F^', type: "grey" },
       { note: 'F#', type: "black" },
-      { note: 'Ghf', type: "grey" },
+      { note: 'Gv', type: "grey" },
       { note: 'G', type: "white" },
-      { note: 'Ghs', type: "grey" },
+      { note: 'G^', type: "grey" },
       { note: 'G#', type: "black" },
-      { note: 'Ahf', type: "grey" },
+      { note: 'Av', type: "grey" },
       { note: 'A', type: "white" },
-      { note: 'Ahs', type: "grey" },
+      { note: 'A^', type: "grey" },
       { note: 'A#', type: "black" },
-      { note: 'Bhf', type: "grey" },
+      { note: 'Bv', type: "grey" },
       { note: 'B', type: "white" },
-      { note: 'Bhs', type: "grey" },
-      { note: 'Chf', type: "grey" }
+      { note: 'B^', type: "grey" },
+      { note: 'Cv', type: "grey" }
     ];
   }
 
@@ -57,8 +57,7 @@ class CustomKeyboard extends HTMLElement {
       .replace("Eb", "D#")
       .replace("Gb", "F#")
       .replace("Ab", "G#")
-      .replace("Bb", "A#")
-      .replace("Dhb", "Dhf")
+      .replace("Bb", "A#");
     let keysToHighlight = [];
 
     if (keysAttr) {
@@ -205,19 +204,19 @@ class CustomKeyboard extends HTMLElement {
     let greyKeysHtml = '';
     if (is24edo) {
       const greyKeyOffsets = {
-        'Chs': 0.55,
-        'Dhf': 1,
-        'Dhs': 1.55,
-        'Ehf': 2,
-        'Ehs': 2.8,
-        'Fhs': 3.55,
-        'Ghf':4,
-        'Ghs': 4.55,
-        'Ahf': 5,
-        'Ahs': 5.55,
-        'Bhf': 6,
-        'Bhs': 6.8,
-        'Chf': 0,
+        'C^': 0.55,
+        'Dv': 1,
+        'D^': 1.55,
+        'Ev': 2,
+        'E^': 2.8,
+        'F^': 3.55,
+        'Gv':4,
+        'G^': 4.55,
+        'Av': 5,
+        'A^': 5.55,
+        'Bv': 6,
+        'B^': 6.8,
+        'Cv': 0,
       }
       greyKeysHtml = this.defaultKeys
         .filter(k => k.type == "grey" && greyKeyOffsets.hasOwnProperty(k.note))

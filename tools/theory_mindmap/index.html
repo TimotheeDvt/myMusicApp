@@ -55,50 +55,106 @@
                         <li class="scale-li" data-scale="chromatic">C - C<sup>#</sup> - D - D<sup>#</sup> - E - F - F<sup>#</sup> - G - G<sup>#</sup> - A - A<sup>#</sup> - B</li>
                         <li class="scale-li" data-scale="chromatic">C - D<sup>b</sup> - D - E<sup>b</sup> - E - F - G<sup>b</sup> - G - A<sup>b</sup> - A - B<sup>b</sup> - B</li>
                     </ul>
-                    <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Each note is one half-step apart</p>
                 </div>
 
                 <!-- Enharmonic Equivalents -->
                 <div class="card card-fund" style="grid-area: c;">
-                    <h3>Enharmonic Equivalents</h3>
+                    <span style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                        <h3>Enharmonic Equivalents</h3>
+                        <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Same pitch, different context!</p>
+                    </span>
                     <p>Different names for the same note:</p>
-                    <div class="list-grid">
-                        <ul class="scale-formula">
-                            <li class="enharmonic-li" data-note="C#">C<sup>#</sup> = D<sup>b</sup></li>
-                            <li class="enharmonic-li" data-note="D#">D<sup>#</sup> = E<sup>b</sup></li>
-                            <li class="enharmonic-li" data-note="F#">F<sup>#</sup> = G<sup>b</sup></li>
-                        </ul>
-                        <ul class="scale-formula">
-                            <li class="enharmonic-li" data-note="G#">G<sup>#</sup> = A<sup>b</sup></li>
-                            <li class="enharmonic-li" data-note="A#">A<sup>#</sup> = B<sup>b</sup></li>
-                        </ul>
-                    </div>
-                    <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Same pitch, different context!</p>
+                    <ul class="scale-formula-enharmonic">
+                        <li class="enharmonic-li" data-note="C#">C<sup>#</sup> = D<sup>b</sup></li>
+                        <li class="enharmonic-li" data-note="D#">D<sup>#</sup> = E<sup>b</sup></li>
+                        <li class="enharmonic-li" data-note="F#">F<sup>#</sup> = G<sup>b</sup></li>
+                        <li class="enharmonic-li" data-note="G#">G<sup>#</sup> = A<sup>b</sup></li>
+                        <li class="enharmonic-li" data-note="A#">A<sup>#</sup> = B<sup>b</sup></li>
+                    </ul>
                 </div>
 
                 <!-- Intervals -->
                 <div class="card card-fund" style="grid-area: d;">
                     <h3>Intervals</h3>
                     <p>The distance between two notes:</p>
-                    <li id="interval-unisson" class="interval-li" data-semitones="0"><span class="interval-name">Unisson (P1)</span><span>0 semitone</span></li>
-                    <div class="list-grid">
-                        <ul class="interval-list">
-                            <li class="interval-li" data-semitones="1"><span class="interval-name">Minor 2nd (m2)</span><span>1 semitone</span></li>
-                            <li class="interval-li" data-semitones="2"><span class="interval-name">Major 2nd (M2)</span><span>2 semitones</span></li>
-                            <li class="interval-li" data-semitones="3"><span class="interval-name">Minor 3rd (m3)</span><span>3 semitones</span></li>
-                            <li class="interval-li" data-semitones="4"><span class="interval-name">Major 3rd (M3)</span><span>4 semitones</span></li>
-                            <li class="interval-li" data-semitones="5"><span class="interval-name">Perfect 4th (P4)</span><span>5 semitones</span></li>
-                            <li class="interval-li" data-semitones="6"><span class="interval-name">Tritone (TT)</span><span>6 semitones</span></li>
-                        </ul>
-                        <ul class="interval-list">
-                            <li class="interval-li" data-semitones="7"><span class="interval-name">Perfect 5th (P5)</span><span>7 semitones</span></li>
-                            <li class="interval-li" data-semitones="8"><span class="interval-name">Minor 6th (m6)</span><span>8 semitones</span></li>
-                            <li class="interval-li" data-semitones="9"><span class="interval-name">Major 6th (M6)</span><span>9 semitones</span></li>
-                            <li class="interval-li" data-semitones="10"><span class="interval-name">Minor 7th (m7)</span><span>10 semitones</span></li>
-                            <li class="interval-li" data-semitones="11"><span class="interval-name">Major 7th (M7)</span><span>11 semitones</span></li>
-                            <li class="interval-li" data-semitones="12"><span class="interval-name">Octave (P8)</span><span>12 semitones</span></li>
-                        </ul>
-                    </div>
+                    <ul class="interval-list interval-grid-container">
+                        <li class="interval-li" data-semitones="0">
+                            <span>P1</span>
+                            <span class="interval-name">Unisson</span>
+                            <span>0 ½ tone</span>
+                        </li>
+                        <li class="interval-li" data-semitones="1">
+                            <span>m2</span>
+                            <span class="interval-name">Minor 2nd</span>
+                            <span>½ tone</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - C#"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="2">
+                            <span>M2</span>
+                            <span class="interval-name">Major 2nd</span>
+                            <span>2 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - D"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="3">
+                            <span>m3</span>
+                            <span class="interval-name">Minor 3rd</span>
+                            <span>3 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - D#"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="4">
+                            <span>M3</span>
+                            <span class="interval-name">Major 3rd</span>
+                            <span>4 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - E"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="5">
+                            <span>P4</span>
+                            <span class="interval-name">Perfect 4th</span>
+                            <span>5 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - F"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="6">
+                            <span>TT</span>
+                            <span class="interval-name">Tritone</span>
+                            <span>6 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - F#"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="7">
+                            <span>P5</span>
+                            <span class="interval-name">Perfect 5th</span>
+                            <span>7 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - G"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="8">
+                            <span>m6</span>
+                            <span class="interval-name">Minor 6th</span>
+                            <span>8 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - G#"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="9">
+                            <span>M6</span>
+                            <span class="interval-name">Major 6th</span>
+                            <span>9 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - A"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="10">
+                            <span>m7</span>
+                            <span class="interval-name">Minor 7th </span>
+                            <span>10 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - A#"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="11">
+                            <span>M7</span>
+                            <span class="interval-name">Major 7th</span>
+                            <span>11 ½ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - B"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="12">
+                            <span>P8</span>
+                            <span class="interval-name">Octave</span>
+                            <span>12 ½ tones</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
