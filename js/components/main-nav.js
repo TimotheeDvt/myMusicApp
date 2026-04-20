@@ -51,8 +51,9 @@ class MainNav extends HTMLElement {
             }
         </style>
         <nav class="main-nav">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <div class="nav-container">
-                <a href="${root}index.html" class="nav-btn ${activeTab === 'home' ? 'active' : ''}">🏠</a>
+                <a href="${root}index.html" class="nav-btn ${activeTab === 'home' ? 'active' : ''}"><i class="fa fa-home"></i></a>
                 <a href="${root}tools/harmonic_interface/index.html" class="nav-btn ${activeTab === 'harmonic' ? 'active' : ''}">Harmonic Interface</a>
                 <a href="${root}tools/modes_scales/index.html" class="nav-btn ${activeTab === 'modes' ? 'active' : ''}">Modes & Gammes</a>
                 <a href="${root}tools/theory_mindmap/index.html" class="nav-btn ${activeTab === 'mindmap' ? 'active' : ''}">Mindmap Théorie</a>
