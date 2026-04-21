@@ -11,7 +11,7 @@ const AudioManager = {
         audioContext: null,
         masterGain: null,
         activeVoices: {},
-        maxVoices: 10,
+        maxVoices: 12,
         attackTime: 0.02,
         releaseTime: 0.05
     },
@@ -52,11 +52,18 @@ const AudioManager = {
      * Plays a frequency using a Sine oscillator with an ADSR envelope.
      * Includes the original lowpass filter and compressor chain.
      */
-    playNote(frequency, type = 'sine') {
+    playNote(frequency, type = 'sine', velocity = 100) {
         if (!this.state.audioContext) this.init();
+
+        // Safety check: ensure frequency is valid and not already playing
         if (!Number.isFinite(frequency) || this.state.activeVoices[frequency]) return;
 
         const now = this.state.audioContext.currentTime;
+
+        // 1. Convert MIDI Velocity (0-127) to Gain (0.0-1.0)
+        // We use a linear mapping here, but a logarithmic one often feels more "natural"
+        const normalizedVelocity = velocity / 127;
+        const peakGain = normalizedVelocity * 0.3; // 0.3 is a safe max to prevent clipping
 
         // Voice stealing logic
         if (Object.keys(this.state.activeVoices).length >= this.state.maxVoices) {
@@ -70,22 +77,33 @@ const AudioManager = {
 
         const gainNode = this.state.audioContext.createGain();
         gainNode.gain.setValueAtTime(0, now);
-        gainNode.gain.linearRampToValueAtTime(0.2, now + this.state.attackTime);
+
+        // 2. Apply velocity to the Attack ramp
+        gainNode.gain.linearRampToValueAtTime(peakGain, now + this.state.attackTime);
 
         // Chain: Osc -> Gain -> Filter -> Compressor -> Master
         const filter = this.state.audioContext.createBiquadFilter();
         filter.type = "lowpass";
-        filter.frequency.setValueAtTime(8000, now);
+        // Optional: Make the filter velocity-sensitive (louder notes are brighter)
+        const filterFreq = 2000 + (6000 * normalizedVelocity);
+        filter.frequency.setValueAtTime(filterFreq, now);
 
         const compressor = this.state.audioContext.createDynamicsCompressor();
 
         osc.connect(gainNode);
         gainNode.connect(filter);
         filter.connect(compressor);
-        compressor.connect(this.state.masterGain);
+        filter.connect(this.state.masterGain); // Direct to master if compressor is internal
 
         osc.start(now);
-        this.state.activeVoices[frequency] = { osc, gain: gainNode };
+
+        // Store metadata so stopNote knows how to handle the release
+        this.state.activeVoices[frequency] = {
+            osc,
+            gain: gainNode,
+            velocity: velocity
+        };
+
         this.updateMasterGain();
     },
 

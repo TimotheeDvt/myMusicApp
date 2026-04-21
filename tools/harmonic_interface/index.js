@@ -54,8 +54,8 @@ function stopAllNotes() {
 	AudioManager.stopAll();
 }
 
-function playNote(frequency) {
-	AudioManager.playNote(frequency, state.type);
+function playNote(frequency, velocity) {
+	AudioManager.playNote(frequency, state.type, velocity);
 	drawPlayingNotes();
 }
 
@@ -129,7 +129,7 @@ function drawMainCircle() {
 function drawAllNotes() {
 	const frequencies = calculateNoteFrequencies();
 	const positions = calculateNotePositions();
-	state.notes = positions.map((pos, i) => ({ ...pos, frequency: frequencies[i], index: i }));
+	state.notes = positions.map((pos, i) => ({ ...pos, frequency: frequencies[i], index: i, velocity: 0 }));
 }
 
 function fillTable() {
@@ -205,31 +205,107 @@ function drawPlayingNotes() {
 	drawMainCircle();
 	writeIndexes();
 
-	let playingNotes = Object.keys(AudioManager.state.activeVoices).map(frequency => {
-		return notes.find(note => Math.abs(note.frequency - frequency) < 0.01);
+	let playingNotes = Object.keys(AudioManager.state.activeVoices).map(freqStr => {
+		const activeFreq = parseFloat(freqStr);
+
+		return notes.find(note => {
+			const semitoneDistance = CONFIG.subdivisions * Math.log2(activeFreq / note.frequency);
+
+			const octaveOffset = Math.abs((semitoneDistance % CONFIG.subdivisions + CONFIG.subdivisions) % CONFIG.subdivisions);
+
+			return octaveOffset < 0.01 || octaveOffset > CONFIG.subdivisions - 0.01;
+		});
 	}).filter(n => n);
 
 	if (playingNotes.length >= 1) {
 		playingNotes.sort((a, b) => a.index - b.index);
-		ctx.beginPath();
-		ctx.strokeStyle = COLORS.blue;
-		ctx.lineWidth = 2;
-		ctx.lineJoin = 'round';
+
 		playingNotes.forEach((note, i) => {
-			if (i === 0) ctx.moveTo(note.x, note.y);
-			else ctx.lineTo(note.x, note.y);
-			ctx.arc(note.x, note.y, 0.09, 0, Math.PI * 2);
+			ctx.beginPath();
+			ctx.fillStyle = COLORS.red
+			ctx.arc(note.x, note.y, 1, 0, Math.PI * 2);
+			ctx.fill();
+
+			let nextNote;
+			if (i < playingNotes.length - 1) {
+				nextNote = playingNotes[i + 1];
+			} else if (playingNotes.length > 2) {
+				nextNote = playingNotes[0]; // Loop back
+			}
+
+			if (nextNote) {
+				drawVariableLine(ctx, note, nextNote);
+			}
 		});
-		if (playingNotes.length > 2) ctx.closePath();
-		ctx.stroke();
 	}
 
 	notes.forEach(note => {
 		const cell = document.querySelector(`td[data-index="${note.index}"]`);
-		if (cell && AudioManager.state.activeVoices[note.frequency]) {
-			cell.style.backgroundColor = COLORS.red;
+		if (!cell) return;
+
+		const noteMidi = CONFIG.subdivisions * Math.log2(note.frequency / CONFIG.startFreq) + 69;
+		const notePitchClass = (noteMidi % CONFIG.subdivisions + CONFIG.subdivisions) % CONFIG.subdivisions;
+
+		const activeFreqKey = Object.keys(AudioManager.state.activeVoices).find(freqStr => {
+			const f = parseFloat(freqStr);
+			const activeMidi = CONFIG.subdivisions * Math.log2(f / CONFIG.startFreq) + 69;
+			const activePC = (activeMidi % CONFIG.subdivisions + CONFIG.subdivisions) % CONFIG.subdivisions;
+			return Math.abs(activePC - notePitchClass) < 0.01;
+		});
+
+		if (activeFreqKey) {
+			const velocity = AudioManager.state.activeVoices[activeFreqKey].velocity || 100;
+			note.velocity = velocity;
+			cell.style.backgroundColor = "#FE5658" + velocityToHexOpacity(velocity);
+		} else {
+			cell.style.backgroundColor = "";
 		}
 	});
+}
+
+function drawVariableLine(ctx, n1, n2) {
+	const w1 = normalize(n1.velocity || 100, 0, 127, 0.3, 2) / 2;
+	const w2 = normalize(n2.velocity || 100, 0, 127, 0.3, 2) / 2;
+
+	const dx = n2.x - n1.x;
+	const dy = n2.y - n1.y;
+	const angle = Math.atan2(dy, dx);
+
+	const sinA = Math.sin(angle);
+	const cosA = Math.cos(angle);
+
+	const p1x = n1.x + w1 * sinA;
+	const p1y = n1.y - w1 * cosA;
+	const p2x = n1.x - w1 * sinA;
+	const p2y = n1.y + w1 * cosA;
+
+	const p3x = n2.x - w2 * sinA;
+	const p3y = n2.y + w2 * cosA;
+	const p4x = n2.x + w2 * sinA;
+	const p4y = n2.y - w2 * cosA;
+
+	ctx.beginPath();
+	ctx.moveTo(p1x, p1y);
+	ctx.lineTo(p2x, p2y);
+	ctx.lineTo(p3x, p3y);
+	ctx.lineTo(p4x, p4y);
+	ctx.closePath();
+
+	ctx.fillStyle = COLORS.red;
+	ctx.fill();
+}
+
+function normalize(value, min, max, newMin, newMax) {
+	return ((value - min) * (newMax - newMin)) / (max - min) + newMin;
+}
+
+function velocityToHexOpacity(velocity) {
+	const maxVelocity = 127; // MIDI max velocity
+	const minOpacity = 0.3;
+	const maxOpacity = 1;
+	const opacity = normalize(velocity, 0, maxVelocity, minOpacity, maxOpacity);
+	const hexOpacity = Math.round(opacity * 255).toString(16).padStart(2, '0');
+	return hexOpacity;
 }
 
 function writeIndexes() {
@@ -244,7 +320,16 @@ function writeIndexes() {
 
 	notes.forEach((note, i) => {
 		const isActive = AudioManager.state.activeVoices[note.frequency];
-		ctx.fillStyle = ctx.strokeStyle = isActive ? COLORS.blue : COLORS.white;
+		const noteMidi = CONFIG.subdivisions * Math.log2(note.frequency / CONFIG.startFreq) + 69;
+		const notePitchClass = (noteMidi % CONFIG.subdivisions + CONFIG.subdivisions) % CONFIG.subdivisions;
+		const activeFreqKey = Object.keys(AudioManager.state.activeVoices).find(freqStr => {
+			const f = parseFloat(freqStr);
+			const activeMidi = CONFIG.subdivisions * Math.log2(f / CONFIG.startFreq) + 69;
+			const activePC = (activeMidi % CONFIG.subdivisions + CONFIG.subdivisions) % CONFIG.subdivisions;
+			return Math.abs(activePC - notePitchClass) < 0.01;
+		});
+		console.log(activeFreqKey)
+		ctx.fillStyle = ctx.strokeStyle = activeFreqKey ? COLORS.blue : COLORS.white;
 		ctx.fillText(note.index, newPos[i].x, newPos[i].y);
 		ctx.strokeText(note.index, newPos[i].x, newPos[i].y);
 	});
@@ -356,11 +441,6 @@ function calculate_key_to_index() {
 	for (let i = 0; i < keys.length; i++) {
 		key_to_index[keys[i]] = i % (CONFIG.subdivisions);
 	}
-}
-
-function keyToFrequency(key) {
-	const index = key_to_index[key.toUpperCase()];
-	return index !== undefined ? state.notes[index].frequency : null;
 }
 
 function toggleFooterAndInfos() {
@@ -546,16 +626,32 @@ function handleInput(event) {
 	const freq = noteToFreq(note);
 	if (freq == null) return;
 	if (command >= 144 && command <= 159) { // Note On event
-		if (velocity > 0) playNote(freq);
+		if (velocity > 0) playNote(freq, velocity);
 		else noteOff(freq); // Note Off with velocity zero
 	} else if (command >= 128 && command <= 143) { // Note Off event
 		noteOff(freq);
 	}
 }
 
-// Convert a MIDI note to a key name
-function noteToFreq(note) {
-	const key = note - 57;
-	if (key < 0) return null;
-	return keyToFrequency(letters[state.layout][key % CONFIG.subdivisions] || "");
+// Convert a MIDI note (0-127) to a functional frequency
+function noteToFreq(midiNote) {
+	if (midiNote < 0 || midiNote > 127) return null;
+
+	const frequency = 440 * Math.pow(2, (midiNote - 69) / CONFIG.subdivisions);
+	let degree = (midiNote - 69) % CONFIG.subdivisions;
+
+	if (degree < 0) degree += CONFIG.subdivisions;
+	else if (degree == -0) degree = 0;
+
+	return frequency;
+}
+
+function keyToFrequency(key) {
+	if (!key) return null;
+	const cleanKey = key.toUpperCase().trim();
+	const index = key_to_index[cleanKey];
+
+	return (index !== undefined && state.notes[index])
+		? state.notes[index].frequency
+		: null;
 }
