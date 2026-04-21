@@ -28,11 +28,6 @@ class GuitarFretboard extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 :host { display: block; }
-                canvas {
-                    background: var(--bg-dark, #1C1C1C);
-                    border-radius: 10px;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                }
             </style>
             <canvas id="fretboard" width="${width}" height="${height}"></canvas>
         `;
