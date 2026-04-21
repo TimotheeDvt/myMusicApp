@@ -3,6 +3,7 @@
  */
 
 let currentTuning = "EADGBE";
+let currentStringsCount = 6;
 let checkedNotes = [];
 
 // Standardized mapping to 12 semitones
@@ -20,6 +21,8 @@ const fretToDraw = [ 0, 5, 7, 10, 12 ];
 const notesArr = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
 window.addEventListener('DOMContentLoaded', () => {
+    currentStringsCount = document.getElementById("string-number").value;
+    changeTuning();
     initCheckboxes();
     initModes();
     writeTune();
@@ -63,11 +66,11 @@ function drawGrid(ctx, width, height) {
     const offsetX = 50;
     const offsetY = 20; // To let free space around
 
-    const spaceBetweenStrings = (height - offsetY*0) / (6-0.2);
+    const spaceBetweenStrings = (height - offsetY*0) / (currentStringsCount-0.2);
     const spaceBetweenFrets = (width - offsetX*2) / 15;
 
     // Draw horizontal lines for strings
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < currentStringsCount; i++) {
         const y = offsetY + (spaceBetweenStrings * i);
         ctx.beginPath();
         ctx.moveTo(offsetX, y);
@@ -85,7 +88,7 @@ function drawGrid(ctx, width, height) {
         ctx.fillStyle = gridColor;
         // Draw fret points at the correct positions
         if (fretToDraw.includes(i%12) && i !== 0) {
-            const middleY = offsetY + (spaceBetweenStrings * 5 / 2);
+            const middleY = offsetY + (spaceBetweenStrings * (currentStringsCount - 1) / 2);
             if (i != 12) {
                 ctx.arc(middleX, middleY, 4, 0, Math.PI * 2);
             } else {
@@ -97,7 +100,7 @@ function drawGrid(ctx, width, height) {
             ctx.fill();
         }
         ctx.moveTo(x, offsetY);
-        ctx.lineTo(x, offsetY + (spaceBetweenStrings * 5));
+        ctx.lineTo(x, offsetY + (spaceBetweenStrings * (currentStringsCount - 1)));
         ctx.stroke();
     }
 
@@ -105,7 +108,7 @@ function drawGrid(ctx, width, height) {
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(offsetX, offsetY);
-    ctx.lineTo(offsetX, offsetY + (spaceBetweenStrings * 5));
+    ctx.lineTo(offsetX, offsetY + (spaceBetweenStrings * (currentStringsCount - 1)));
     ctx.stroke();
 }
 
@@ -145,13 +148,13 @@ function drawGuitarNote(note) {
     const canvas = document.getElementById('grid');
     const offsetX = 50;
     const offsetY = 20; // To let free space around
-    const spaceBetweenStrings = (canvas.height - offsetY*0) / (6-0.2);
+    const spaceBetweenStrings = (canvas.height - offsetY*0) / (currentStringsCount-0.2);
     const spaceBetweenFrets = (canvas.width - offsetX*2) / 15;
     const radius = spaceBetweenFrets / 4;
 
 
-    for (let stringIdx = 0; stringIdx < 6; stringIdx++) {
-        let openNoteName = currentTuning[5 - stringIdx];
+    for (let stringIdx = 0; stringIdx < currentStringsCount; stringIdx++) {
+        let openNoteName = currentTuning[(currentStringsCount - 1) - stringIdx];
         let openNote = openNoteName;
         let startIdx = notesArr.indexOf(openNote);
 
@@ -216,7 +219,7 @@ function createBoardDict() {
     for (u = 0; u < notesArr.length; u++) {
         note = notesArr[u];
         c = [];
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < currentStringsCount; i++) {
             stringN = currentTuning[i];
             y = notesArr.indexOf(stringN);
             if (!notesArr.includes(note)) {
@@ -232,10 +235,34 @@ function createBoardDict() {
             };
             c.push(count);
         };
-        notesOnBoardLocal[note] = { 1: c[5], 2: c[4], 3: c[3], 4: c[2], 5: c[1], 6: c[0] };
+        notesOnBoardLocal[note] = {};
+        for (j = 0; j < currentStringsCount; j++) {
+            notesOnBoardLocal[note][currentStringsCount - j] = c[j];
+        }
+        // notesOnBoardLocal[note] = { 1: c[5], 2: c[4], 3: c[3], 4: c[2], 5: c[1], 6: c[0] };
     };
     notesOnBoard = notesOnBoardLocal;
     return notesOnBoardLocal;
+};
+
+// change string count
+function changeStringCount() {
+    const stringCount = document.getElementById('string-number');
+    currentStringsCount = parseInt(stringCount.value);
+    if (currentStringsCount != 6) {
+        if (currentTuning.length < currentStringsCount) {
+            currentTuning = currentTuning + "X".repeat(currentStringsCount - currentTuning.length);
+        } else if (currentTuning.length > currentStringsCount) {
+            currentTuning = currentTuning.slice(0, currentStringsCount);
+        }
+
+        text = document.getElementById("custom-tuning")
+        text.style.visibility = "visible"
+        text.style.display = "block"
+        text.placeholder = currentTuning;
+    }
+    writeTune();
+    updateVisuals();
 };
 
 // change tuning mode (S;AO;TO)
@@ -274,14 +301,13 @@ function onTestChange() {
     document.getElementById("custom-tuning").value = t.toUpperCase()
 
     if (key === 13) {
-        if (t.length == 6) {
+        if (t.length >= currentStringsCount) {
             t = t.toUpperCase()
             currentTuning = t.toUpperCase()
             writeTune()
             return false;
         } else {
-            alert("Seuls les accordages de 6 cordes sont acceptés.")
-            document.getElementById("custom-tuning").value = ""
+            alert("L'accordage attendu doit avoir " + currentStringsCount + " cordes sont acceptés.")
         }
     }
     else {
