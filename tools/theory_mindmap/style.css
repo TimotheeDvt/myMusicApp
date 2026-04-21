@@ -112,9 +112,12 @@ h1{
     gap: 20px;
 }
 .grid-5 {
-	grid-template-areas:
-		"a b"
-		"a c";
+  grid-template-areas: "a";
+  /* Calculate height: 100vh minus navbar and container padding/margins */
+  height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .grid-6 {
 	grid-template-areas:
@@ -128,8 +131,13 @@ h1{
 }
 
 .card-circle {
-	width: auto;
-	height: min-content;
+  /* width: 100%; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 /* lists */
@@ -137,17 +145,17 @@ h1{
   font-size: 1em;
 }
 
-.interval-list, .chord-formula, .scale-formula{
+.interval-list, .chord-formula, .scale-formula, .tips-list{
   list-style:none;
   padding:10px 0;
 }
 
-.interval-list, .scale-formula {
+.interval-list, .scale-formula, .tips-list {
   margin-top: 0;
   padding-top: 0;
 }
 
-.interval-list li, .chord-formula li, .scale-formula li, #interval-unisson{
+.interval-list li, .chord-formula li, .scale-formula li, .tips-list li {
   padding:10px;
   margin:8px 0;
   background: rgba(255,255,255,0.02);
@@ -158,17 +166,24 @@ h1{
 	cursor: default;
 }
 
-.interval-list li:hover span, .scale-formula li:hover, #interval-unisson:hover {
+.interval-list li:hover span, .scale-formula li:hover, .tips-list li:hover {
 	color: var(--accent-blue);
 	border-color: var(--cool-blue);
 	cursor: pointer;
 }
 
-.interval-list li, #interval-unisson {
+.interval-list li {
   display: grid;
-  grid-template-columns: 1fr 0.5fr 1fr; /* On retire la colonne du début pour le code */
+  grid-template-columns: 1fr 0.5fr 1fr;
   gap: 12px;
-  position: relative; /* CRUCIAL : devient la référence pour le positionnement absolu */
+  position: relative;
+}
+
+.tips-list li {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  position: relative;
 }
 
 /* Le conteneur parent devient une grille à 2 colonnes */
@@ -441,16 +456,18 @@ h1{
 }
 
 .circle-of-fifths {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0px 0;
+  /* width: 100%; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .circle-svg {
-	max-width: 600px;
-	width: 60%;
-	height: auto;
+  /* width: 100%; */
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* responsive tweaks */
