@@ -112,7 +112,7 @@ const TheoryEngine = {
             "F#G♭": "F#",
             "G#A♭": "G#",
             "A#B♭": "A#",
-            "BC♭": "C"
+            "BC♭": "B"
         };
 
         if (equivalents[clean]) clean = equivalents[clean];
