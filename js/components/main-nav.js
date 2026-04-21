@@ -17,8 +17,8 @@ class MainNav extends HTMLElement {
             :host {
                 display: block;
                 width: 100%;
-                background: #1C1C1C; /* var(--bg-nav) */
-                border-bottom: 1px solid #6F8FF0; /* var(--accent-blue) */
+                background: var(--bg-nav);
+                border-bottom: 1px solid var(--accent-blue);
                 position: sticky;
                 top: 0;
                 z-index: 10;
@@ -32,7 +32,7 @@ class MainNav extends HTMLElement {
             .nav-btn {
                 background: none;
                 border: none;
-                color: #AEB2B2; /* var(--text-white) */
+                color: var(--text-white);
                 padding: 12px 24px;
                 cursor: pointer;
                 font-weight: 600;
@@ -43,11 +43,11 @@ class MainNav extends HTMLElement {
                 font-size: 14px;
             }
             .nav-btn:hover {
-                color: #6F8FF0; /* var(--accent-blue) */
+                color: var(--accent-blue);
             }
             .nav-btn.active {
-                color: #6F8FF0;
-                border-bottom: 2px solid #6F8FF0;
+                color: var(--accent-blue);
+                border-bottom: 2px solid var(--accent-blue);
             }
         </style>
         <nav class="main-nav">
@@ -55,9 +55,9 @@ class MainNav extends HTMLElement {
             <div class="nav-container">
                 <a href="${root}index.html" class="nav-btn ${activeTab === 'home' ? 'active' : ''}"><i class="fa fa-home"></i></a>
                 <a href="${root}tools/harmonic_interface/index.html" class="nav-btn ${activeTab === 'harmonic' ? 'active' : ''}">Harmonic Interface</a>
-                <a href="${root}tools/modes_scales/index.html" class="nav-btn ${activeTab === 'modes' ? 'active' : ''}">Modes & Gammes</a>
-                <a href="${root}tools/theory_mindmap/index.html" class="nav-btn ${activeTab === 'mindmap' ? 'active' : ''}">Mindmap Théorie</a>
-                <a href="${root}tools/24-edo/index.html" class="nav-btn ${activeTab === '24edo' ? 'active' : ''}">Théorie 24-EDO</a>
+                <a href="${root}tools/modes_scales/index.html" class="nav-btn ${activeTab === 'modes' ? 'active' : ''}">Scales & modes</a>
+                <a href="${root}tools/theory_mindmap/index.html" class="nav-btn ${activeTab === 'mindmap' ? 'active' : ''}">12-EDO theory</a>
+                <a href="${root}tools/24-edo/index.html" class="nav-btn ${activeTab === '24edo' ? 'active' : ''}">24-EDO theory</a>
             </div>
         </nav>
         `;
