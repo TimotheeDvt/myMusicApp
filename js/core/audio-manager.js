@@ -124,6 +124,32 @@ const AudioManager = {
         }
         this.playNote(frequency, type);
         setTimeout(() => this.stopNote(frequency), duration * 1000);
+    },
+
+    async playScale(root, mode, duration = 0.4) {
+        let alt = "♮";
+        if (root.includes('#')) { alt = "#"; root = root.replace('#', ''); }
+        else if (root.includes('b')) { alt = "♭"; root = root.replace('b', ''); }
+
+        const notes = TheoryEngine.getScale(root, mode, alt);
+        notes.push(notes[0]); // Add octave
+
+        const baseFreq = 261.63; // C4
+        let octaveOffset = 0;
+        let lastIdx = -1;
+
+        for (let noteName of notes) {
+            const cleanNote = TheoryEngine.normalizeNote(noteName);
+            const currentIdx = TheoryEngine.base_notes.indexOf(cleanNote);
+
+            if (lastIdx !== -1 && currentIdx <= lastIdx) octaveOffset++;
+
+            const freq = baseFreq * Math.pow(2, octaveOffset) * Math.pow(2, currentIdx / 12);
+            console.log(`Playing ${noteName} at ${freq.toFixed(2)} Hz`);
+            this.playNoteWithDuration(freq, duration);
+            lastIdx = currentIdx;
+            await new Promise(r => setTimeout(r, duration * 1000));
+        }
     }
 };
 

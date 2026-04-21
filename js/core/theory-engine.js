@@ -67,7 +67,7 @@ const TheoryEngine = {
 
             // Logic to choose the right enharmonic based on alteration
             if (alteration === "#") return noteGroup.substring(0, 2).replace("♮", "");
-            if (alteration === "♭") return noteGroup.slice(-2).replace("♮", "");
+            if (alteration === "♭" || alteration === "b") return noteGroup.slice(-2).replace("♮", "");
             return noteGroup.split("♮")[0] || noteGroup[0];
         }).map(n => this.normalizeNote(n)); // Final cleanup to remove natural signs
     },
