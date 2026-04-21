@@ -126,7 +126,6 @@ const TheoryEngine = {
         let noteIndex;
         noteIndex = this.base_notes.findIndex(n => n.includes(note));
         if (noteIndex === -1) return null;
-        console.log(note, "->", noteIndex);
         return base * Math.pow(2, (noteIndex) / 12);
     }
 };

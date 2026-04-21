@@ -332,7 +332,6 @@ function writeIndexes() {
 			const activePC = (activeMidi % CONFIG.subdivisions + CONFIG.subdivisions) % CONFIG.subdivisions;
 			return Math.abs(activePC - notePitchClass) < 0.01;
 		});
-		console.log(activeFreqKey)
 		ctx.fillStyle = ctx.strokeStyle = activeFreqKey ? COLORS.blue : COLORS.white;
 		ctx.fillText(note.index, newPos[i].x, newPos[i].y);
 		ctx.strokeText(note.index, newPos[i].x, newPos[i].y);
@@ -555,7 +554,6 @@ const connectedInputs = new Map();
 
 // Handle successful access to MIDI devices
 function onMIDISuccess(midiAccess) {
-	// console.log("MIDI Access Object:", midiAccess);
 
 	// List all available MIDI inputs and outputs
 	listInputsAndOutputs(midiAccess);

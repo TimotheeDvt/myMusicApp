@@ -156,7 +156,6 @@ const AudioManager = {
             if (lastIdx !== -1 && currentIdx <= lastIdx) octaveOffset++;
 
             const freq = baseFreq * Math.pow(2, octaveOffset) * Math.pow(2, currentIdx / 12);
-            console.log(`Playing ${noteName} at ${freq.toFixed(2)} Hz`);
             this.playNoteWithDuration(freq, duration);
             lastIdx = currentIdx;
             await new Promise(r => setTimeout(r, duration * 1000));
