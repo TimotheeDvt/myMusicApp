@@ -5,6 +5,8 @@
  */
 
 const AudioManager = {
+    isInitialized: false,
+
     state: {
         audioContext: null,
         masterGain: null,
@@ -29,6 +31,7 @@ const AudioManager = {
         this.state.masterGain.connect(this.state.audioContext.destination);
 
         console.log("Audio Engine Initialized");
+        this.isInitialized = true;
     },
 
     /**

@@ -390,10 +390,16 @@ document.addEventListener('keyup', (e) => {
 function preventSubmit1(e) { if (e.key === 'Enter') { CONFIG.startFreq = parseFloat(e.target.value); update(); e.preventDefault(); } }
 function preventSubmit2(e) { if (e.key === 'Enter') { CONFIG.subdivisions = parseInt(e.target.value); update(); e.preventDefault(); } }
 
-document.addEventListener("click", () => {
-	AudioManager.init();
-	document.getElementById("toRemove").style.visibility = "hidden";
-}, { once: true });
+// if audio manager is already initialized (e.g. from another tool), we can skip the user interaction step
+if (!AudioManager.isInitialized) {
+	const toRemove = document.getElementById("toRemove");
+	toRemove.style.visibility = "hidden";
+} else {
+	document.addEventListener("click", () => {
+		AudioManager.init();
+		document.getElementById("toRemove").style.visibility = "hidden";
+	}, { once: true });
+}
 
 /******************
  * INITIALIZATION *
