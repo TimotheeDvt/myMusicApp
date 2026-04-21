@@ -21,7 +21,8 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-white);
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    width: 100%;
 }
 
 /* Navigation Style EDO */

@@ -1,16 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microtonal Music Hub - EDO</title>
+    <title>Music Hub - Home</title>
     <link rel="stylesheet" href="./css/master-style.css">
+    <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="./js/components/main-nav.js" defer></script>
 
-    <link rel="icon" type="image/png" href="../assets/icon.png" />
+    <script src="./js/core/theory-engine.js" defer></script>
+    <script src="./js/core/audio-manager.js" defer></script>
+    <script src="./js/components/main-nav.js" defer></script>
+    <script src="./js/components/keyboard.js" defer></script>
+    <script src="./js/components/circle-fifths.js" defer></script>
+    <script src="./js/components/guitar-fretboard.js" defer></script>
+
+    <link rel="icon" type="image/png" href="./assets/icon.png" />
 </head>
+
 <body>
-    <main-nav active-tab="home"></main-nav>
+    <main-nav active-tab="home" root-path="./"></main-nav>
+    <section class="hero">
+        <h1>Music Hub</h1>
+        <p style="margin-bottom: 2px">Explore limits of harmony, from equal temperament to microtonals scales</p>
+        <p style="font-size: 0.8em; font-style: italic; margin-top: 0">
+            FYI : E.D.O. = Equal Division of the Octave | x T.E.T. = x Tones Equal Temperament
+        </p>
+    </section>
+
+    <main class="welcome-grid">
+        <a href="./tools/harmonic_interface/index.html" class="card feature-card">
+            <div class="tag">Standard</div>
+            <h3>n-EDO interface</h3>
+            <div class="preview-box">
+                <custom-keyboard width="280px" height="80px" keys="C, E, G, Bb"></custom-keyboard>
+            </div>
+            <p>
+                Explore sound of every n-EDO you can think of, from classic 12 tones equal temperament to crazy Klingon music !
+                <br>Enjoy playing with your mouse, your keyboard or even your midi device !
+            </p>
+        </a>
+
+        <a href="./tools/modes_scales/index.html" class="card feature-card">
+            <div class="tag">Stringed instruments</div>
+            <h3>Scales & modes</h3>
+            <div class="preview-box">
+                <guitar-fretboard strings="6" tuning="EADGBE" notes="C, E, G" width="500"
+                    height="150"></guitar-fretboard>
+            </div>
+            <p>
+                Learn your scales, modes and availables chords in each scale on guitar or on any stringed and fretted instrument !
+                <br>Totally interactive and customizable.
+                <br><i>Will surelly be microtonal too <sup>(someday)</sup>.</i>
+            </p>
+        </a>
+
+        <a href="./tools/theory_mindmap/index.html?page=circle" class="card feature-card">
+            <div class="tag">12-EDO theory</div>
+            <h3><sup>(almost)</sup> Everything on occidental 12-EDO theory</h3>
+            <div class="preview-box">
+                <circle-fifths style="transform: scale(0.8) translateY(-10%);"></circle-fifths>
+            </div>
+            <p>We are, of course, only recalling some notions of what is called Western music theory.</p>
+        </a>
+
+        <a href="./tools/24-edo/index.html" class="card feature-card">
+            <div class="tag">24-EDO theory</div>
+            <h3>My firsts steps into 24-EDO theory</h3>
+            <div class="preview-box">
+                <custom-keyboard is24edo="true" width="280px" height="80px" keys="C, Ev, G"
+                    showNames="true"></custom-keyboard>
+            </div>
+            <p>Discover new intervals, chords, scales, sounds throught the theory of quarter-tones !</p>
+        </a>
+    </main>
+
+    <script>
+        // Initialisation de l'audio sur le premier clic
+        document.addEventListener('click', () => {
+            if (typeof AudioManager !== 'undefined') {
+                AudioManager.init();
+            }
+        }, { once: true });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainNav = document.querySelector('main-nav');
+            const cards = document.querySelectorAll('.feature-card');
+
+            cards.forEach(card => {
+                // On récupère le type d'onglet depuis le lien de la carte
+                const href = card.getAttribute('href');
+                let tabType = '';
+
+                if (href.includes('theory_mindmap')) tabType = 'mindmap';
+                else if (href.includes('modes_scales')) tabType = 'modes';
+                else if (href.includes('harmonic_interface')) tabType = 'harmonic';
+                else if (href.includes('24-edo')) tabType = '24-edo';
+
+                card.addEventListener('mouseenter', () => {
+                    // Accès au bouton dans le Shadow DOM du composant nav
+                    const navBtn = mainNav.shadowRoot.querySelector(`.nav-btn[href*="${tabType}"]`);
+                    if (navBtn) {
+                        navBtn.style.color = '#FE5658'; // var(--accent-red)
+                        navBtn.style.borderBottom = '2px solid #FE5658';
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    const navBtn = mainNav.shadowRoot.querySelector(`.nav-btn[href*="${tabType}"]`);
+                    if (navBtn) {
+                        // On retire les styles inline pour laisser le CSS original reprendre le dessus
+                        navBtn.style.color = '';
+                        navBtn.style.borderBottom = '';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
