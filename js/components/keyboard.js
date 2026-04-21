@@ -8,30 +8,30 @@ class CustomKeyboard extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.defaultKeys = [
       { note: 'C', type: "white" },
-      { note: 'C^', type: "grey" },
+      { note: 'C‡', type: "grey" },
       { note: 'C#', type: "black" },
-      { note: 'Dv', type: "grey" },
+      { note: 'Dd', type: "grey" },
       { note: 'D', type: "white" },
-      { note: 'D^', type: "grey" },
+      { note: 'D‡', type: "grey" },
       { note: 'D#', type: "black" },
-      { note: 'Ev', type: "grey" },
+      { note: 'Ed', type: "grey" },
       { note: 'E', type: "white" },
-      { note: 'E^', type: "grey" },
+      { note: 'E‡', type: "grey" },
       { note: 'F', type: "white" },
-      { note: 'F^', type: "grey" },
+      { note: 'F‡', type: "grey" },
       { note: 'F#', type: "black" },
-      { note: 'Gv', type: "grey" },
+      { note: 'Gd', type: "grey" },
       { note: 'G', type: "white" },
-      { note: 'G^', type: "grey" },
+      { note: 'G‡', type: "grey" },
       { note: 'G#', type: "black" },
-      { note: 'Av', type: "grey" },
+      { note: 'Ad', type: "grey" },
       { note: 'A', type: "white" },
-      { note: 'A^', type: "grey" },
+      { note: 'A‡', type: "grey" },
       { note: 'A#', type: "black" },
-      { note: 'Bv', type: "grey" },
+      { note: 'Bd', type: "grey" },
       { note: 'B', type: "white" },
-      { note: 'B^', type: "grey" },
-      { note: 'Cv', type: "grey" }
+      { note: 'B‡', type: "grey" },
+      { note: 'Cd', type: "grey" }
     ];
   }
 
@@ -168,11 +168,11 @@ class CustomKeyboard extends HTMLElement {
           justify-content: center;
           padding-top: 25px;
         }
-        .grey-key[data-note="Cv"] {
+        .grey-key[data-note="Cd"] {
           border-radius: 6px 0 6px 0;
           width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6 / 1.4 * 0.5);
         }
-        .grey-key[data-note="B^"] {
+        .grey-key[data-note="B‡"] {
           border-radius: 0px 6px 0px 6px;
           width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6 / 1.4 * 0.5);
         }
@@ -231,19 +231,19 @@ class CustomKeyboard extends HTMLElement {
     let greyKeysHtml = '';
     if (is24edo) {
       const greyKeyOffsets = {
-        'C^': 0.55,
-        'Dv': 1,
-        'D^': 1.55,
-        'Ev': 2,
-        'E^': 2.8,
-        'F^': 3.55,
-        'Gv':4,
-        'G^': 4.55,
-        'Av': 5,
-        'A^': 5.55,
-        'Bv': 6,
-        'B^': 6.75,
-        'Cv': 0,
+        'C‡': 0.55,
+        'Dd': 1,
+        'D‡': 1.55,
+        'Ed': 2,
+        'E‡': 2.8,
+        'F‡': 3.55,
+        'Gd':4,
+        'G‡': 4.55,
+        'Ad': 5,
+        'A‡': 5.55,
+        'Bd': 6,
+        'B‡': 6.75,
+        'Cd': 0,
       }
       greyKeysHtml = this.defaultKeys
         .filter(k => k.type == "grey" && greyKeyOffsets.hasOwnProperty(k.note))
