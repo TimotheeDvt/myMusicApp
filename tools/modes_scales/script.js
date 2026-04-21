@@ -193,7 +193,6 @@ function drawCircle(x, y, text, r) {
 
 function updateChordTable(scale, modeKey) {
     const table = document.getElementById('chord-table');
-    console.log("Updating chord table for mode:", modeKey, "with scale:", scale);
     table.innerHTML = "";
     const chart = TheoryEngine.chords_charts[modeKey];
     if (!chart) return;
