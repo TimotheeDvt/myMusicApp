@@ -100,7 +100,7 @@ class GuitarFretboard extends HTMLElement {
 
                 const radius = spaceBetweenFrets / 3.5;
                 const drawNote = (f, xOffset = 0) => {
-                    let x = offsetX + (f * spaceBetweenFrets) - (f === 0 ? 25 : spaceBetweenFrets / 2) + xOffset;
+                    let x = offsetX + (f * spaceBetweenFrets) - (f === 0 ? 0 : spaceBetweenFrets / 2) + xOffset;
                     let y = offsetY + (sIdx * spaceBetweenStrings);
 
                     ctx.beginPath();
