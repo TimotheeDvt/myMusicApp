@@ -257,15 +257,19 @@ function drawPlayingNotes() {
 			const velocity = AudioManager.state.activeVoices[activeFreqKey].velocity || 100;
 			note.velocity = velocity;
 			cell.style.backgroundColor = "#FE5658" + velocityToHexOpacity(velocity);
+			cell.classList.add("active");
 		} else {
 			cell.style.backgroundColor = "";
+			cell.classList.remove("active");
 		}
 	});
 }
 
 function drawVariableLine(ctx, n1, n2) {
-	const w1 = normalize(n1.velocity || 100, 0, 127, 0.3, 2) / 2;
-	const w2 = normalize(n2.velocity || 100, 0, 127, 0.3, 2) / 2;
+	const minOpactity = 0.3;
+	const maxOpacity = 2.5;
+	const w1 = normalize(n1.velocity || 100, 0, 127, minOpactity, maxOpacity) / 2;
+	const w2 = normalize(n2.velocity || 100, 0, 127, minOpactity, maxOpacity) / 2;
 
 	const dx = n2.x - n1.x;
 	const dy = n2.y - n1.y;
@@ -423,6 +427,7 @@ function handleLayoutChange() {
 }
 
 function handleWaveFormChange() {
+	AudioManager.stopAll();
 	state.type = document.getElementById('changeWaveform').value;
 	update();
 }

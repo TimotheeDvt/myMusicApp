@@ -44,8 +44,7 @@ const AudioManager = {
         const newGain = baseGain * (1 / Math.sqrt(activeCount || 1));
 
         const now = this.state.audioContext.currentTime;
-        this.state.masterGain.gain.cancelScheduledValues(now);
-        this.state.masterGain.gain.linearRampToValueAtTime(newGain, now + 0.05);
+        this.state.masterGain.gain.setTargetAtTime(newGain, now, 0.03);
     },
 
     /**
@@ -54,6 +53,7 @@ const AudioManager = {
      */
     playNote(frequency, type = 'sine', velocity = 100) {
         if (!this.state.audioContext) this.init();
+        if (!this.isInitialized) return;
 
         // Safety check: ensure frequency is valid and not already playing
         if (!Number.isFinite(frequency) || this.state.activeVoices[frequency]) return;
@@ -117,9 +117,10 @@ const AudioManager = {
         const now = this.state.audioContext.currentTime;
         voice.gain.gain.cancelScheduledValues(now);
         voice.gain.gain.setValueAtTime(voice.gain.gain.value, now);
-        voice.gain.gain.linearRampToValueAtTime(0, now + this.state.releaseTime);
 
-        voice.osc.stop(now + this.state.releaseTime + 0.05);
+        voice.gain.gain.exponentialRampToValueAtTime(0.001, now + this.state.releaseTime);
+
+        voice.osc.stop(now + this.state.releaseTime + 0.01);
         delete this.state.activeVoices[frequency];
         this.updateMasterGain();
     },

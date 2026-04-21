@@ -187,12 +187,22 @@ td > p {
   font-weight: bold;
   border-radius: 5px;
   width: fit-content;
+  padding: 3px;
+  opacity: 1;
 }
 
-.freq:hover {
+td.active > .freq, .freq:hover {
   background-color: var(--accent-blue);
   color: var(--text-dark);
   cursor: pointer;
+}
+
+td.active > .freq {
+  opacity: 0.8;
+}
+
+.freq:hover {
+  opacity: 1 !important;
 }
 
 .key {
