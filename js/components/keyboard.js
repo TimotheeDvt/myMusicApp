@@ -51,13 +51,14 @@ class CustomKeyboard extends HTMLElement {
     const width = this.getAttribute('width') || '100%';
     const is24edo = this.getAttribute('is24edo') === 'true';
     const showNames = this.getAttribute('showNames') || false;
-    const keysAttr = this.getAttribute('keys')
+    let keysAttr = this.getAttribute('keys')
       .replace(" - ", " ")
       .replace("Db", "C#")
       .replace("Eb", "D#")
       .replace("Gb", "F#")
       .replace("Ab", "G#")
       .replace("Bb", "A#");
+
     let keysToHighlight = [];
 
     if (keysAttr) {
@@ -110,7 +111,6 @@ class CustomKeyboard extends HTMLElement {
           font-weight: bold;
           color: #333;
           font-size: 16px;
-          padding-bottom: 8px;
           box-sizing: border-box;
           transition: background-color 0.3s, color 0.3s;
         }
@@ -120,11 +120,15 @@ class CustomKeyboard extends HTMLElement {
         .white-key[data-note="B"] {
           border-radius: 0 6px 6px 0;
         }
+        .white-key span {
+          font-size: 0.75em;
+          margin-bottom: -4px;
+        }
         .black-key {
           position: absolute;
           --black-width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6);
           width: var(--black-width);
-          height: 60%;
+          height: ${is24edo ? '50%' : '60%'};
           background: linear-gradient(to bottom, #333, #000);
           border-radius: 0 0 4px 4px;
           border: 1px solid #222;
@@ -136,10 +140,16 @@ class CustomKeyboard extends HTMLElement {
           top: 0;
           transition: background-color 0.3s;
         }
+        .black-key span {
+          font-size: 0.75em;
+          display: flex;
+          justify-content: center;
+          padding-top: 25%;
+        }
         .grey-key {
           position: absolute;
           width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6 / 1.4);
-          height: 80%;
+          height: 73%;
           background: linear-gradient(to bottom, #777, #555);
           border-radius: 0 0 4px 4px;
           border: 1px solid #222;
@@ -151,25 +161,42 @@ class CustomKeyboard extends HTMLElement {
           top: 0;
           transition: background-color 0.3s;
         }
+        .grey-key span {
+          color: var(--text-white);
+          font-size: 0.25em;
+          display: flex;
+          justify-content: center;
+          padding-top: 25px;
+        }
+        .grey-key[data-note="Cv"] {
+          border-radius: 6px 0 6px 0;
+          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6 / 1.4 * 0.5);
+        }
+        .grey-key[data-note="B^"] {
+          border-radius: 0px 6px 0px 6px;
+          width: calc(${width} / ${this.defaultKeys.filter(k => k.type == "white").length} * 0.6 / 1.4 * 0.5);
+        }
         /* Highlight styles */
         .white-key.highlight {
           background: var(--accent-blue);
-          color: #441a00;
           box-shadow:
-            inset 0 0 8px  var(--accent-yellow),
+            inset 0 0 3px  var(--accent-yellow),
             0 2px 10px var(--accent-yellow);
         }
         .black-key.highlight {
           background: var(--accent-blue);
           box-shadow:
-            inset 0 1px 3px var(--accent-yellow),
+            inset 0 0 3px var(--accent-yellow),
             0 2px 12px var(--accent-yellow);
         }
         .grey-key.highlight {
           background: var(--accent-blue);
           box-shadow:
-            inset 0 1px 3px var(--accent-yellow),
+            inset 0 0 3px var(--accent-yellow),
             0 2px 12px var(--accent-yellow);
+        }
+        .grey-key.highlight span {
+          color:  var(--text-dark);
         }
       </style>
     `;
@@ -189,7 +216,7 @@ class CustomKeyboard extends HTMLElement {
       .filter(k => k.type == "white")
       .map(k => {
         const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
-        return `<div class="white-key ${highlightClass}" data-note="${k.note}">${showNames ? k.note : ''}</div>`;
+        return `<div class="white-key ${highlightClass}" data-note="${k.note}"><span>${showNames ? k.note : ''}</span></div>`;
       }).join('');
 
     // Construct black keys html
@@ -198,7 +225,7 @@ class CustomKeyboard extends HTMLElement {
       .map(k => {
         const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
         const leftPercent = (blackKeyOffsets[k.note] / whiteKeyCount) * 100;
-        return `<div class="black-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${showNames ? k.note : ''}"></div>`;
+        return `<div class="black-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${k.note}"><span>${showNames ? k.note : ''}</span></div>`;
       }).join('');
 
     let greyKeysHtml = '';
@@ -215,7 +242,7 @@ class CustomKeyboard extends HTMLElement {
         'Av': 5,
         'A^': 5.55,
         'Bv': 6,
-        'B^': 6.8,
+        'B^': 6.75,
         'Cv': 0,
       }
       greyKeysHtml = this.defaultKeys
@@ -223,7 +250,8 @@ class CustomKeyboard extends HTMLElement {
         .map(k => {
           const highlightClass = keysToHighlight.includes(k.note) ? 'highlight' : '';
           const leftPercent = (greyKeyOffsets[k.note] / whiteKeyCount) * 100;
-          return `<div class="grey-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${showNames ? k.note : ''}"></div>`;
+          const noteToDisplay = k.note.replace('^', '↑').replace('v', '↓');
+          return `<div class="grey-key ${highlightClass}" style="left: calc(${leftPercent}%);" data-note="${k.note}"><span>${showNames ? noteToDisplay : ''}</span></div>`;
         }).join('');
     }
 
