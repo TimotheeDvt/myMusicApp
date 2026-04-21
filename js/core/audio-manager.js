@@ -10,6 +10,7 @@ const AudioManager = {
     state: {
         audioContext: null,
         masterGain: null,
+        compressor: null,
         activeVoices: {},
         maxVoices: 12,
         attackTime: 0.02,
@@ -26,11 +27,19 @@ const AudioManager = {
         this.state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.state.masterGain = this.state.audioContext.createGain();
 
-        // Initial safety volume
-        this.state.masterGain.gain.setValueAtTime(0.8, this.state.audioContext.currentTime);
-        this.state.masterGain.connect(this.state.audioContext.destination);
+        // Setup Compressor as a Limiter
+        this.state.compressor = this.state.audioContext.createDynamicsCompressor();
+        this.state.compressor.threshold.setValueAtTime(-10, this.state.audioContext.currentTime);
+        this.state.compressor.knee.setValueAtTime(40, this.state.audioContext.currentTime);
+        this.state.compressor.ratio.setValueAtTime(12, this.state.audioContext.currentTime);
+        this.state.compressor.attack.setValueAtTime(0, this.state.audioContext.currentTime);
+        this.state.compressor.release.setValueAtTime(0.25, this.state.audioContext.currentTime);
 
-        console.log("Audio Engine Initialized");
+        // Chain: MasterGain -> Compressor -> Destination
+        this.state.masterGain.connect(this.state.compressor);
+        this.state.compressor.connect(this.state.audioContext.destination);
+
+        this.state.masterGain.gain.setValueAtTime(0.7, this.state.audioContext.currentTime);
         this.isInitialized = true;
     },
 
@@ -54,18 +63,14 @@ const AudioManager = {
     playNote(frequency, type = 'sine', velocity = 100) {
         if (!this.state.audioContext) this.init();
         if (!this.isInitialized) return;
-
-        // Safety check: ensure frequency is valid and not already playing
         if (!Number.isFinite(frequency) || this.state.activeVoices[frequency]) return;
 
         const now = this.state.audioContext.currentTime;
-
-        // 1. Convert MIDI Velocity (0-127) to Gain (0.0-1.0)
-        // We use a linear mapping here, but a logarithmic one often feels more "natural"
         const normalizedVelocity = velocity / 127;
-        const peakGain = normalizedVelocity * 0.3; // 0.3 is a safe max to prevent clipping
 
-        // Voice stealing logic
+        // Per-voice gain limiter: Ensure individual notes don't overwhelm the mix
+        const peakGain = normalizedVelocity * (0.5 / Math.sqrt(this.state.maxVoices));
+
         if (Object.keys(this.state.activeVoices).length >= this.state.maxVoices) {
             const oldestFreq = Object.keys(this.state.activeVoices)[0];
             this.stopNote(oldestFreq);
@@ -77,39 +82,25 @@ const AudioManager = {
 
         const gainNode = this.state.audioContext.createGain();
         gainNode.gain.setValueAtTime(0, now);
-
-        // 2. Apply velocity to the Attack ramp
         gainNode.gain.linearRampToValueAtTime(peakGain, now + this.state.attackTime);
 
-        // Chain: Osc -> Gain -> Filter -> Compressor -> Master
         const filter = this.state.audioContext.createBiquadFilter();
         filter.type = "lowpass";
-        // Optional: Make the filter velocity-sensitive (louder notes are brighter)
-        const filterFreq = 2000 + (6000 * normalizedVelocity);
-        filter.frequency.setValueAtTime(filterFreq, now);
-
-        const compressor = this.state.audioContext.createDynamicsCompressor();
+        filter.frequency.setValueAtTime(2000 + (6000 * normalizedVelocity), now);
 
         osc.connect(gainNode);
         gainNode.connect(filter);
-        filter.connect(compressor);
-        filter.connect(this.state.masterGain); // Direct to master if compressor is internal
+        filter.connect(this.state.masterGain); // Connect to master with fixed gain
 
         osc.start(now);
 
-        // Store metadata so stopNote knows how to handle the release
         this.state.activeVoices[frequency] = {
             osc,
             gain: gainNode,
-            velocity: velocity
+            velocity
         };
-
-        this.updateMasterGain();
     },
 
-    /**
-     * Stops a specific frequency with a linear release ramp.
-     */
     stopNote(frequency) {
         const voice = this.state.activeVoices[frequency];
         if (!voice) return;
@@ -117,12 +108,10 @@ const AudioManager = {
         const now = this.state.audioContext.currentTime;
         voice.gain.gain.cancelScheduledValues(now);
         voice.gain.gain.setValueAtTime(voice.gain.gain.value, now);
-
         voice.gain.gain.exponentialRampToValueAtTime(0.001, now + this.state.releaseTime);
 
         voice.osc.stop(now + this.state.releaseTime + 0.01);
         delete this.state.activeVoices[frequency];
-        this.updateMasterGain();
     },
 
     stopAll() {
