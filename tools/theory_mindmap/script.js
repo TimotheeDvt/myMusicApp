@@ -133,7 +133,6 @@ scaleLi.forEach(li => {
 
 		for (let i = 0; i < notesToPlay.length; i++) {
 			const noteName = notesToPlay[i];
-			console.log(noteName);
 			const allNoteWrapped = TheoryEngine.all_notes;
 			// put scale root note at the start of the array for easier indexing
 			while (!allNoteWrapped[0].includes(TheoryEngine.normalizeNote(noteName))) {
