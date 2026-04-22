@@ -6,6 +6,7 @@
     <title>24-EDO Theory Hub</title>
     <link rel="stylesheet" href="../../css/master-style.css">
     <link rel="stylesheet" href="../theory_mindmap/style.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="../../js/core/theory-engine.js"></script>
     <script src="../../js/core/audio-manager.js"></script>
     <script src="../../js/components/keyboard.js"></script>
@@ -70,35 +71,82 @@
 
         <div id="chords" class="tab-content">
             <div class="grid grid-3">
-                <div class="card">
-                    <h3>Neutral Triads</h3>
-                    <p>Built using neutral thirds (350c).</p>
+                <div class="card" style="grid-area: a;">
+                    <h3>Triads</h3>
                     <ul class="chord-formula">
                         <li class="chords-li-example">
-                            <strong>Neutral Triad</strong>
-                            <strong>Cneu</strong>
-                            <text><strong>0 - 7 - 14</strong><br>(C - Ed - G)</text>
-                            <custom-keyboard height="50px" width="200px" keys="C - Ed - G" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <strong>Arto</strong>
+                            <strong>C<sub>art</sub></strong>
+                            <text><strong>0 - 5 - 14</strong><br>(C - D‡ - G)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 5 - 14" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
-                            <strong>Neutral Tetrad</strong>
-                            <strong>Cneu</strong>
-                            <text><strong>0 - 7 - 14 - 21</strong><br>(C - Ed - G - B)</text>
-                            <custom-keyboard height="50px" width="200px" keys="C - Ed - G - B" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <strong>Neutral</strong>
+                            <strong>C<sub>N</sub></strong>
+                            <text><strong>0 - 7 - 14</strong><br>(C - Ed - G)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 14" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>Tendo</strong>
+                            <strong>C<sub>ten</sub></strong>
+                            <text><strong>0 - 9 - 14</strong><br>(C - E‡ - G)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 9 - 14" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>UnderMajor</strong>
+                            <strong>C<sub>v</sub></strong>
+                            <text><strong>0 - 8 - 13</strong><br>(C - E - Gd)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 13" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>Overmajor</strong>
+                            <strong>C<sup>^</sup></strong>
+                            <text><strong>0 - 8 - 15</strong><br>(C - E - G‡)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                     </ul>
                 </div>
-                <div class="card">
+                <div class="card" style="grid-area: b;">
+                    <h3>Triads</h3>
+                    <ul class="chord-formula">
+                        <li class="chords-li-example">
+                            <strong>Overmajor</strong>
+                            <strong>C<sup>^</sup></strong>
+                            <text><strong>0 - 8 - 15</strong><br>(C - E - G‡)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>Underneutral</strong>
+                            <strong>C<sub>Nv</sub></strong>
+                            <text><strong>0 - 7 - 13</strong><br>(C - Ed - Gd)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 13" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>Overneutral</strong>
+                            <strong>C<sub>N</sub><sup>^</sup></strong>
+                            <text><strong>0 - 7 - 15</strong><br>(C - Ed - G‡)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>Underminor</strong>
+                            <strong>C<sub>mv</sub></strong>
+                            <text><strong>0 - 6 - 13</strong><br>(C - Eb - Gd)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 6 - 13" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                        <li class="chords-li-example">
+                            <strong>Overminor</strong>
+                            <strong>C<sub>m</sub><sup>^</sup></strong>
+                            <text><strong>0 - 6 - 15</strong><br>(C - Eb - G‡)</text>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 6 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card" style="grid-area: c;">
                     <h3>Triad Alterations</h3>
                     <ul class="interval-list-2">
                         <li><strong>Ultra Triad (Upmajor):</strong> 0 - 9 - 14 (uses Ultra Third 450c).</li>
                         <li><strong>Infra Triad (Downminor):</strong> 0 - 5 - 14 (uses Infra Third 250c).</li>
                     </ul>
-                </div>
-                <div class="card">
-                    <h3>Harmonic Approximations</h3>
-                    <p>24-EDO is excellent at approximating the 11th harmonic (11/8).</p>
-                    <p><strong>Super-extended Major:</strong> 4:5:6:9:11:13 structure.</p>
                 </div>
             </div>
         </div>
