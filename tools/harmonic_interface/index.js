@@ -640,7 +640,7 @@ function handleInput(event) {
 function noteToFreq(midiNote) {
 	if (midiNote < 0 || midiNote > 127) return null;
 
-	const frequency = 440 * Math.pow(2, (midiNote - 69) / CONFIG.subdivisions);
+	const frequency = CONFIG.startFreq * Math.pow(2, (midiNote - 69) / CONFIG.subdivisions);
 	let degree = (midiNote - 69) % CONFIG.subdivisions;
 
 	if (degree < 0) degree += CONFIG.subdivisions;
