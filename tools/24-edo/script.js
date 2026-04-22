@@ -17,6 +17,6 @@ if (window.location) {
     if (tab) {
         showTab(tab);
     } else {
-        showTab('intervals');
+        showTab('fundamentals');
     }
 }

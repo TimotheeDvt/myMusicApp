@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +28,7 @@
         }
     </script>
 </head>
+
 <body>
     <main-nav active-tab="24edo" root-path="../../"></main-nav>
 
@@ -34,36 +36,242 @@
         <h1>24-EDO (Quarter-Tones)</h1>
 
         <div class="tab-nav">
-            <button class="tab-btn active" id="intervals-btn" onclick="showTab('intervals')">Intervals</button>
+            <button class="tab-btn active" id="fundamentals-btn" onclick="showTab('fundamentals')">Fundamentals</button>
             <button class="tab-btn" id="chords-btn" onclick="showTab('chords')">New Chords</button>
             <button class="tab-btn" id="scales-btn" onclick="showTab('scales')">Micro-Scales</button>
         </div>
 
-        <div id="intervals" class="tab-content active">
-            <div class="grid grid-2">
-                <div class="card">
-                    <h3>Tone Sizes</h3>
-                    <p>24-EDO introduces three new tone sizes beyond the semitone (100c) and whole tone (200c).</p>
+        <div id="fundamentals" class="tab-content active">
+            <div class="grid grid-4">
+                <!-- Musical Alphabet -->
+                <div class="card card-fund" style="grid-area: a;">
+                    <h3>TL;DR: 24-EDO at a Glance</h3>
                     <ul class="interval-list-2">
-                        <li><strong>Quarter Tone (50c):</strong> Smallest size. Highly dissonant, "beating" sound.</li>
-                        <li><strong>Neutral Tone (150c):</strong> Between a semitone and whole tone. Used in Arabic and Persian music.</li>
-                        <li><strong>Wide Tone (250c):</strong> A metallic, "moody" whole tone.</li>
+                        <li><strong>Notation:</strong> Commonly uses half-sharps (‡) and half-flats (d) to denote
+                            quarter-tone shifts.</li>
                     </ul>
                 </div>
-                <div class="card">
-                    <h3>24-EDO Interval Categories</h3>
-                    <p>Intervals follow a 5-step classification:</p>
-                    <div class="progression-box">
-                        <div class="chord-box">Infra</div>
-                        <div class="chord-box">Minor</div>
-                        <div class="chord-box">Neutral</div>
-                        <div class="chord-box">Major</div>
-                        <div class="chord-box">Ultra</div>
-                    </div>
+
+                <!-- Chromatic Scale -->
+                <div class="card card-fund" style="grid-area: b;">
+                    <h3>Chromatic Scale</h3>
+                    <p>All 24 notes (quarter-tones):</p>
                     <ul class="scale-formula">
-                        <li><strong>Neutral Third (350c):</strong> Approx. 11/9. Right between major and minor.</li>
-                        <li><strong>Wide Fourth (550c):</strong> Approx. 11/8 (11th harmonic).</li>
-                        <li><strong>Narrow Fifth (650c):</strong> Approx. 16/11. Often called the "Wolf Fifth".</li>
+                        <li class="scale-li" data-scale="chromatic">
+                            C - C<sup>‡</sup> - C<sup>#</sup> - D<sup>‡</sup> - D - D<sup>‡</sup> - D<sup>#</sup> -
+                            E<sup>‡</sup> - E - F - F<sup>‡</sup> - F<sup>#</sup> - G<sup>‡</sup> - G - G<sup>‡</sup> -
+                            G<sup>#</sup> - A<sup>‡</sup> - A - A<sup>‡</sup> - A<sup>#</sup> - B<sup>‡</sup> - B
+                        </li>
+
+                        <li class="scale-li" data-scale="chromatic">
+                            C - D<sup>d</sup> - D<sup>b</sup> - D<sup>d</sup> - D - E<sup>d</sup> - E<sup>b</sup> -
+                            E<sup>d</sup> - E - F - G<sup>d</sup> - G<sup>b</sup> - G<sup>d</sup> - G - A<sup>d</sup> -
+                            A<sup>b</sup> - A<sup>d</sup> - A - B<sup>d</sup> - B<sup>b</sup> - B<sup>d</sup> - B
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Intervals -->
+                <div class="card card-fund" style="grid-area: d;">
+                    <ul class="interval-list interval-grid-container">
+                        <span>
+                            <h3>Intervals</h3>
+                            <p>The distance between two notes:</p>
+                        </span>
+                        <li class="interval-li" data-semitones="0">
+                            <span>P1</span>
+                            <span class="interval-name">Unisson</span>
+                            <span>0 ¼ tone</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="0.5">
+                            <span>art2</span>
+                            <span class="interval-name">Arto 2nd</span>
+                            <span>1 ¼ tone</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - C‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="1">
+                            <span>m2</span>
+                            <span class="interval-name">Minor Second</span>
+                            <span>2 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - C#"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="1.5">
+                            <span>n2</span>
+                            <span class="interval-name">Neutral Second</span>
+                            <span>3 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - Dd"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="2">
+                            <span>M2</span>
+                            <span class="interval-name">Major Second</span>
+                            <span>4 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - D"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="2.5">
+                            <span>art3</span>
+                            <span class="interval-name">Arto Third</span>
+                            <span>5 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - D‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="3">
+                            <span>m3</span>
+                            <span class="interval-name">Minor Third</span>
+                            <span>6 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - D#"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="3.5">
+                            <span>n3</span>
+                            <span class="interval-name">Neutral Third</span>
+                            <span>7 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - Ed"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="4">
+                            <span>M3</span>
+                            <span class="interval-name">Major Third</span>
+                            <span>8 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - E"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="4.5">
+                            <span>sub4</span>
+                            <span class="interval-name">Tendo Third / Sub Fourth</span>
+                            <span>9 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - E‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="5">
+                            <span>P4</span>
+                            <span class="interval-name">Perfect Fourth</span>
+                            <span>10 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - F"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="5.5">
+                            <span>ov4</span>
+                            <span class="interval-name">Over Fourth</span>
+                            <span>11 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - F‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="6">
+                            <span>TT</span>
+                            <span class="interval-name">Tritone</span>
+                            <span>12 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - F#"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="6.5">
+                            <span>un5</span>
+                            <span class="interval-name">Under Fifth</span>
+                            <span>13 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - Gd"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="7">
+                            <span>P5</span>
+                            <span class="interval-name">Perfect Fifth</span>
+                            <span>14 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - G"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+                        <li class="interval-li" data-semitones="7.5">
+                            <span>art6</span>
+                            <span class="interval-name">Over Fifth / Arto Sixth</span>
+                            <span>15 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - G‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="8">
+                            <span>m6</span>
+                            <span class="interval-name">Minor Sixth</span>
+                            <span>16 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - G#"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="8.5">
+                            <span>n6</span>
+                            <span class="interval-name">Neutral Sixth</span>
+                            <span>17 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - Ad"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="9">
+                            <span>M6</span>
+                            <span class="interval-name">Major Sixth</span>
+                            <span>18 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - A"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="9.5">
+                            <span>art7</span>
+                            <span class="interval-name">Tendo Sixth / Arto Seventh</span>
+                            <span>19 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - A‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="10">
+                            <span>m7</span>
+                            <span class="interval-name">Minor Seventh</span>
+                            <span>20 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - A#"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="10.5">
+                            <span>n7</span>
+                            <span class="interval-name">Neutral Seventh</span>
+                            <span>21 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - Bd"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="11">
+                            <span>M7</span>
+                            <span class="interval-name">Major Seventh</span>
+                            <span>22 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - B"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="11.5">
+                            <span>ten7</span>
+                            <span class="interval-name">Tendo Seventh</span>
+                            <span>23 ¼ tones</span>
+                            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="C - B‡"
+                                is24edo="true"></custom-keyboard>
+                        </li>
+
+                        <li class="interval-li" data-semitones="12">
+                            <span>P8</span>
+                            <span class="interval-name">Perfect Octave</span>
+                            <span>24 ¼ tones</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -78,31 +286,36 @@
                             <strong>Arto</strong>
                             <strong>C<sub>art</sub></strong>
                             <text><strong>0 - 5 - 14</strong><br>(C - D‡ - G)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 5 - 14" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 5 - 14" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Neutral</strong>
                             <strong>C<sub>N</sub></strong>
                             <text><strong>0 - 7 - 14</strong><br>(C - Ed - G)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 14" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 14" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Tendo</strong>
                             <strong>C<sub>ten</sub></strong>
                             <text><strong>0 - 9 - 14</strong><br>(C - E‡ - G)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 9 - 14" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 9 - 14" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>UnderMajor</strong>
                             <strong>C<sub>v</sub></strong>
                             <text><strong>0 - 8 - 13</strong><br>(C - E - Gd)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 13" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 13" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Overmajor</strong>
                             <strong>C<sup>^</sup></strong>
                             <text><strong>0 - 8 - 15</strong><br>(C - E - G‡)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 15" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                     </ul>
                 </div>
@@ -113,31 +326,36 @@
                             <strong>Overmajor</strong>
                             <strong>C<sup>^</sup></strong>
                             <text><strong>0 - 8 - 15</strong><br>(C - E - G‡)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 8 - 15" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Underneutral</strong>
                             <strong>C<sub>Nv</sub></strong>
                             <text><strong>0 - 7 - 13</strong><br>(C - Ed - Gd)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 13" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 13" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Overneutral</strong>
                             <strong>C<sub>N</sub><sup>^</sup></strong>
                             <text><strong>0 - 7 - 15</strong><br>(C - Ed - G‡)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 7 - 15" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Underminor</strong>
                             <strong>C<sub>mv</sub></strong>
                             <text><strong>0 - 6 - 13</strong><br>(C - Eb - Gd)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 6 - 13" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 6 - 13" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                         <li class="chords-li-example">
                             <strong>Overminor</strong>
                             <strong>C<sub>m</sub><sup>^</sup></strong>
                             <text><strong>0 - 6 - 15</strong><br>(C - Eb - G‡)</text>
-                            <custom-keyboard height="50px" width="200px" keys="0 - 6 - 15" style="grid-area: c;" is24edo="true" showNames="true"></custom-keyboard>
+                            <custom-keyboard height="50px" width="200px" keys="0 - 6 - 15" style="grid-area: c;"
+                                is24edo="true" showNames="true"></custom-keyboard>
                         </li>
                     </ul>
                 </div>
@@ -165,7 +383,8 @@
                     <h3>New Pentatonics</h3>
                     <ul class="interval-list-2">
                         <li><strong>Godzilla:</strong> 0 - 5 - 10 - 14 - 19 - 24 (Equi-pentatonic approx.).</li>
-                        <li><strong>Mohajira:</strong> 0 - 4 - 7 - 11 - 14 - 18 - 21 - 24 (Arabic-style heptatonic).</li>
+                        <li><strong>Mohajira:</strong> 0 - 4 - 7 - 11 - 14 - 18 - 21 - 24 (Arabic-style heptatonic).
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -173,4 +392,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

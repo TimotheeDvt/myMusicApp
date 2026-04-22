@@ -2,3 +2,17 @@
     grid-template-areas:
 		"a b c";
 }
+
+.grid-4 {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    grid-template-areas:
+        "a d"
+        "b d";
+    gap: 20px;
+}
+
+.interval-grid-container {
+    grid-template-columns: 1fr 1fr 1fr;
+}
