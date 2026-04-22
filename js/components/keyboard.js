@@ -188,6 +188,7 @@ class CustomKeyboard extends HTMLElement {
           box-shadow:
             inset 0 0 3px var(--accent-yellow),
             0 2px 12px var(--accent-yellow);
+          color: var(--text-dark);
         }
         .grey-key.highlight {
           background: var(--accent-blue);
