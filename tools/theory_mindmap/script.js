@@ -107,7 +107,7 @@ scaleLi.forEach(li => {
 
 		let notesToPlay = [];
 		if (scaleAttr === "chromatic") {
-			notesToPlay = TheoryEngine.base_notes;
+			notesToPlay = TheoryEngine.base_notes_12;
 		} else {
 			let root = text.replace(/m$/, '');
 			const mode = text.endsWith('m') ? 'Natural Minor/Aeolian' : 'Major/Ionian';

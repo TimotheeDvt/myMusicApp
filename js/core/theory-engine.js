@@ -3,7 +3,8 @@
  */
 
 const TheoryEngine = {
-    base_notes: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+    base_notes_12: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+    base_notes_24: ["C", "C‡", "C#", "Dd", "D", "D‡", "D#", "Ed", "E", "E‡", "F", "F‡", "F#", "Gd", "G", "G‡", "G#", "Ad", "A", "A‡", "A#", "Bd", "B", "B‡"],
     all_notes: [
         "C♮B#", "C#D♭", "D♮", "D#E♭", "E♮F♭", "E#F♮",
         "F#G♭", "G♮", "G#A♭", "A♮", "A#B♭", "B♮C♭"
@@ -82,14 +83,9 @@ const TheoryEngine = {
 
     getEDONoteName(index, subdivisions) {
         if (subdivisions == 12) {
-            // Map 12-EDO to standard names
-            const standardNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            return standardNames[index % 12];
+            return this.base_notes_12[(index + 9) % 12];
         } else if (subdivisions == 24) {
-            // For 24-EDO, use a combination of natural and accidental symbols
-            const baseNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-            const accidental = (index % 2 === 0) ? "" : (index % 4 === 1 ? "#" : "♭");
-            return baseNames[Math.floor(index / 2) % 12] + accidental;
+            return this.base_notes_24[(index + 18) % 24];
         }
         // For other EDOs, use a numerical notation (e.g., "0", "1", "2"...)
         return index.toString();
@@ -124,7 +120,7 @@ const TheoryEngine = {
         note = note.replace("<sup>", "").replace("</sup>", "");
         const base = 440; // A4
         let noteIndex;
-        noteIndex = this.base_notes.findIndex(n => n.includes(note));
+        noteIndex = this.base_notes_12.findIndex(n => n.includes(note));
         if (noteIndex === -1) return null;
         return base * Math.pow(2, (noteIndex) / 12);
     }

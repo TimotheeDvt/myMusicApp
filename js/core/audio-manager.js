@@ -151,7 +151,7 @@ const AudioManager = {
 
         for (let noteName of notes) {
             const cleanNote = TheoryEngine.normalizeNote(noteName);
-            const currentIdx = TheoryEngine.base_notes.indexOf(cleanNote);
+            const currentIdx = TheoryEngine.base_notes_12.indexOf(cleanNote);
 
             if (lastIdx !== -1 && currentIdx <= lastIdx) octaveOffset++;
 

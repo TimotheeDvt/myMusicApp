@@ -34,6 +34,7 @@ const state = {
 	notes: [],
 	showFreq: true,
 	showKeys: true,
+	showNoteNames: true,
 	showWave: true,
 	darkMode: true,
 	layout: 0,
@@ -161,6 +162,12 @@ function fillTable() {
 					key.innerText = letters[state.layout][index % (CONFIG.subdivisions)] || "";
 					cell.appendChild(key);
 				}
+				if (state.showNoteNames && (CONFIG.subdivisions == 12 || CONFIG.subdivisions == 24)) {
+					const key = document.createElement('div');
+					key.className = "noteName";
+					key.innerText = TheoryEngine.getEDONoteName(index, CONFIG.subdivisions) || "";
+					cell.appendChild(key);
+				}
 				row.appendChild(cell);
 			}
 		}
@@ -191,7 +198,9 @@ function updateTableSize() {
 
 	const keys = document.querySelectorAll('.key');
 	const freqs = document.querySelectorAll('.freq');
+	const noteNames = document.querySelectorAll('.noteName');
 	for (const key of keys) key.style.fontSize = `${cellSize / 6}px`;
+	for (const noteName of noteNames) noteName.style.fontSize = `${cellSize / 6}px`;
 	for (const freq of freqs) freq.style.fontSize = `${cellSize / 8}px`;
 }
 
@@ -413,6 +422,7 @@ function handleCanvasClick(event) {
 
 function handleShowFreqClick() { state.showFreq = !state.showFreq; update(); }
 function handleShowKeysClick() { state.showKeys = !state.showKeys; update(); }
+function handleShowNoteNamesClick() {state.showNoteNames = !state.showNoteNames; update(); }
 function handleShowWaveFormClick() {
 	state.showWave = !state.showWave;
 	const canvas = document.getElementById('waveform');
@@ -494,11 +504,19 @@ function init() {
 	document.getElementById('table').addEventListener('click', handleTableClick);
 	document.querySelector('#showFreq').addEventListener('click', handleShowFreqClick);
 	document.querySelector('#showKey').addEventListener('click', handleShowKeysClick);
+	document.querySelector('#showNoteNames').addEventListener('click', handleShowNoteNamesClick);
 	document.querySelector('#showWave').addEventListener('click', handleShowWaveFormClick);
 	document.querySelector('#changeLayout').addEventListener('change', handleLayoutChange);
 	document.querySelector('#changeWaveform').addEventListener('change', handleWaveFormChange);
 	document.querySelector('#changeScale').addEventListener('change', handleScaleChange);
-	document.querySelector('#subdivNb').addEventListener('change', (e) => { CONFIG.subdivisions = parseInt(e.target.value); update(); });
+	document.querySelector('#subdivNb').addEventListener('change', (e) => {
+		CONFIG.subdivisions = parseInt(e.target.value);
+		if (CONFIG.subdivisions != 12 && CONFIG.subdivisions != 24) {
+			state.showNoteNames = false;
+			document.querySelector('#showNoteNames').checked = false;
+		}
+		update();
+	});
 	document.querySelector('#StartingFreq').addEventListener('change', (e) => { CONFIG.startFreq = parseFloat(e.target.value); update(); });
 
 	update();
