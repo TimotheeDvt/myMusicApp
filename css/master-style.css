@@ -300,10 +300,10 @@ footer .card {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: conic-gradient(transparent,
-            var(--accent-blue),
-            transparent 30%);
-    animation: rotateLine 4s linear infinite;
+    border-radius: 200%;
+    background: var(--accent-blue);
+    opacity: 0.5;
+    animation: rotateLine 8s ease-in-out infinite;
     z-index: -1;
 }
 
