@@ -15,68 +15,6 @@ body {
   z-index: 70;
 }
 
-#infos {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  background: var(--text-white);
-  border-radius: 0 0 25% 0;
-  color: var(--text-dark);
-  font-size: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: all 0.3s ease;
-  z-index: 20;
-}
-
-#infos:hover {
-  color: var(--text-dark);
-  transform: scale(1.2);
-  cursor: pointer;
-}
-
-#infos:hover ~ #main {
-  visibility: visible;
-  opacity: 1;
-}
-
-#main:hover {
-  visibility: visible;
-  opacity: 1;
-}
-
-#main {
-  position: absolute;
-  top: 40px;
-  left: 40px;
-  border-radius: 20px;
-  visibility: hidden;
-  opacity: 0;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
-  width: 90%;
-  transition: all 0.3s ease;
-  z-index: 10;
-  text-align: justify;
-}
-
-#main *:not(a) {
-  margin: 0;
-  padding: 20px;
-  font-size: 1.5em;
-}
-
-a {
-  text-decoration: none;
-  color: var(--text-dark);
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
 #midiConnection {
   position: absolute;
   top: -100px;

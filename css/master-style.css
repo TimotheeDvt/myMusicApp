@@ -224,3 +224,71 @@ footer .card {
     border-bottom-right-radius: 0;
     margin-bottom: 0;
 }
+
+#infos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-light);
+  border: 3px solid var(--glass);
+  border-radius: 0 0 25% 0;
+  color: var(--text-white);
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+
+#infos:hover {
+  color: var(--text-white);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+#infos:hover ~ #main {
+  visibility: visible;
+  opacity: 1;
+}
+
+#main:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+#main {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  border: 3px solid var(--glass);
+  border-radius: 20px;
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--bg-light);
+  color: var(--text-white);
+  width: 90%;
+  transition: all 0.3s ease;
+  z-index: 100;
+  text-align: justify;
+}
+
+#main p {
+  margin: 0;
+  padding: 10px 20px;
+  font-size: 1.5em;
+}
+
+#main h1 {
+  padding: 10px 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent-blue);
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
