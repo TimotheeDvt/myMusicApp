@@ -37,7 +37,7 @@ const TheoryEngine = {
 
     /**
      * Calculates frequencies for any EDO system.
-     * Derived from EDO_interface/index.js logic
+     * Derived from EDO_interface/script.js logic
      */
     calculateEDOFrequencies(startFreq, subdivisions=12) {
         return Array.from({ length: subdivisions }, (_, i) => {

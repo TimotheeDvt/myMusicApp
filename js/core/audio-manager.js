@@ -1,7 +1,7 @@
 /**
  * audio-manager.js
  * Centralized Audio Engine for the Music Hub
- * Based on original logic from EDO_interface/index.js
+ * Based on original logic from EDO_interface/script.js
  */
 
 const AudioManager = {
