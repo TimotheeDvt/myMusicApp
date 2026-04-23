@@ -25,7 +25,7 @@ body {
 }
 
 .notes {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     font-size: 1.1em;
 }
 
@@ -54,12 +54,12 @@ input[type="number"] {
 
 .card:has(table) {
     height: 25%;
-    overflow-x: auto; /* Allow horizontal scroll on very small screens */
+    /* overflow-x: auto; Allow horizontal scroll on very small screens */
     display: flex;
     justify-content: center;
     padding: 10px;
     /* aspect-ratio: 4/3; */
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
 }
 
 table {
@@ -92,14 +92,6 @@ td, th {
 .note-check {
     margin-right: 10px;
     accent-color: var(--accent-blue);
-}
-
-footer {
-    position: absolute;
-    display: flex;
-    bottom: 0;
-    width: 100%;
-    justify-content: center;
 }
 
 form {

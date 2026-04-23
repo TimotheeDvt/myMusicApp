@@ -172,3 +172,12 @@ function onTuningChange() {
         return true;
     }
 }
+
+document.getElementById('toggle-footer').addEventListener('click', () => {
+    document.querySelector('footer').classList.toggle('folded');
+    localStorage.setItem("foldedModesScales", document.querySelector('footer').classList.contains('folded'))
+});
+
+if (localStorage.getItem("foldedModesScales") === "true") {
+    document.querySelector('footer').classList.add('folded');
+}

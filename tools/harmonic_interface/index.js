@@ -457,20 +457,13 @@ function calculate_key_to_index() {
 	}
 }
 
-function toggleFooterAndInfos() {
-	const footer = document.querySelector('footer');
-	const infos = document.querySelector('#infos');
-	footer.style.display = footer.style.display === 'none' ? 'flex' : 'none';
-	infos.style.display = infos.style.display === 'none' ? 'flex' : 'none';
-}
-
 const pressedKeys = new Set();
 document.addEventListener('keydown', (e) => {
 	if (pressedKeys.has(e.key)) return;
 	pressedKeys.add(e.key);
 	const noteKey = keyToFrequency(e.key);
 	if (noteKey) playNote(noteKey);
-	else if (e.key === " ") { stopAllNotes(); } // toggleFooterAndInfos(); }
+	else if (e.key === " ") { stopAllNotes(); }
 	update();
 });
 
@@ -675,4 +668,13 @@ function keyToFrequency(key) {
 	return (index !== undefined && state.notes[index])
 		? state.notes[index].frequency
 		: null;
+}
+
+document.getElementById('toggle-footer').addEventListener('click', () => {
+    document.querySelector('footer').classList.toggle('folded');
+    localStorage.setItem("foldedHarmonic", document.querySelector('footer').classList.contains('folded'))
+});
+
+if (localStorage.getItem("foldedHarmonic") === "true") {
+    document.querySelector('footer').classList.add('folded');
 }

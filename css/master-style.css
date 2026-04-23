@@ -175,3 +175,52 @@ td, th {
   margin-bottom:8px;
   color: var(--accent-blue);
 }
+
+/* Foldable Footer Styling */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+footer.folded {
+    transform: translateY(calc(100% - 30px)); /* Leaves only the arrow visible */
+}
+
+.footer-toggle {
+    width: 50px;
+    height: 30px;
+    background: var(--bg-light);
+    border: 1px solid var(--glass);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-white);
+    transition: background 0.3s;
+}
+
+.footer-toggle:hover {
+    background: var(--bg-dark);
+}
+
+.footer-toggle i {
+    transition: transform 0.3s;
+}
+
+footer.folded .footer-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Adjusting existing footer containers */
+footer .card {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
