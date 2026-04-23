@@ -102,7 +102,7 @@ class CustomKeyboard extends HTMLElement {
             inset 0 0 5px #ddd,
             0 2px 5px rgba(0,0,0,0.15);
           position: relative;
-          z-index: 1;
+          z-index: var(--level-0);
           cursor: pointer;
           display: flex;
           justify-content: center;
@@ -135,7 +135,7 @@ class CustomKeyboard extends HTMLElement {
           box-shadow:
             inset 0 1px 2px rgba(255,255,255,0.2),
             0 2px 5px rgba(0,0,0,0.6);
-          z-index: 2;
+          z-index: var(--level-1);
           cursor: pointer;
           top: 0;
           transition: background-color 0.3s;
@@ -156,7 +156,7 @@ class CustomKeyboard extends HTMLElement {
           box-shadow:
             inset 0 1px 2px rgba(255,255,255,0.2),
             0 2px 5px rgba(0,0,0,0.6);
-          z-index: 2;
+          z-index: var(--level-1);
           cursor: pointer;
           top: 0;
           transition: background-color 0.3s;

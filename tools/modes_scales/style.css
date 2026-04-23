@@ -98,16 +98,8 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    /* background-color: var(--bg-dark); */
     align-items: center;
-    /* margin-top: -10px;
-    border: 1px solid var(--text-white);
-    padding: 5px; */
     gap: 10px;
-    /* border-radius: 5px;
-    width: 100%;
-    z-index: 10;
-    transition: width 0.3s ease; */
 }
 
 #grid {

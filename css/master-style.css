@@ -13,6 +13,15 @@
     --cool-blue: #6f8ff078;
     --glass: rgba(255, 255, 255, 0.05);
     --glass-blur: 10px;
+
+    /* z-index level */
+    --level--1: -1;
+    --level-0: 1;
+    --level-1: 10;
+    --level-2: 20;
+    --level-3: 30;
+    --level-4: 40;
+    --level-5: 50;
 }
 
 body {
@@ -32,7 +41,7 @@ body {
     border-bottom: 1px solid var(--accent-blue);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: var(--level-1);
 }
 
 .nav-container {
@@ -192,7 +201,7 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: var(--level-5);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -252,7 +261,7 @@ footer .card {
     justify-content: center;
     padding: 0;
     transition: all 0.3s ease;
-    z-index: 20;
+    z-index: var(--level-2);
 }
 
 #infos:hover {
@@ -284,7 +293,7 @@ footer .card {
     color: var(--text-white);
     width: 90%;
     transition: all 0.3s ease;
-    z-index: 100;
+    z-index: var(--level-3);
     text-align: justify;
     font-size: 0.7em;
     backdrop-filter: blur(var(--glass-blur));
@@ -304,7 +313,7 @@ footer .card {
     background: var(--accent-blue);
     opacity: 0.5;
     animation: rotateLine 8s ease-in-out infinite;
-    z-index: -1;
+    z-index: var(--level--1);
 }
 
 #main::after {
@@ -315,7 +324,7 @@ footer .card {
     background: var(--bg-light);
     border-radius: 18px;
     /* Slightly less than parent to fit inside */
-    z-index: -1;
+    z-index: var(--level--1);
 }
 
 @keyframes rotateLine {

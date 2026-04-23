@@ -21,7 +21,7 @@ class MainNav extends HTMLElement {
                 border-bottom: 1px solid var(--accent-blue);
                 position: sticky;
                 top: 0;
-                z-index: 10;
+                z-index: var(--level-1);
             }
             .nav-container {
                 display: flex;
