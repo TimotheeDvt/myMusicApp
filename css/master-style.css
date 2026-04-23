@@ -65,7 +65,9 @@ body {
 /* --- Global Harmonized UI Components --- */
 
 /* 1. Standardized Buttons */
-button, .nav-btn, .tab-btn {
+button,
+.nav-btn,
+.tab-btn {
     padding: 10px 20px;
     background: var(--glass);
     border: 1px solid var(--glass);
@@ -79,21 +81,27 @@ button, .nav-btn, .tab-btn {
     font-family: 'Inter', sans-serif;
 }
 
-button:hover, .nav-btn:hover {
+button:hover,
+.nav-btn:hover {
     transform: translateY(-2px);
     color: var(--text-white);
     border-color: var(--accent-blue);
     background: rgba(255, 255, 255, 0.05);
 }
 
-button.active, .nav-btn.active, .tab-btn.active {
+button.active,
+.nav-btn.active,
+.tab-btn.active {
     background: linear-gradient(90deg, var(--accent-blue), rgba(111, 143, 240, 0.2));
     border: 1px solid rgba(111, 143, 240, 0.4);
-    color: var(--text-dark); /* Improved contrast for active state */
+    color: var(--text-dark);
+    /* Improved contrast for active state */
 }
 
 /* 2. Harmonized Form Inputs (Select, Number, Text) */
-select, input[type="number"], input[type="text"] {
+select,
+input[type="number"],
+input[type="text"] {
     background-color: var(--bg-light);
     color: var(--text-white);
     border: 1px solid var(--glass);
@@ -105,7 +113,8 @@ select, input[type="number"], input[type="text"] {
     outline: none;
 }
 
-select:focus, input:focus {
+select:focus,
+input:focus {
     border-color: var(--accent-blue);
     box-shadow: 0 0 0 2px rgba(111, 143, 240, 0.2);
 }
@@ -145,35 +154,36 @@ table {
     border-spacing: 4px;
 }
 
-td, th {
+td,
+th {
     border-radius: 6px;
 }
 
 
 
 /* card (glass) */
-.card{
-  background: var(--glass);
-  border: 1px solid var(--glass);
-  border-radius:14px;
-  padding:20px;
-  backdrop-filter: blur(var(--glass-blur));
-  transition: transform 260ms cubic-bezier(.2,.9,.32,1), box-shadow 260ms;
-  box-shadow: 0 6px 30px var(--bg-nav);
+.card {
+    background: var(--glass);
+    border: 1px solid var(--glass);
+    border-radius: 14px;
+    padding: 20px;
+    backdrop-filter: blur(var(--glass-blur));
+    transition: transform 260ms cubic-bezier(.2, .9, .32, 1), box-shadow 260ms;
+    box-shadow: 0 6px 30px var(--bg-nav);
 }
 
 /* headings inside cards */
-.card h3{
-  font-size:1.28em;
-  margin-bottom:12px;
-  color: var(--text-white);
+.card h3 {
+    font-size: 1.28em;
+    margin-bottom: 12px;
+    color: var(--text-white);
 }
 
-.card h4{
-  font-size:1.03em;
-  margin-top:12px;
-  margin-bottom:8px;
-  color: var(--accent-blue);
+.card h4 {
+    font-size: 1.03em;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color: var(--accent-blue);
 }
 
 /* Foldable Footer Styling */
@@ -187,7 +197,8 @@ footer {
 }
 
 footer.folded {
-    transform: translateY(calc(100% - 30px)); /* Leaves only the arrow visible */
+    transform: translateY(calc(100% - 30px));
+    /* Leaves only the arrow visible */
 }
 
 .footer-toggle {
@@ -226,69 +237,110 @@ footer .card {
 }
 
 #infos {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  background: var(--bg-light);
-  border: 3px solid var(--glass);
-  border-radius: 0 0 25% 0;
-  color: var(--text-white);
-  font-size: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: all 0.3s ease;
-  z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-light);
+    border: 3px solid var(--glass);
+    border-radius: 0 0 25% 0;
+    color: var(--text-white);
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+    z-index: 20;
 }
 
 #infos:hover {
-  color: var(--text-white);
-  transform: scale(1.2);
-  cursor: pointer;
+    color: var(--text-white);
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
-#infos:hover ~ #main {
-  visibility: visible;
-  opacity: 1;
+#infos:hover~#main {
+    visibility: visible;
+    opacity: 1;
 }
 
 #main:hover {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
 #main {
-  position: absolute;
-  top: 40px;
-  left: 40px;
-  border: 3px solid var(--glass);
-  border-radius: 20px;
-  visibility: hidden;
-  opacity: 0;
-  background-color: var(--bg-light);
-  color: var(--text-white);
-  width: 90%;
-  transition: all 0.3s ease;
-  z-index: 100;
-  text-align: justify;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    /* Use a semi-transparent glass border as the base */
+    border: 2px solid var(--glass);
+    border-radius: 20px;
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--bg-light);
+    color: var(--text-white);
+    width: 90%;
+    transition: all 0.3s ease;
+    z-index: 100;
+    text-align: justify;
+    font-size: 0.7em;
+    backdrop-filter: blur(var(--glass-blur));
+    overflow: hidden;
+}
+
+/* The "Running" Accent Line */
+#main::before {
+    content: "";
+    position: absolute;
+    /* Expand slightly outside the container to cover the border area */
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent,
+            var(--accent-blue),
+            transparent 30%);
+    animation: rotateLine 4s linear infinite;
+    z-index: -1;
+}
+
+#main::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    /* This thickness should match your desired border width */
+    background: var(--bg-light);
+    border-radius: 18px;
+    /* Slightly less than parent to fit inside */
+    z-index: -1;
+}
+
+@keyframes rotateLine {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 #main p {
-  margin: 0;
-  padding: 10px 20px;
-  font-size: 1.5em;
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 1.5em;
 }
 
 #main h1 {
-  padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 a {
-  text-decoration: none;
-  color: var(--accent-blue);
-  font-weight: bold;
-  transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--accent-blue);
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
