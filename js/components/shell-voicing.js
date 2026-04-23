@@ -93,7 +93,6 @@ class ShellVoicing extends HTMLElement {
                     );
                     background-size: calc(100% / 4) 100%;
                     background-repeat: repeat-x;
-                    /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); adds subtle depth */
                 }
 
                 /* note markers (use accent and softer border) */

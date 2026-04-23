@@ -30,7 +30,6 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-white);
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    /* overflow-x: hidden; */
     width: 100%;
 }
 
@@ -148,7 +147,6 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"]:checked::after {
-    /* content: ''; */
     position: absolute;
     color: var(--text-dark);
     font-size: 14px;
@@ -168,9 +166,6 @@ th {
     border-radius: 6px;
 }
 
-
-
-/* card (glass) */
 .card {
     background: var(--glass);
     border: 1px solid var(--glass);

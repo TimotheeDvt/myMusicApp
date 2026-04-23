@@ -11,8 +11,6 @@ body:not(.main-nav) {
   font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
   background: linear-gradient(135deg, var(--bg-dark) 0%, #071016 100%);
   color: var(--text-white);
-  /* padding: 24px; */
-	/* padding-top: 5px; */
 	padding-bottom: 5px;
   overflow-x: hidden;
   line-height:1.45;
@@ -129,7 +127,6 @@ h1{
 }
 
 .card-circle {
-  /* width: 100%; */
   height: 100%;
   display: flex;
   flex-direction: column;
