@@ -186,6 +186,6 @@ document.addEventListener('keydown', (event) => {
     const isHardRefresh = (event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'r';
 
     if (isHardRefresh) {
-        localStorage.removeItem("foldedModesScales");
+        localStorage.clear();
     }
 });
