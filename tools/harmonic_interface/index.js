@@ -678,3 +678,11 @@ document.getElementById('toggle-footer').addEventListener('click', () => {
 if (localStorage.getItem("foldedHarmonic") === "true") {
     document.querySelector('footer').classList.add('folded');
 }
+
+document.addEventListener('keydown', (event) => {
+    const isHardRefresh = (event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'r';
+
+    if (isHardRefresh) {
+        localStorage.removeItem("foldedHarmonic");
+    }
+});
