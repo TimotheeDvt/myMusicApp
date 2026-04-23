@@ -217,7 +217,6 @@ h1{
 
 .scale-formula-enharmonic {
   list-style:none;
-  /* padding:10px 0; */
   display: flex;
   flex-direction: row;
   gap: 3px;
