@@ -39,7 +39,8 @@ const AudioManager = {
         this.state.masterGain.connect(this.state.compressor);
         this.state.compressor.connect(this.state.audioContext.destination);
 
-        this.state.masterGain.gain.setValueAtTime(0.7, this.state.audioContext.currentTime);
+        const isMuted = localStorage.getItem('audioMuted') === 'true';
+        this.state.masterGain.gain.setValueAtTime(isMuted ? 0 : 0.7, this.state.audioContext.currentTime);
         this.isInitialized = true;
     },
 
@@ -163,4 +164,5 @@ const AudioManager = {
     }
 };
 
-if (typeof module !== 'undefined') module.exports = AudioManager;
+window.AudioManager = AudioManager;
+window.AudioManager.init();

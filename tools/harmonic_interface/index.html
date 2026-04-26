@@ -9,6 +9,8 @@
 
     <script src="../../js/core/theory-engine.js" defer></script>
     <script src="../../js/core/audio-manager.js" defer></script>
+    <script src="../../js/utils/loadSynth.js" defer></script>
+    <script src="../../js/components/keyboard.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="icon" type="image/png" href="../../assets/icon.png" />
@@ -44,11 +46,14 @@
     </div>
 
     <div id="container">
-        <canvas id="circle" class="card"></canvas>
-        <div id="table-container" class="card">
+        <canvas id="circle" class="card" style="grid-area: a;"></canvas>
+        <div id="table-container" class="card" style="grid-area: b;">
             <table id="table">
                 <tbody></tbody>
             </table>
+        </div>
+        <div class="card" style="grid-area: c;" id="keyboard-container">
+            <custom-keyboard height="100%" width="100%" style="height: 80%" keys="" showNames="true"></custom-keyboard>
         </div>
     </div>
     <canvas id="waveform"></canvas>

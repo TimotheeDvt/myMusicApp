@@ -1,6 +1,6 @@
 class CustomKeyboard extends HTMLElement {
   static get observedAttributes() {
-    return ['height', 'width', 'keys', 'showNames'];
+    return ['height', 'width', 'keys', 'showNames', 'is24edo'];
   }
 
   constructor() {
@@ -57,7 +57,8 @@ class CustomKeyboard extends HTMLElement {
       .replace("Eb", "D#")
       .replace("Gb", "F#")
       .replace("Ab", "G#")
-      .replace("Bb", "A#");
+      .replace("Bb", "A#")
+      .replace("Cd", "B‡")
 
     let keysToHighlight = [];
 

@@ -21,6 +21,7 @@ const CONFIG = {
 		1, 256 / 243, 9 / 8, 32 / 27, 81 / 64, 4 / 3, 1024 / 729, 729 / 512, 3 / 2, 128 / 81, 27 / 16, 16 / 9, 243 / 128, 2
 	]
 };
+const CONFIG_TO_STORE = ["subdivisions", "startFreq"]
 const letters = ["AZERTYUIOPQSDFGHJKLMWXCVBN123456789", "QWERTYUIOPASDFGHJKLZXCVBNM123456789"];
 const style = window.getComputedStyle(document.body)
 let COLORS = {
@@ -214,6 +215,8 @@ function drawPlayingNotes() {
 	drawMainCircle();
 	writeIndexes();
 
+	if (AudioManager.state.activeVoices.length === 0) return;
+
 	let playingNotes = Object.keys(AudioManager.state.activeVoices).map(freqStr => {
 		const activeFreq = parseFloat(freqStr);
 
@@ -226,6 +229,7 @@ function drawPlayingNotes() {
 		});
 	}).filter(n => n);
 
+	// Draw on circle
 	if (playingNotes.length >= 1) {
 		playingNotes.sort((a, b) => a.index - b.index);
 
@@ -248,6 +252,7 @@ function drawPlayingNotes() {
 		});
 	}
 
+	// Draw on table
 	notes.forEach(note => {
 		const cell = document.querySelector(`td[data-index="${note.index}"]`);
 		if (!cell) return;
@@ -272,6 +277,22 @@ function drawPlayingNotes() {
 			cell.classList.remove("active");
 		}
 	});
+
+	const notesToHighlight = playingNotes.map(note => {
+		const noteName = TheoryEngine.getEDONoteName(note.index, CONFIG.subdivisions);
+		return noteName;
+	}).join(" - ");
+
+	const keyboard = document.querySelector('custom-keyboard');
+	if (keyboard) {
+		keyboard.setAttribute('keys', notesToHighlight);
+
+		if (CONFIG.subdivisions === 24) {
+			keyboard.setAttribute('is24edo', 'true');
+		} else {
+			keyboard.setAttribute('is24edo', 'false');
+		}
+	}
 }
 
 function drawVariableLine(ctx, n1, n2) {
@@ -422,7 +443,7 @@ function handleCanvasClick(event) {
 
 function handleShowFreqClick() { state.showFreq = !state.showFreq; update(); }
 function handleShowKeysClick() { state.showKeys = !state.showKeys; update(); }
-function handleShowNoteNamesClick() {state.showNoteNames = !state.showNoteNames; update(); }
+function handleShowNoteNamesClick() { state.showNoteNames = !state.showNoteNames; update(); }
 function handleShowWaveFormClick() {
 	state.showWave = !state.showWave;
 	const canvas = document.getElementById('waveform');
@@ -457,6 +478,16 @@ function calculate_key_to_index() {
 	}
 }
 
+function keyToFrequency(key) {
+	if (!key) return null;
+	const cleanKey = key.toUpperCase().trim();
+	const index = key_to_index[cleanKey];
+
+	return (index !== undefined && state.notes[index])
+		? state.notes[index].frequency
+		: null;
+}
+
 const pressedKeys = new Set();
 document.addEventListener('keydown', (e) => {
 	if (pressedKeys.has(e.key)) return;
@@ -477,21 +508,36 @@ document.addEventListener('keyup', (e) => {
 function preventSubmit1(e) { if (e.key === 'Enter') { CONFIG.startFreq = parseFloat(e.target.value); update(); e.preventDefault(); } }
 function preventSubmit2(e) { if (e.key === 'Enter') { CONFIG.subdivisions = parseInt(e.target.value); update(); e.preventDefault(); } }
 
-// if audio manager is already initialized (e.g. from another tool), we can skip the user interaction step
-if (!AudioManager.isInitialized) {
-	const toRemove = document.getElementById("toRemove");
-	toRemove.style.visibility = "hidden";
-} else {
-	document.addEventListener("click", () => {
-		AudioManager.init();
-		document.getElementById("toRemove").style.visibility = "hidden";
-	}, { once: true });
-}
+document.addEventListener("click", () => {
+	AudioManager.init();
+	document.getElementById("toRemove").style.visibility = "hidden";
+}, { once: true });
 
 /******************
  * INITIALIZATION *
  ******************/
 function init() {
+	const storedSubdivisions = localStorage.getItem("subdivisions");
+	const storedStartFreq = localStorage.getItem("startFreq");
+	if (storedSubdivisions) {
+		CONFIG.subdivisions = parseInt(storedSubdivisions);
+		document.getElementById('subdivNb').value = CONFIG.subdivisions;
+	}
+	if (storedStartFreq) {
+		CONFIG.startFreq = parseFloat(storedStartFreq);
+		document.getElementById('StartingFreq').value = CONFIG.startFreq;
+	}
+
+	if (document.getElementById('subdivNb').value == 24 || document.getElementById('subdivNb').value == 12) {
+		const keyboardContainer = document.querySelector('#keyboard-container');
+		keyboardContainer.style.display = 'block';
+		const keyboard = document.querySelector("custom-keyboard");
+		keyboard.setAttribute('is24edo', CONFIG.subdivisions == 24 ? "true" : "false");
+	} else {
+		const keyboardContainer = document.querySelector('#keyboard-container');
+		keyboardContainer.style.display = 'none';
+	}
+
 	handleLayoutChange();
 	document.getElementById('circle').addEventListener('click', handleCanvasClick);
 	document.getElementById('table').addEventListener('click', handleTableClick);
@@ -507,10 +553,23 @@ function init() {
 		if (CONFIG.subdivisions != 12 && CONFIG.subdivisions != 24) {
 			state.showNoteNames = false;
 			document.querySelector('#showNoteNames').checked = false;
+
+			const keyboardContainer = document.querySelector('#keyboard-container');
+			keyboardContainer.style.display = 'none';
+		} else {
+			const keyboardContainer = document.querySelector('#keyboard-container');
+			keyboardContainer.style.display = 'block';
+			const keyboard = document.querySelector("custom-keyboard");
+			keyboard.setAttribute('is24edo', CONFIG.subdivisions == 24 ? "true" : "false");
 		}
+		localStorage.setItem("subdivisions", CONFIG.subdivisions);
 		update();
 	});
-	document.querySelector('#StartingFreq').addEventListener('change', (e) => { CONFIG.startFreq = parseFloat(e.target.value); update(); });
+	document.querySelector('#StartingFreq').addEventListener('change', (e) => {
+		CONFIG.startFreq = parseFloat(e.target.value);
+		localStorage.setItem("startFreq", CONFIG.startFreq);
+		update();
+	});
 
 	update();
 }
@@ -531,158 +590,26 @@ function update() {
 	updateTableSize();
 }
 
-setInterval(drawWaveForms, 1000 / 50);
+setInterval(() => {
+	drawWaveForms();
+	drawPlayingNotes();
+}, 1000 / 50);
 
 init();
 
-// MIDI Logic kept exactly as is, just calling playNote/noteOff
-if (navigator.requestMIDIAccess) {
-	navigator.requestMIDIAccess({ sysex: true })
-		.then(onMIDISuccess, onMIDIFailure)
-		.catch((error) => console.error("Error accessing MIDI devices:", error));
-} else {
-	console.error("Web MIDI API is not supported in this browser.");
-}
-
-// Check MIDI permissions using Permissions API
-navigator.permissions.query({ name: "midi", sysex: true }).then((result) => {
-	if (result.state === "granted") {
-		navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-	} else if (result.state === "prompt") {
-		console.warn("MIDI access requires user permission.");
-	} else {
-		console.error("MIDI access denied.");
-	}
-});
-
-// Handle failure to access MIDI devices
-function onMIDIFailure(error) {
-	console.error("Failed to get MIDI access:", error);
-}
-
-// Map to store connected MIDI inputs
-const connectedInputs = new Map();
-
-// Handle successful access to MIDI devices
-function onMIDISuccess(midiAccess) {
-
-	// List all available MIDI inputs and outputs
-	listInputsAndOutputs(midiAccess);
-
-	// Listen for device connection/disconnection events
-	midiAccess.onstatechange = updateDevices;
-
-	// Set up message handlers for specific inputs
-	for (const input of midiAccess.inputs.values()) {
-		input.onmidimessage = handleInput;
-	}
-}
-
-const isShowed = new Map();
-
-// List all available MIDI inputs and outputs
-function listInputsAndOutputs(midiAccess) {
-	const select = document.getElementById('midiControl');
-	for (const [id, input] of midiAccess.inputs) {
-		if (isShowed.has(id))
-			continue;
-		isShowed.set(id, true);
-		let selected;
-		select.innerHTML += `<option value="${id}" ${selected}>${input.name}</option>`;
-		console.log(`Input: [ID: ${id}] Name: ${input.name}`);
-	}
-
-	for (const [id, output] of midiAccess.outputs) {
-		console.log(`Output: [ID: ${id}] Name: ${output.name}`);
-	}
-}
-
-// Handle device connection or disconnection events
-function updateDevices(event) {
-	const port = event.port;
-	const timestamp = new Date().toLocaleTimeString();
-	const select = document.getElementById('midiControl');
-	if (port.name !== select.value) return;
-
-	const popUp = document.getElementById('midiConnection');
-	if (port.connection == "open" || port.state == "connected" && !connectedInputs.has(port.id)) {
-		connectedInputs.set(port.id, [port, timestamp]);
-		port.onmidimessage = handleInput;
-		showPopUp(popUp, `Connected to MIDI device: ${port.name}`, 'connected');
-	} else if (port.connection == "closed" && connectedInputs.has(port.id)) {
-		if (connectedInputs.get(port.id)[1] == timestamp) return;
-		connectedInputs.delete(port.id);
-		port.onmidimessage = null;
-		showPopUp(popUp, `Disconnected from MIDI device: ${port.name}`, 'disconnected');
-	} else if (port.connection == "pending") {
-		console.warn(`Pending connection: ${event}`);
-		showPopUp(popUp, `Pending from MIDI device: ${port.name}`, 'pending');
-	}
-}
-
-
-// Display connection status in a pop-up element
-function showPopUp(element, message, statusClass) {
-	element.classList.add(statusClass);
-	element.style.top = "0px";
-	element.innerText = message;
-
-	setTimeout(() => {
-		element.style.top = "-100px";
-		element.classList.remove(statusClass);
-	}, 1500);
-}
-
-// Handle incoming MIDI messages
-function handleInput(event) {
-	const [command, note, velocity] = event.data;
-
-	const freq = noteToFreq(note);
-	if (freq == null) return;
-	if (command >= 144 && command <= 159) { // Note On event
-		if (velocity > 0) playNote(freq, velocity);
-		else noteOff(freq); // Note Off with velocity zero
-	} else if (command >= 128 && command <= 143) { // Note Off event
-		noteOff(freq);
-	}
-}
-
-// Convert a MIDI note (0-127) to a functional frequency
-function noteToFreq(midiNote) {
-	if (midiNote < 0 || midiNote > 127) return null;
-
-	const frequency = CONFIG.startFreq * Math.pow(2, (midiNote - 69) / CONFIG.subdivisions);
-	let degree = (midiNote - 69) % CONFIG.subdivisions;
-
-	if (degree < 0) degree += CONFIG.subdivisions;
-	else if (degree == -0) degree = 0;
-
-	return frequency;
-}
-
-function keyToFrequency(key) {
-	if (!key) return null;
-	const cleanKey = key.toUpperCase().trim();
-	const index = key_to_index[cleanKey];
-
-	return (index !== undefined && state.notes[index])
-		? state.notes[index].frequency
-		: null;
-}
-
 document.getElementById('toggle-footer').addEventListener('click', () => {
-    document.querySelector('footer').classList.toggle('folded');
-    localStorage.setItem("foldedHarmonic", document.querySelector('footer').classList.contains('folded'))
+	document.querySelector('footer').classList.toggle('folded');
+	localStorage.setItem("foldedHarmonic", document.querySelector('footer').classList.contains('folded'))
 });
 
 if (localStorage.getItem("foldedHarmonic") === "true") {
-    document.querySelector('footer').classList.add('folded');
+	document.querySelector('footer').classList.add('folded');
 }
 
 document.addEventListener('keydown', (event) => {
-    const isHardRefresh = (event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'r';
+	const isHardRefresh = (event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'r';
 
-    if (isHardRefresh) {
-        localStorage.clear();
-    }
+	if (isHardRefresh) {
+		localStorage.clear();
+	}
 });
