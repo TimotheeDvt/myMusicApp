@@ -40,7 +40,7 @@ body {
     border-bottom: 1px solid var(--accent-blue);
     position: sticky;
     top: 0;
-    z-index: var(--level-1);
+    z-index: var(--level-4);
 }
 
 .nav-container {
@@ -241,7 +241,7 @@ footer .card {
 }
 
 #infos {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 40px;
@@ -256,7 +256,7 @@ footer .card {
     justify-content: center;
     padding: 0;
     transition: all 0.3s ease;
-    z-index: var(--level-2);
+    z-index: var(--level-5);
 }
 
 #infos:hover {
@@ -276,9 +276,9 @@ footer .card {
 }
 
 #main {
-    position: absolute;
-    top: 40px;
-    left: 40px;
+    position: fixed;
+    top: 10%;
+    left: 5%;
     /* Use a semi-transparent glass border as the base */
     border: 2px solid var(--glass);
     border-radius: 20px;
@@ -293,6 +293,10 @@ footer .card {
     font-size: 0.7em;
     backdrop-filter: blur(var(--glass-blur));
     overflow: hidden;
+    max-height: 80vh;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: var(--level-5);
 }
 
 /* The "Running" Accent Line */
@@ -347,4 +351,20 @@ a {
     color: var(--accent-blue);
     font-weight: bold;
     transition: all 0.3s ease;
+}
+
+.card canvas,
+.card svg,
+.card custom-keyboard,
+.card guitar-fretboard {
+    max-width: 100%;
+    height: auto !important;
+}
+
+@media (max-width: 600px) {
+    #infos {
+        bottom: 5px;
+        top: auto;
+        border-radius: 50%;
+    }
 }

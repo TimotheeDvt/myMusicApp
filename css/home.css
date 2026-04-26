@@ -10,13 +10,19 @@ body {
     background: linear-gradient(180deg, var(--accent-blue) 0%, transparent 25%);
 }
 
+.hero h1 {
+    font-size: 2rem;
+}
+
 .welcome-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: calc(100% - 40px);
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    width: 100%;
+    max-width: 1200px; /* Limits width on huge monitors */
+    margin: 0 auto;
+    gap: 20px;
     padding: 20px;
-    position: relative;
+    box-sizing: border-box;
 }
 
 sup {
@@ -32,7 +38,7 @@ sup {
     align-items: center;
     text-decoration: none;
     color: inherit;
-    max-height: 80%;
+    min-height: 400px;
 }
 
 .feature-card h3 {
@@ -52,6 +58,7 @@ sup {
     justify-content: center;
     align-items: center;
     min-height: 150px;
+    overflow: hidden;
 }
 
 .tag {
@@ -69,4 +76,17 @@ sup {
 .feature-card:hover >.tag {
     background: var(--accent-red);
     color: var(--text-white);
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 20px 10px;
+    }
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    .welcome-grid {
+        grid-template-columns: 1fr; /* Stack cards vertically on phones */
+        padding: 10px;
+    }
 }

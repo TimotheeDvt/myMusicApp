@@ -51,48 +51,46 @@ class MainNav extends HTMLElement {
                 border-bottom: 1px solid var(--accent-blue);
                 position: sticky;
                 top: 0;
-                z-index: var(--level-1);
+                z-index: var(--level-5); /* Ensure it stays above everything */
             }
             .nav-container {
                 display: flex;
                 justify-content: center;
-                gap: 20px;
-                padding: 10px;
+                align-items: center;
+                gap: 10px;
+                padding: 5px 10px;
+                flex-wrap: wrap; /* Allows buttons to wrap on small phones */
             }
             .nav-btn {
                 background: none;
                 border: none;
                 color: var(--text-white);
-                padding: 12px 24px;
+                padding: 10px 15px;
                 cursor: pointer;
                 font-weight: 600;
                 transition: all 0.3s;
                 border-bottom: 2px solid transparent;
                 text-decoration: none;
                 font-family: 'Inter', sans-serif;
-                font-size: 14px;
+                font-size: 13px; /* Slightly smaller for mobile */
+                white-space: nowrap;
             }
-            .nav-btn:hover {
-                color: var(--accent-blue);
-            }
-            .nav-btn.active {
+            .nav-btn:hover, .nav-btn.active {
                 color: var(--accent-blue);
                 border-bottom: 2px solid var(--accent-blue);
             }
-            /* Global Audio Toggle Style */
             #audio-toggle {
-                position: absolute;
-                right: 20px;
                 background: var(--glass);
                 border: 1px solid var(--accent-blue);
                 color: var(--accent-blue);
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
+                flex-shrink: 0; /* Prevents button from squishing */
                 transition: all 0.3s ease;
             }
             #audio-toggle.muted {
@@ -103,6 +101,15 @@ class MainNav extends HTMLElement {
             #audio-toggle:hover {
                 transform: scale(1.1);
                 background: var(--glass);
+            /* Mobile Adjustments */
+            @media (max-width: 600px) {
+                .nav-container {
+                    gap: 5px;
+                }
+                .nav-btn {
+                    padding: 8px 10px;
+                    font-size: 11px;
+                }
             }
         </style>
         <nav class="main-nav">
