@@ -202,6 +202,17 @@ h1{
     min-height: 80px; /* Optionnel : force une hauteur minimale identique pour tous */
 }
 
+.interval-grid-container-2 li {
+    margin: 0; /* On gère l'espacement via le gap du parent */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    position: relative;
+    align-items: center;
+    min-height: 80px; /* Optionnel : force une hauteur minimale identique pour tous */
+}
+
+
 .interval-list li > span:first-child {
   position: absolute;
   bottom: 5px;
@@ -356,10 +367,26 @@ h1{
 .card strong{ color: var(--text-white); }
 
 /* responsive tweaks */
+@media (max-width: 900px) {
+  .grid-3, .grid-4, .grid-6, .grid-7 {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "a"
+      "b"
+      "c"
+      "d";
+  }
+  .interval-grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width:600px){
   h1{ font-size:1.6em; }
   .tab-btn{ padding:8px 12px; font-size:0.9em; }
   .note-circle{ width:36px; height:36px; }
+  .shells { grid-template-columns: 1fr; }
+  .blues { grid-template-columns: repeat(2, 1fr); }
 }
 
 line {
