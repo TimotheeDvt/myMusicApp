@@ -1,6 +1,21 @@
+/* Reset and base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container responsive */
+.container {
+    max-width: calc(100% - 50px);
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+/* Grid layouts */
 .grid-3 {
     grid-template-areas:
-		"a b c";
+        "a b c";
 }
 
 .grid-4 {
@@ -15,4 +30,198 @@
 
 .interval-grid-container {
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Card base styles */
+.card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--glass);
+    overflow: hidden;
+}
+
+.card h3 {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    color: var(--accent-blue);
+}
+
+/* Scale formula responsive */
+.scale-formula {
+    list-style: none;
+    padding: 0;
+}
+
+.scale-li {
+    padding: 8px 0;
+    font-size: 0.9em;
+    word-break: break-word;
+    line-height: 1.6;
+}
+
+/* Interval list responsive */
+.interval-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 15px;
+}
+
+.interval-li {
+    background: var(--glass);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+}
+
+.interval-li span:first-child {
+    font-weight: bold;
+    color: var(--accent-blue);
+    font-size: 1.1em;
+}
+
+.interval-name {
+    font-size: 0.9em;
+    color: var(--text-white);
+}
+
+/* Tab navigation responsive */
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 26px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 18px;
+    background: transparent;
+    border: 1px solid var(--glass);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 0.98em;
+    transition: all 220ms cubic-bezier(0.2, 0.9, 0.32, 1);
+    backdrop-filter: blur(6px);
+}
+
+.tab-btn:hover {
+    transform: translateY(0);
+}
+
+.tab-btn.active {
+    background: var(--glass);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+/* Tabs content */
+.tab-content {
+    display: none;
+    animation: fadeIn 420ms ease both;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive breakpoints */
+
+/* Tablet and below (max-width: 900px) */
+@media (max-width: 900px) {
+    .grid-4 {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "a"
+            "b"
+            "d";
+    }
+
+    .interval-grid-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .container {
+        max-width: calc(100% - 30px);
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+    .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));;
+    }
+}
+
+/* Mobile landscape (max-width: 600px) */
+@media (max-width: 600px) {
+    .grid-4 {
+        gap: 15px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .interval-grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-nav {
+        gap: 8px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .tab-btn {
+        padding: 8px 14px;
+        font-size: 0.9em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .scale-li {
+        font-size: 0.85em;
+    }
+}
+
+/* Small mobile (max-width: 400px) */
+@media (max-width: 400px) {
+    .container {
+        max-width: calc(100% - 20px);
+        padding: 0 8px;
+    }
+
+    h1 {
+        font-size: 1.3em;
+    }
+
+    .tab-btn {
+        padding: 7px 12px;
+        font-size: 0.85em;
+    }
+
+    .card h3 {
+        font-size: 1em;
+    }
 }
