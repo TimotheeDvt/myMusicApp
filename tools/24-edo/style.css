@@ -167,7 +167,10 @@
         font-size: 1.8em;
     }
     .grid-3 {
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));;
+        grid-template-areas:
+            "a"
+            "b"
+            "c";
     }
 }
 
